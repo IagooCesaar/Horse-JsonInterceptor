@@ -58,20 +58,33 @@ begin
         if  (AResponse.Content <> nil)
         and AResponse.Content.InheritsFrom(TJSONValueFPCDelphi)
         then begin
-          LBody := AResponse.RawWebResponse.Content;
-          LBody := THorseJsonInterceptor.TratarResponseBody(LBody);
+          LJson := TJSONValueFPCDelphi(AResponse.Content);
+          LJson := THorseJsonInterceptor.TratarResponseBody(LJson);
+          AResponse.Send(LJson);
 
           {$IF DEFINED(FPC)}
           AResponse.RawWebResponse.ContentStream :=
-            TStringStream.Create(TJsonData(LBody).AsJSON);
+            TStringStream.Create(TJsonData(LJson).AsJSON);
           {$ELSE}
           AResponse.RawWebResponse.Content :=
             {$IF CompilerVersion > 27.0}
-              TJSONValue(LBody).ToJSON
+              TJSONValue(LJson).ToJSON
             {$ELSE}
-              TJSONValue(LContent).ToString
+              TJSONValue(LJson).ToString
             {$ENDIF};
           {$ENDIF}
+        end else begin
+          LBody := AResponse.RawWebResponse.Content;
+          try
+            LJson := {$IF DEFINED(FPC)} GetJSON(LBody) {$ELSE}TJSONObject.ParseJSONValue(LBody){$ENDIF};
+
+            if Assigned(LJson) then begin
+              LJson := THorseJsonInterceptor.TratarResponseBody(LJson);
+              AResponse.Send(LJson);
+            end;
+          except
+            // do nothing
+          end;
         end;
       end;
     end;
