@@ -16,11 +16,11 @@ uses
   REST.Json,
   Horse.JsonInterceptor.Core;
 
-function BDMGHorseJsonInterceptor: THorseCallback; overload;
+function HorseJsonInterceptor: THorseCallback; overload;
 
 implementation
 
-function BDMGHorseJsonInterceptor: THorseCallback; overload;
+function HorseJsonInterceptor: THorseCallback; overload;
 var LInterceptor: THorseJsonInterceptor;
 begin
   result :=
