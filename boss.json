@@ -1,0 +1,9 @@
+{
+	"name": "horse-jsoninterceptor",
+	"description": "",
+	"version": "0.0.2",
+	"homepage": "",
+	"mainsrc": "./src",
+	"projects": [],
+	"dependencies": {}
+}
