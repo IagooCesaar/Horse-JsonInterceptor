@@ -3,7 +3,7 @@ program HorseJsonInterceptor_Example;
 uses
   Vcl.Forms,
   ufrmPrinc in 'ufrmPrinc.pas' {Form1},
-  Horse.JsonInterceptor.Example.Classes in 'Horse.JsonInterceptor.Example.Classes.pas';
+  Horse.JsonInterceptor.Example.Classes in '..\Horse.JsonInterceptor.Example.Classes.pas';
 
 {$R *.res}
 
