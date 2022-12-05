@@ -41,7 +41,7 @@ procedure PostWithLib(Req: THorseRequest; Resp: THorseResponse);
 var LBody: TBody;
 begin
   LBody := Req
-    .Body<THorseJsonInterceptorRequest>
+    .Body<THorseJsonInterceptorRequest> // prepared by Jhonson and HorseJsonInterceptor
     .ToObject<TBody>;
 
   DoSomething(LBody);
