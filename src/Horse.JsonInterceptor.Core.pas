@@ -32,11 +32,11 @@ type
   THorseJsonInterceptor = class(TObject)
   public
 
-    class function TratarRequestBody(AJsonString: string): string; overload;
-    class function TratarRequestBody(AJson: TJSONValueFPCDelphi): TJSONValueFPCDelphi; overload;
+    class function CriarListHelperArray(AJsonString: string): string; overload;
+    class function CriarListHelperArray(AJson: TJSONValueFPCDelphi): TJSONValueFPCDelphi; overload;
 
-    class function TratarResponseBody(AJsonString: string): string; overload;
-    class function TratarResponseBody(AJson: TJSONValueFPCDelphi): TJSONValueFPCDelphi; overload;
+    class function RemoverListHelperArray(AJsonString: string): string; overload;
+    class function RemoverListHelperArray(AJson: TJSONValueFPCDelphi): TJSONValueFPCDelphi; overload;
 
   end;
 
@@ -45,7 +45,7 @@ implementation
 
 {$REGION 'THorseJsonInterceptor'}
 
-class function THorseJsonInterceptor.TratarRequestBody(
+class function THorseJsonInterceptor.CriarListHelperArray(
   AJsonString: string): string;
 var LJsonBody: TJSONValueFPCDelphi;
 begin
@@ -53,7 +53,7 @@ begin
     LJsonBody := TJSONValueFPCDelphi.Create;
     try
       LJsonBody := TJSONObject.ParseJSONValue(AJsonString) as TJSONObject;
-      LJsonBody := TratarRequestBody(LJsonBody);
+      LJsonBody := CriarListHelperArray(LJsonBody);
       Result    := LJsonBody.ToString;
     except
       Result := AJsonString;
@@ -63,7 +63,7 @@ begin
   end;
 end;
 
-class function THorseJsonInterceptor.TratarRequestBody(
+class function THorseJsonInterceptor.CriarListHelperArray(
   AJson: TJSONValueFPCDelphi): TJSONValueFPCDelphi;
 var
   LJsonBody: TJSONValue;
@@ -122,21 +122,21 @@ begin
 end;
 
 
-class function THorseJsonInterceptor.TratarResponseBody(
+class function THorseJsonInterceptor.RemoverListHelperArray(
   AJsonString: string): string;
 var LJsonBody: TJSONValueFPCDelphi;
 begin
   try
     LJsonBody := TJSONValueFPCDelphi.Create;
     LJsonBody := TJSONObject.ParseJSONValue(AJsonString) as TJSONObject;
-    LJsonBody := TratarResponseBody(LJsonBody);
+    LJsonBody := RemoverListHelperArray(LJsonBody);
     Result    := LJsonBody.ToString;
   except
     Result    := AJsonString;
   end;
 end;
 
-class function THorseJsonInterceptor.TratarResponseBody(
+class function THorseJsonInterceptor.RemoverListHelperArray(
   AJson: TJSONValueFPCDelphi): TJSONValueFPCDelphi;
 var LJsonBody: TJSONValue; R: Integer;  LJsonPair : TJSONPair;
 
@@ -214,7 +214,7 @@ end;
 function THorseJsonInterceptorRequest.ToString: string;
 begin
   Result := TJSONValueFPCDelphi(Self).ToString;
-  Result := THorseJsonInterceptor.TratarRequestBody(Result);
+  Result := THorseJsonInterceptor.CriarListHelperArray(Result);
 end;
 
 { THorseJsonInterceptorResponse }
@@ -222,7 +222,7 @@ end;
 function THorseJsonInterceptorResponse.ToString: String;
 begin
   Result := TJson.ObjectToJsonString(Self);
-  Result := THorseJsonInterceptor.TratarResponseBody(Result);
+  Result := THorseJsonInterceptor.RemoverListHelperArray(Result);
 end;
 
 {$ENDREGION}

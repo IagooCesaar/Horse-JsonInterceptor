@@ -47,7 +47,7 @@ begin
           raise EHorseCallbackInterrupted.Create;
         end;
 
-        LJson := THorseJsonInterceptor.TratarRequestBody(LJson);
+        LJson := THorseJsonInterceptor.CriarListHelperArray(LJson);
 
         ARequest.Body(LJson);
       end;
@@ -59,7 +59,7 @@ begin
         and AResponse.Content.InheritsFrom(TJSONValueFPCDelphi)
         then begin
           LJson := TJSONValueFPCDelphi(AResponse.Content);
-          LJson := THorseJsonInterceptor.TratarResponseBody(LJson);
+          LJson := THorseJsonInterceptor.RemoverListHelperArray(LJson);
           AResponse.Send(LJson);
 
           {$IF DEFINED(FPC)}
@@ -79,7 +79,7 @@ begin
             LJson := {$IF DEFINED(FPC)} GetJSON(LBody) {$ELSE}TJSONObject.ParseJSONValue(LBody){$ENDIF};
 
             if Assigned(LJson) then begin
-              LJson := THorseJsonInterceptor.TratarResponseBody(LJson);
+              LJson := THorseJsonInterceptor.RemoverListHelperArray(LJson);
               AResponse.Send(LJson);
             end;
           except
