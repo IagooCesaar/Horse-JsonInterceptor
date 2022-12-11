@@ -7,8 +7,10 @@ program HorseJsonInterceptor_HorseExample;
 uses
   System.SysUtils,
   App in 'App.pas',
-  Controllers in 'Controllers.pas',
-  Horse.JsonInterceptor.Example.Classes in '..\Horse.JsonInterceptor.Example.Classes.pas';
+  Horse.JsonInterceptor.Example.Classes in '..\Horse.JsonInterceptor.Example.Classes.pas',
+  Controllers.MiddlewareExample in 'Controllers.MiddlewareExample.pas',
+  Controllers.LibExample in 'Controllers.LibExample.pas',
+  Controllers.HelperExample in 'Controllers.HelperExample.pas';
 
 begin
   try

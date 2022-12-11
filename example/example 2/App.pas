@@ -14,7 +14,9 @@ uses
   Horse.Jhonson,
   Horse.HandleException,
 
-  Controllers;
+  Controllers.MiddlewareExample,
+  Controllers.LibExample,
+  Controllers.HelperExample;
 
 procedure Start;
 begin
@@ -26,7 +28,9 @@ begin
   THorse.Use(Jhonson('UTF-8'))
         .Use(HandleException);
 
-  Controllers.Registry;
+  Controllers.MiddlewareExample.Registry;
+  Controllers.LibExample.Registry;
+  Controllers.HelperExample.Registry;
 
   THorse.Listen(StrToIntDef(GetEnvironmentVariable('SERVER_PORT'), 9000),
     procedure(Horse: THorse)

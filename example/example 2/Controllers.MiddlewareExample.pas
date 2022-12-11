@@ -1,4 +1,4 @@
-unit Controllers;
+unit Controllers.MiddlewareExample;
 
 interface
 
@@ -12,8 +12,6 @@ uses
   System.Json,
 
   Horse.JsonInterceptor,
-  Horse.JsonInterceptor.Core,
-
   Horse.JsonInterceptor.Example.Classes;
 
 procedure DoSomething(var ABody: TBody);
@@ -37,28 +35,11 @@ begin
   Resp.Send(TJson.ObjectToJsonString(LBody));
 end;
 
-procedure PostWithLib(Req: THorseRequest; Resp: THorseResponse);
-var LBody: TBody;
-begin
-  LBody := Req
-    .Body<THorseJsonInterceptorRequest> // prepared by Jhonson and HorseJsonInterceptor
-    .ToObject<TBody>;
-
-  DoSomething(LBody);
-
-  Resp.Send(
-    THorseJsonInterceptorResponse(LBody).ToString
-  );
-end;
-
 procedure Registry;
 begin
   THorse
     .AddCallbacks([HorseJsonInterceptor])
     .Post('with-middleware', PostWithMiddleware);
-
-  THorse
-    .Post('with-lib', PostWithLib)
 end;
 
 end.

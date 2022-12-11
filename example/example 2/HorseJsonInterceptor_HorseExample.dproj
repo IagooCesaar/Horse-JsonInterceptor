@@ -109,8 +109,10 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="App.pas"/>
-        <DCCReference Include="Controllers.pas"/>
         <DCCReference Include="..\Horse.JsonInterceptor.Example.Classes.pas"/>
+        <DCCReference Include="Controllers.MiddlewareExample.pas"/>
+        <DCCReference Include="Controllers.LibExample.pas"/>
+        <DCCReference Include="Controllers.HelperExample.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
