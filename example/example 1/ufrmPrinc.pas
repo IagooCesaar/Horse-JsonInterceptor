@@ -57,7 +57,7 @@ begin
   LJson := TJson.ObjectToJsonString(LBody);
 
   mmJson.Lines.Text := LJson;
-  mmInterceptedJson.Lines.Text := THorseJsonInterceptor.TratarResponseBody(LJson);
+  mmInterceptedJson.Lines.Text := THorseJsonInterceptor.RemoverListHelperArray(LJson);
 
   LBody.Free;
 end;
@@ -65,7 +65,7 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 var LBody: TBody; LJson: string; I: Integer;
 begin
-  LJson := THorseJsonInterceptor.TratarRequestBody(
+  LJson := THorseJsonInterceptor.CriarListHelperArray(
     mmInterceptedJson.Lines.Text
   );
   LBody := TJson.JsonToObject<TBody>(LJson);
