@@ -28,11 +28,13 @@ uses Horse.JsonInterceptor.Core;
 
 class function THorseJsonInterceptorHelperRestJson.ClearJsonAndConvertToObject<T>(
   AJsonObject: TJSONObject; AOptions: TJsonOptions): T;
+var LJsonModified: TJSONObject;
 begin
-  AJsonObject := THorseJsonInterceptor.CriarListHelperArray(
+  LJsonModified := THorseJsonInterceptor.CriarListHelperArray(
     AJsonObject as TJsonValue) as TJSONObject;
 
-  Result := Self.JsonToObject<T>(AJsonObject, AOptions);
+  Result := Self.JsonToObject<T>(LJsonModified, AOptions);
+  LJsonModified.DisposeOf;
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ClearJsonAndConvertToObject<T>(
@@ -46,11 +48,15 @@ end;
 
 class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonObject(
   AObject: TObject; AOptions: TJsonOptions): TJSONObject;
+var LJson: TJSONObject;
 begin
-  Result := Self.ObjectToJsonObject(AObject, AOptions);
-
-  Result := THorseJsonInterceptor.RemoverListHelperArray(
-    Result as TJsonValue) as TJsonObject;
+  LJson := Self.ObjectToJsonObject(AObject, AOptions);
+  try
+    Result := THorseJsonInterceptor.RemoverListHelperArray(
+      LJson as TJsonValue) as TJsonObject;
+  finally
+    LJson.DisposeOf;
+  end;
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonString(

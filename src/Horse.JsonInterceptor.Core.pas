@@ -12,7 +12,7 @@ uses
 {$ELSE}
   System.Classes, System.JSON, System.SysUtils, Web.HTTPApp,
 {$ENDIF}
-  Horse, Horse.Commons, REST.Json;
+  REST.Json;
 
 type
 
@@ -47,19 +47,17 @@ implementation
 
 class function THorseJsonInterceptor.CriarListHelperArray(
   AJsonString: string): string;
-var LJsonBody: TJSONValueFPCDelphi;
+var LJsonOriginal, LJsonModified: TJSONValue;
 begin
   try
-    LJsonBody := TJSONValueFPCDelphi.Create;
-    try
-      LJsonBody := TJSONObject.ParseJSONValue(AJsonString) as TJSONObject;
-      LJsonBody := CriarListHelperArray(LJsonBody);
-      Result    := LJsonBody.ToString;
-    except
-      Result := AJsonString;
-    end;
-  finally
-    LJsonBody.DisposeOf;
+    LJsonOriginal := TJSONObject.ParseJSONValue(AJsonString) as TJSONObject;
+    LJsonModified := CriarListHelperArray(LJsonOriginal);
+    Result        := LJsonModified.ToString;
+
+    LJsonOriginal.Free;
+    LJsonModified.Free;
+  except
+    Result := AJsonString;
   end;
 end;
 
@@ -75,43 +73,56 @@ var
     I, P: Integer;
     LJsonValue, LJsonChildValue: TJSONValue;
     LJsonListHelperPair: TJSONPair;
-    LJsonChildPair: TJSONPair;
+    LJsonPropPair, LJsonChildPair: TJSONPair;
     LJsonOjectList: TJSONObject;
     LJsonArray: TJSONArray;
   begin
     if AJsonPair.JsonValue.Null then Exit;
     LJsonValue := AJsonPair.JsonValue.Clone as TJSONValue;
 
+    if LJsonValue is TJSONObject then begin
+      for I := 0 to Pred(TJSONObject(LJsonValue).Count) do begin
+        LJsonPropPair := TJSONObject(LJsonValue).Pairs[I];
+        VerificaPropriedade(LJsonPropPair);
+      end;
+    end;
+
     if LJsonValue is TJSONArray then begin
 
       LJsonArray := LJsonValue as TJSONArray;
 
-      for I := 0 to Pred(LJsonArray.Size) do begin
-        LJsonChildValue :=  LJsonArray.Get(I);
+      for I := 0 to Pred(LJsonArray.Count) do begin
+        LJsonChildValue :=  LJsonArray.Items[I];
         if LJsonChildValue.Null then Continue;
 
         if LJsonChildValue is TJSONObject then
           for P := 0 to Pred(TJSONObject(LJsonChildValue).Count) do begin
-            LJsonChildPair := TJSONObject(LJsonChildValue).Get(P);
+            LJsonChildPair := TJSONObject(LJsonChildValue).Pairs[P];
             VerificaPropriedade(LJsonChildPair);
           end;
       end;
 
-      // converte o Array em ObjectList
-      LJsonListHelperPair := TJSONPair.Create('listHelper', LJsonValue as TJSONArray);
-      LJsonOjectList := TJSONObject.Create;
-      LJsonOjectList.AddPair(LJsonListHelperPair);
-      LJsonValue := LJsonOjectList as TJSONValue;
+      // Se array contiver elementos, verifica se tem objeto.
+      // Se não tiver elementos, assume que teria objetos
+      if ((LJsonArray.Count > 0) and (LJsonArray.Items[0] is TJSONObject))
+      or (LJsonArray.Count = 0)
+      then begin
+        // converte o Array em ObjectList
+        LJsonListHelperPair := TJSONPair.Create('listHelper', LJsonValue as TJSONArray);
+        LJsonOjectList := TJSONObject.Create;
+        LJsonOjectList.AddPair(LJsonListHelperPair);
+        LJsonValue := LJsonOjectList as TJSONValue;
+      end;
     end;
 
     AJsonPair.JsonValue := LJsonValue;
   end;
 begin
-  LJsonBody := AJson.Clone as TJSONValueFPCDelphi;
+  LJsonBody := AJson.Clone as TJSONValue;
   try
     if LJsonBody is TJSONObject then
       for R := 0 to Pred(TJSONObject(LJsonBody).Count) do begin
-        LJsonPair := TJSONObject(LJsonBody).Get(R);
+        LJsonPair := TJSONObject(LJsonBody).Pairs[R];
         VerificaPropriedade(LJsonPair);
       end;
 
@@ -124,13 +135,15 @@ end;
 
 class function THorseJsonInterceptor.RemoverListHelperArray(
   AJsonString: string): string;
-var LJsonBody: TJSONValueFPCDelphi;
+var LJsonOriginal, LJsonModified: TJSONValue;
 begin
   try
-    LJsonBody := TJSONValueFPCDelphi.Create;
-    LJsonBody := TJSONObject.ParseJSONValue(AJsonString) as TJSONObject;
-    LJsonBody := RemoverListHelperArray(LJsonBody);
-    Result    := LJsonBody.ToString;
+    LJsonOriginal := TJSONObject.ParseJSONValue(AJsonString) as TJSONObject;
+    LJsonModified := RemoverListHelperArray(LJsonOriginal);
+    Result        := LJsonModified.ToString;
+
+    FreeAndNIl(LJsonOriginal);
+    FreeAndNIl(LJsonModified);
   except
     Result    := AJsonString;
   end;
@@ -138,61 +151,115 @@ end;
 
 class function THorseJsonInterceptor.RemoverListHelperArray(
   AJson: TJSONValueFPCDelphi): TJSONValueFPCDelphi;
-var LJsonBody: TJSONValue; R: Integer;  LJsonPair : TJSONPair;
+var
+  R: Integer;
+  LTempValue, LJsonBody: TJSONValue;
+  LOriginalPair, LModifiedPair : TJSONPair;
+  LJson : TJSONObject;
 
-  procedure VerificaObjeto(var AJsonObject: TJSONValue);
-  var LJsonValue: TJSONValue;
+
+  function VerificaObjeto(AJsonObject: TJSONValue): TJSONValue;
+  var LListHelperJsonArray, LClone: TJSONValue;
   begin
     // Se object contiver 'listHelper', substituir valor do objeto pelo
     // array contido em 'listHelper'
-    if AJsonObject.TryGetValue('listHelper', LJsonValue) then
-      AJsonObject := LJsonValue;
+    if AJsonObject.TryGetValue('listHelper', LListHelperJsonArray)
+    then LClone := LListHelperJsonArray.Clone as TJSONValue
+    else LClone := AJsonObject.Clone as TJSONValue;
+
+    Result := LClone;
   end;
-  procedure VerificaPropriedade(var AJsonPair: TJSONPair);
+
+  function VerificaPropriedade(var AJsonPair: TJSONPair): TJSONPair;
   var
     I, P: Integer;
     LJsonValue, LJsonChildValue: TJSONValue;
-    LJsonChildPair: TJSONPair;
-    LJsonArray: TJSONArray;
+    LOriginalChildPair, LModifiedChildPair,
+    LOriginalPropPair, LModifiedPropPair: TJSONPair;
+    LOriginalArray, LModifiedArray: TJSONArray;
+    LChildObject, LNewObject: TJSONObject;
   begin
     if AJsonPair.JsonValue.Null then Exit;
-    LJsonValue := AJsonPair.JsonValue.Clone as TJSONValue;
+
+    LTempValue := AJsonPair.JsonValue.Clone as TJSONValue;
 
     //Se for objeto, verifica se é ObjectList
-    if AJsonPair.JsonValue is TJSONObject then
-      VerificaObjeto(LJsonValue);
+    if AJsonPair.JsonValue is TJSONObject
+    then LJsonValue := VerificaObjeto(LTempValue)
+    else LJsonValue := AJsonPair.JsonValue.Clone as TJSONValue;
+
+    if   LTempValue <> nil
+    then FreeAndNIl(LTempValue);
+
+    //Se ainda for objeto, verificar propriedades
+    if LJsonValue is TJSONObject then begin
+      LNewObject := TJSONObject.Create;
+      for I := 0 to Pred(TJSONObject(LJsonValue).Count) do begin
+        LOriginalPropPair := TJSONObject(LJsonValue).Pairs[I];
+        LModifiedPropPair := VerificaPropriedade(LOriginalPropPair);
+        LNewObject.AddPair(LModifiedPropPair);
+      end;
+
+      FreeAndNil(LJsonValue);
+      LJsonValue := LNewObject.Clone as TJSONValue;
+      FreeAndNil(LNewObject);
+    end;
 
     // Se for Array, verificar cada item
     if LJsonValue is TJSONArray then begin
-      LJsonArray := LJsonValue as TJSONArray;
+      LOriginalArray := LJsonValue as TJSONArray;
+      LModifiedArray := TJSONArray.Create;
 
-      for I := 0 to Pred(LJsonArray.Size) do begin
-        LJsonChildValue :=  LJsonArray.Get(I);
-        if LJsonChildValue.Null then Continue;
+      for I := 0 to Pred(LOriginalArray.Count) do begin
 
-        if LJsonChildValue is TJSONObject then
-          for P := 0 to Pred(TJSONObject(LJsonChildValue).Count) do begin
-            LJsonChildPair := TJSONObject(LJsonChildValue).Get(P);
-            VerificaPropriedade(LJsonChildPair);
-          end;
+        LJsonChildValue :=  LOriginalArray.Items[I];
+        if not LJsonChildValue.Null then begin
+
+          if LJsonChildValue is TJSONObject then begin
+            LChildObject := TJSONObject.Create;
+
+            for P := 0 to Pred(TJSONObject(LJsonChildValue).Count) do begin
+              LOriginalChildPair := TJSONObject(LJsonChildValue).Pairs[P];
+              LModifiedChildPair := VerificaPropriedade(LOriginalChildPair);
+              LChildObject.AddPair(LModifiedChildPair);
+            end;
+
+            LModifiedArray.AddElement(LChildObject);
+          end else
+            LModifiedArray.AddElement(LJsonChildValue.Clone as TJSONValue);
+
+        end else
+          LModifiedArray.AddElement(LJsonChildValue.Clone as TJSONValue);
+
       end;
+      LJsonValue.Free;
+      LJsonValue := LModifiedArray.Clone as TJSONValue;
+      LModifiedArray.Free;
     end;
 
-    AJsonPair.JsonValue := LJsonValue;
+    Result := TJSONPair.Create(
+      TJSONString(AJsonPair.JsonString.Clone),
+      LJsonValue );
   end;
+
 begin
   try
-    LJsonBody := AJson.Clone as TJSONValueFPCDelphi;
-    VerificaObjeto(LJsonBody);
+    LJson := TJSONObject.Create;
+
+    LTempValue := AJson.Clone as TJSONValue;
+    LJsonBody := VerificaObjeto(LTempValue);
+    LTempValue.Free;
 
     // Percorrer todos Pairs (nós, ou props) do json
     if LJsonBody is TJSONObject then
       for R := 0 to Pred(TJSONObject(LJsonBody).Count) do begin
-        LJsonPair := TJSONObject(LJsonBody).Get(R);
-        VerificaPropriedade(LJsonPair);
-      end;
+        LOriginalPair := TJSONObject(LJsonBody).Pairs[R];
+        LModifiedPair := VerificaPropriedade(LOriginalPair);
 
-    Result := LJsonBody as TJSONValueFPCDelphi;
+        LJson.AddPair(LModifiedPair);
+      end;
+    FreeAndNil(LJsonBody);
+    Result := LJson as TJSONValue;
   except
     Result := AJson;
   end;
