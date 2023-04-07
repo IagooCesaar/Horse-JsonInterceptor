@@ -212,7 +212,7 @@ end;
 function Mock_Empresa: TEmpresa;
 begin
   Result := TEmpresa.Create;
-  Result.Nome := 'BDMG';
+  Result.Nome := 'Softeware House S/A';
 
   Result.Departamentos.Add(TDepartamento.Create);
   Result.Departamentos.Last.Nome := 'Gerência';

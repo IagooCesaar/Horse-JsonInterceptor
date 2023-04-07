@@ -68,7 +68,7 @@ var
   LJsonPair: TJSONPair;
   R: Integer;
 
-  procedure VerificaPropriedade(var AJsonPair: TJSONPair);
+  procedure VerificaPropriedade(AJsonPair: TJSONPair);
   var
     I, P: Integer;
     LJsonValue, LJsonChildValue: TJSONValue;
@@ -170,7 +170,7 @@ var
     Result := LClone;
   end;
 
-  function VerificaPropriedade(var AJsonPair: TJSONPair): TJSONPair;
+  function VerificaPropriedade(AJsonPair: TJSONPair): TJSONPair;
   var
     I, P: Integer;
     LJsonValue, LJsonChildValue: TJSONValue;
@@ -179,7 +179,10 @@ var
     LOriginalArray, LModifiedArray: TJSONArray;
     LChildObject, LNewObject: TJSONObject;
   begin
-    if AJsonPair.JsonValue.Null then Exit;
+    if AJsonPair.JsonValue.Null then begin
+      Result := AJsonPair.Clone as TJSONPair;
+      Exit;
+    end;
 
     LTempValue := AJsonPair.JsonValue.Clone as TJSONValue;
 

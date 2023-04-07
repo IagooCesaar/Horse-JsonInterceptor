@@ -88,9 +88,10 @@ var
 begin
   try
     LFamilia := Mock_Familia;
+
     // Modelo padrão, irá gerar com ListHelper
+    LJson := TJson.ObjectToJsonObject(LFamilia);
     try
-      LJson := TJson.ObjectToJsonObject(LFamilia);
       WriteLn('Com ListHelper : ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('membros').FindValue('listHelper');
@@ -98,13 +99,13 @@ begin
       LJsonValue := TJSONObject(TJSONArray(LJsonValue).Items[0]).GetValue('filhos').FindValue('listHelper');
       Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possível encontrar ListHelper em FILHOS');
     finally
-      LJson.DisposeOf;
+      LJson.Free;
     end;
 
     WriteLn('');
     // Comprovação de que a Lib remove o ListHelper
+    LJson := TJson.ObjectToClearJsonObject(LFamilia);
     try
-      LJson := TJson.ObjectToClearJsonObject(LFamilia);
       WriteLn('Sem ListHelper: ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('membros').FindValue('listHelper');
@@ -112,7 +113,7 @@ begin
       LJsonValue := TJSONObject(TJSONArray(LJson.GetValue('membros')).Items[0]).GetValue('filhos').FindValue('listHelper');
       Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃO fosse possível encontrar ListHelper em FILHOS');
     finally
-      LJson.DisposeOf;
+      LJson.Free;
     end;
   finally
     FreeAndNil(LFamilia);
@@ -128,26 +129,27 @@ var
 begin
   try
     LEmpresa := Mock_Empresa;
+
+    LJson := TJson.ObjectToJsonObject(LEmpresa);
     try
-      LJson := TJson.ObjectToJsonObject(LEmpresa);
       WriteLn('ObjectToJsonObject : ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('departamentos').FindValue('listHelper');
       Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possível encontrar ListHelper');
     finally
-      LJson.DisposeOf;
+      LJson.Free;
     end;
 
     WriteLn('');
 
+    LJson := TJson.ObjectToClearJsonObject(LEmpresa);
     try
-      LJson := TJson.ObjectToClearJsonObject(LEmpresa);
       WriteLn('ObjectToClearJsonObject: ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('departamentos').FindValue('listHelper');
       Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃO fosse possível encontrar ListHelper');
     finally
-      LJson.DisposeOf;
+      LJson.Free;
     end;
 
   finally
@@ -322,18 +324,20 @@ begin
   ;
 
   LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
+  try
+    LFamilia :=TJson.ClearJsonAndConvertToObject<TFamilia>(LJson);
+    Assert.AreEqual(2, LFamilia.Membros.Count, 'Deveria conter 2 membros');
+    Assert.AreEqual('John Doe',LFamilia.membros[0].Nome,
+      'Esperava-se que o 1º membro da familia fosse John Doe');
 
-  LFamilia :=TJson.ClearJsonAndConvertToObject<TFamilia>(LJson);
-  Assert.AreEqual(2, LFamilia.Membros.Count, 'Deveria conter 2 membros');
-  Assert.AreEqual('John Doe',LFamilia.membros[0].Nome,
-    'Esperava-se que o 1º membro da familia fosse John Doe');
+    Assert.AreEqual(1, LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
+    Assert.AreEqual('John Doe Jr', LFamilia.membros[0].Filhos[0].Nome,
+      'Esperava-se que o filho de John Doe fosse John Doe Jr');
 
-  Assert.AreEqual(1, LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
-  Assert.AreEqual('John Doe Jr', LFamilia.membros[0].Filhos[0].Nome,
-    'Esperava-se que o filho de John Doe fosse John Doe Jr');
-
-  FreeAndNil(LFamilia);
-  LJson.DisposeOf;
+  finally
+    FreeAndNil(LFamilia);
+    LJson.Free;
+  end;
 end;
 
 procedure TestTHorseJsonInterceptor.Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArray;
@@ -360,14 +364,15 @@ begin
   ;
 
   LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
-
-  LEmpresa := TJson.ClearJsonAndConvertToObject<TEmpresa>(LJson);
-  Assert.AreEqual(3, LEmpresa.Departamentos.Count, 'Deveria conter 3 departamentos');
-  Assert.AreEqual('Desenvolvimento', LEmpresa.Departamentos[1].Nome,
-    'Esperava-se que o segundo departamento fosse Desenvolvimento');
-
-  FreeAndNil(LEmpresa);
-  LJson.DisposeOf;
+  try
+    LEmpresa := TJson.ClearJsonAndConvertToObject<TEmpresa>(LJson);
+    Assert.AreEqual(3, LEmpresa.Departamentos.Count, 'Deveria conter 3 departamentos');
+    Assert.AreEqual('Desenvolvimento', LEmpresa.Departamentos[1].Nome,
+      'Esperava-se que o segundo departamento fosse Desenvolvimento');
+  finally
+    FreeAndNil(LEmpresa);
+    LJson.Free;
+  end;
 end;
 
 procedure TestTHorseJsonInterceptor.Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayRecursivo;
@@ -421,15 +426,17 @@ begin
   ;
 
   LFamilia := TJson.ClearJsonAndConvertToObject<TFamilia>(LJsonString);
-  Assert.AreEqual(2, LFamilia.Membros.Count, 'Deveria conter 2 membros');
-  Assert.AreEqual('John Doe', LFamilia.membros[0].Nome,
-    'Esperava-se que o 1º membro da familia fosse John Doe');
+  try
+    Assert.AreEqual(2, LFamilia.Membros.Count, 'Deveria conter 2 membros');
+    Assert.AreEqual('John Doe', LFamilia.membros[0].Nome,
+      'Esperava-se que o 1º membro da familia fosse John Doe');
 
-  Assert.AreEqual(1, LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
-  Assert.AreEqual('John Doe Jr', LFamilia.membros[0].Filhos[0].Nome,
-    'Esperava-se que o filho de John Doe fosse John Doe Jr');
-
-  FreeAndNil(LFamilia);
+    Assert.AreEqual(1, LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
+    Assert.AreEqual('John Doe Jr', LFamilia.membros[0].Filhos[0].Nome,
+      'Esperava-se que o filho de John Doe fosse John Doe Jr');
+  finally
+    FreeAndNil(LFamilia);
+  end;
 end;
 
 procedure TestTHorseJsonInterceptor.Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArray;
@@ -456,11 +463,13 @@ begin
   ;
 
   LEmpresa := TJson.ClearJsonAndConvertToObject<TEmpresa>(LJsonString);
-  Assert.AreEqual(3, LEmpresa.Departamentos.Count, 'Deveria conter 3 departamentos');
-  Assert.AreEqual('Desenvolvimento', LEmpresa.Departamentos[1].Nome,
-    'Esperava-se que o segundo departamento fosse Desenvolvimento');
-
-  FreeAndNil(LEmpresa);
+  try
+    Assert.AreEqual(3, LEmpresa.Departamentos.Count, 'Deveria conter 3 departamentos');
+    Assert.AreEqual('Desenvolvimento', LEmpresa.Departamentos[1].Nome,
+      'Esperava-se que o segundo departamento fosse Desenvolvimento');
+  finally
+    FreeAndNil(LEmpresa);
+  end;
 end;
 
 procedure TestTHorseJsonInterceptor.Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
@@ -495,8 +504,8 @@ begin
   + '} '
   ;
 
+  LEscola := TJson.ClearJsonAndConvertToObject<TEscola>(LJsonString);
   try
-    LEscola := TJson.ClearJsonAndConvertToObject<TEscola>(LJsonString);
     Assert.AreEqual(3, LEscola.Alunos.Count, 'Deveria conter 3 alunos');
     Assert.AreEqual('Eu', LEscola.Alunos[0].Nome,
       'Esperava-se que o 1º aluno fosse Eu');
@@ -557,8 +566,9 @@ begin
   + '	] '
   + '} '
   ;
+
+  LBibioteca := TJson.ClearJsonAndConvertToObject<TBiblioteca>(LJsonString);
   try
-    LBibioteca := TJson.ClearJsonAndConvertToObject<TBiblioteca>(LJsonString);
     Assert.AreEqual(3, LBibioteca.Livros.Count, 'Deveria conter 2 livros');
     Assert.AreEqual('Dom Quixote', LBibioteca.Livros[0].Nome,
       'Esperava-se que o 1º livro fosse Dom Quixote');
@@ -610,12 +620,15 @@ begin
   ;
 
   LGaragem := TJson.ClearJsonAndConvertToObject<TGaragem>(LJsonString);
-  Assert.AreEqual(2, LGaragem.Carro.Ocupantes.Count, 'Deveria conter 2 ocupantes');
-  Assert.AreEqual('Eu', LGaragem.Carro.Ocupantes[0].Nome,
-    'Esperava-se que o Eu estivesse no carro');
-  Assert.AreEqual('Você', LGaragem.Carro.Ocupantes[1].Nome,
-    'Esperava-se que o Você estivesse no carro');
-  FreeAndNil(LGaragem);
+  try
+    Assert.AreEqual(2, LGaragem.Carro.Ocupantes.Count, 'Deveria conter 2 ocupantes');
+    Assert.AreEqual('Eu', LGaragem.Carro.Ocupantes[0].Nome,
+      'Esperava-se que o Eu estivesse no carro');
+    Assert.AreEqual('Você', LGaragem.Carro.Ocupantes[1].Nome,
+      'Esperava-se que o Você estivesse no carro');
+  finally
+    FreeAndNil(LGaragem);
+  end;
 end;
 
 initialization
