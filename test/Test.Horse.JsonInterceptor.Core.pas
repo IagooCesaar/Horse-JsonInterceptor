@@ -132,7 +132,7 @@ begin
 
     LJson := TJson.ObjectToJsonObject(LEmpresa);
     try
-      WriteLn('ObjectToJsonObject : ' + LJson.ToString);
+      WriteLn('Com ListHelper: ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('departamentos').FindValue('listHelper');
       Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possível encontrar ListHelper');
@@ -144,7 +144,7 @@ begin
 
     LJson := TJson.ObjectToClearJsonObject(LEmpresa);
     try
-      WriteLn('ObjectToClearJsonObject: ' + LJson.ToString);
+      WriteLn('Sem ListHelper: ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('departamentos').FindValue('listHelper');
       Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃO fosse possível encontrar ListHelper');
@@ -234,14 +234,14 @@ begin
     LEmpresa := Mock_Empresa;
     // Modelo padrão, irá gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LEmpresa);
-    WriteLn('ObjectToJsonObject : ' + LJsonString);
+    WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
     // Comprovação de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LEmpresa);
-    WriteLn('ObjectToClearJsonObject: ' + LJsonString);
+    WriteLn('Sem ListHelper: ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
 
   finally
