@@ -59,7 +59,7 @@ begin
     LJsonOriginal := TJSONValueFPCDelphi.ParseJSONValue(AJsonString);
 
     LJsonModified := CriarListHelperArray(LJsonOriginal);
-    Result        := TJSONObject(LJsonModified).GetValue('originalPair').ToString;
+    Result        := LJsonModified.ToString;
 
     LJsonModified.Free;
     LJsonOriginal.Free;
@@ -87,7 +87,7 @@ begin
         InternalCriarListHelperVerificaPropriedade(LJsonPair);
       end;
 
-    Result := LJsonBody;
+    Result := TJSONObject(LJsonBody).GetValue('originalPair');
     LJson.Free;
   except
     Result := AJson;
