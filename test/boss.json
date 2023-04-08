@@ -8,6 +8,7 @@
 	"dependencies": {
 		"github.com/hashload/handle-exception": "^0.1.7",
 		"github.com/hashload/horse": "^3.0.2",
-		"github.com/hashload/jhonson": "^1.1.4"
+		"github.com/hashload/jhonson": "^1.1.4",
+		"github.com/viniciussanchez/restrequest4delphi": "^v3.1.0"
 	}
 }
