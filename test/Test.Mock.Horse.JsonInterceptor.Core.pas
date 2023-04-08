@@ -115,11 +115,14 @@ type
     destructor Destroy; override;
   end;
 
+  TPessoas = TObjectList<TPessoa>;
+
 function Mock_Familia: TFamilia;
 function Mock_Biblioteca: TBiblioteca;
 function Mock_Empresa: TEmpresa;
 function Mock_Garagem: TGaragem;
 function Mock_Escola: TEscola;
+function Mock_Pessoas: TPessoas;
 
 implementation
 
@@ -239,6 +242,20 @@ begin
   Result.Carro.Ocupantes.Last.Nome := 'Você';
   Result.Carro.Ocupantes.Last.Sexo := 'F';
   Result.Carro.Ocupantes.Last.Codigo := 3;
+end;
+
+function Mock_Pessoas: TPessoas;
+begin
+  Result := TObjectList<TPessoa>.Create;
+  Result.Add(TPessoa.Create);
+  Result.Last.Nome    := 'Eu';
+  Result.Last.Codigo  := 10;
+  Result.Last.Sexo    := 'M';
+
+  Result.Add(TPessoa.Create);
+  Result.Last.Nome    := 'Você';
+  Result.Last.Codigo  := 20;
+  Result.Last.Sexo    := 'F';
 end;
 
 { TBody }

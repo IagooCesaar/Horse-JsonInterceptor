@@ -15,53 +15,58 @@ type
     [TearDown]
     procedure TearDown;
 
-    [Test]
+    // TEmpresa : { departamentos: [ { departamento } ] }
+    //[Test]
     procedure Test_CriaJsonObjectSemListHelper_ObjetoComArray;
 
-    [Test]
+    //[Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArray;
 
-    [Test]
+    //[Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArray;
 
-    [Test]
+    //[Test]
     procedure Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArray;
 
 
     // TFamilia : { membros: [ { pessoa.filhos[ { pessoa.filhos[] } ] } ] }
-    [Test]
+    //[Test]
     procedure Test_CriaJsonObjectSemListHelper_ObjetoComArrayRecursivo;
 
-    [Test]
+    //[Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArrayRecursivo;
 
-    [Test]
+    //[Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayRecursivo;
 
-    [Test]
+    //[Test]
     procedure Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArrayRecursivo;
 
 
     // TGaragem : { carro: { ocupantes: [ pessoa ] } }
-    [Test]
+    //[Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComObjetoComArray;
 
-    [Test]
+    //[Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComObjetoComArray;
 
     // TBiblioteca : { livros: [ generos: [string] ] }
-    [Test]
+    //[Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArrayObjetosComArrayStrings;
 
-    [Test]
+    //[Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayStrings;
 
     // TEscola : { alunos: [ notas: [integer] ] }
-    [Test]
+    //[Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
 
-    [Test]
+    //[Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
+
+    // TPessoas: [ pessoa ]
+    [Test]
+    procedure Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray;
   end;
 
 implementation
@@ -222,6 +227,28 @@ begin
      Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
   finally
     FreeAndNil(LBiblioteca);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray;
+var LPessoas: TPessoas; LJsonString: String;
+begin
+  try
+    LPessoas := Mock_Pessoas;
+    // Modelo padrão, irá gerar com ListHelper
+    LJsonString := TJson.ObjectToJsonString(LPessoas);
+    WriteLn('Com ListHelper : ' + LJsonString);
+    Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
+
+    WriteLn('');
+
+    // Comprovação de que a Lib remove o ListHelper
+    LJsonString := TJson.ObjectToClearJsonString(LPessoas);
+    WriteLn('Sem ListHelper: ' + LJsonString);
+    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+
+  finally
+    FreeAndNil(LPessoas);
   end;
 end;
 
