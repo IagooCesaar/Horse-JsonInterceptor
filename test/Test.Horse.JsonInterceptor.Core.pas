@@ -16,56 +16,56 @@ type
     procedure TearDown;
 
     // TEmpresa : { departamentos: [ { departamento } ] }
-    //[Test]
+    [Test]
     procedure Test_CriaJsonObjectSemListHelper_ObjetoComArray;
 
-    //[Test]
+    [Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArray;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArray;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArray;
 
 
     // TFamilia : { membros: [ { pessoa.filhos[ { pessoa.filhos[] } ] } ] }
-    //[Test]
+    [Test]
     procedure Test_CriaJsonObjectSemListHelper_ObjetoComArrayRecursivo;
 
-    //[Test]
+    [Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArrayRecursivo;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayRecursivo;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArrayRecursivo;
 
 
     // TGaragem : { carro: { ocupantes: [ pessoa ] } }
-    //[Test]
+    [Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComObjetoComArray;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComObjetoComArray;
 
     // TBiblioteca : { livros: [ generos: [string] ] }
-    //[Test]
+    [Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArrayObjetosComArrayStrings;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayStrings;
 
     // TEscola : { alunos: [ notas: [integer] ] }
-    //[Test]
+    [Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
 
     // TPessoas: [ pessoa ]
-    //[Test]
+    [Test]
     procedure Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray;
 
     [Test]
@@ -489,10 +489,9 @@ begin
   + '] '
   ;
 
-
   LPessoas := TJson.ClearJsonAndConvertToObject<TPessoas>(LJsonString);
   try
-    Assert.AreEqual(2, LPessoas.Count, 'Deveria conter 3 alunos');
+    Assert.AreEqual(2, LPessoas.Count, 'Deveria conter 2 alunos');
     Assert.AreEqual('Eu', LPessoas[0].Nome,
       'Esperava-se que a 1ª pessoa fosse Eu');
     Assert.AreEqual('Você', LPessoas[1].Nome,
