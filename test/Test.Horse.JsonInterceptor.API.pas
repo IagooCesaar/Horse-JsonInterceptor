@@ -33,6 +33,24 @@ type
 
     [Test]
     procedure Test_Middleware_Familia_Post;
+
+    [Test]
+    procedure Test_Middleware_Biblioteca_Post;
+
+    [Test]
+    procedure Test_Middleware_Empresa_Post;
+
+    [Test]
+    procedure Test_Middleware_Garagem_Post;
+
+    [Test]
+    procedure Test_Middleware_Escola_Post;
+
+    [Test]
+    procedure Test_Middleware_Pessoas_Post;
+
+    [Test]
+    procedure Test_Middleware_Todos_Post;
   end;
 
 implementation
@@ -71,7 +89,7 @@ begin
 end;
 
 procedure TestTHorseJsonInterceptorAPI.Test_Helper_Familia_Post;
-var LFamilia, LFamiliaResp : TFamilia; LResponse: IResponse;
+var LFamilia : TFamilia; LResponse: IResponse;
 begin
   LFamilia := Mock_Familia;
   try
@@ -89,7 +107,7 @@ begin
 end;
 
 procedure TestTHorseJsonInterceptorAPI.Test_Lib_Familia_Post;
-var LFamilia, LFamiliaResp : TFamilia; LResponse: IResponse;
+var LFamilia : TFamilia; LResponse: IResponse;
 begin
   LFamilia := Mock_Familia;
   try
@@ -106,8 +124,62 @@ begin
   end;
 end;
 
+procedure TestTHorseJsonInterceptorAPI.Test_Middleware_Biblioteca_Post;
+var LBiblioteca : TBiblioteca; LResponse: IResponse;
+begin
+  LBiblioteca := Mock_Biblioteca;
+  try
+    LResponse := BaseRequest
+      .Resource('/with-middleware/biblioteca')
+      .AddBody(TJson.ObjectToClearJsonString(LBiblioteca))
+      .Post();
+
+    Assert.AreEqual(201, LResponse.StatusCode);
+    Assert.IsTrue(Pos('listHelper', LResponse.Content)=0, 'Esperava-se que não contivesse ListHelper');
+
+  finally
+    FreeAndNil(LBiblioteca);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptorAPI.Test_Middleware_Empresa_Post;
+var LEmpresa : TEmpresa; LResponse: IResponse;
+begin
+  LEmpresa := Mock_Empresa;
+  try
+    LResponse := BaseRequest
+      .Resource('/with-middleware/empresa')
+      .AddBody(TJson.ObjectToClearJsonString(LEmpresa))
+      .Post();
+
+    Assert.AreEqual(201, LResponse.StatusCode);
+    Assert.IsTrue(Pos('listHelper', LResponse.Content)=0, 'Esperava-se que não contivesse ListHelper');
+
+  finally
+    FreeAndNil(LEmpresa);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptorAPI.Test_Middleware_Escola_Post;
+var LEscola: TEscola; LResponse: IResponse;
+begin
+  LEscola := Mock_Escola;
+  try
+    LResponse := BaseRequest
+      .Resource('/with-middleware/escola')
+      .AddBody(TJson.ObjectToClearJsonString(LEscola))
+      .Post();
+
+    Assert.AreEqual(201, LResponse.StatusCode);
+    Assert.IsTrue(Pos('listHelper', LResponse.Content)=0, 'Esperava-se que não contivesse ListHelper');
+
+  finally
+    FreeAndNil(LEscola);
+  end;
+end;
+
 procedure TestTHorseJsonInterceptorAPI.Test_Middleware_Familia_Post;
-var LFamilia, LFamiliaResp : TFamilia; LResponse: IResponse;
+var LFamilia : TFamilia; LResponse: IResponse;
 begin
   LFamilia := Mock_Familia;
   try
@@ -121,6 +193,60 @@ begin
 
   finally
     FreeAndNil(LFamilia);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptorAPI.Test_Middleware_Garagem_Post;
+var LGaragem: TGaragem; LResponse: IResponse;
+begin
+  LGaragem := Mock_Garagem;
+  try
+    LResponse := BaseRequest
+      .Resource('/with-middleware/garagem')
+      .AddBody(TJson.ObjectToClearJsonString(LGaragem))
+      .Post();
+
+    Assert.AreEqual(201, LResponse.StatusCode);
+    Assert.IsTrue(Pos('listHelper', LResponse.Content)=0, 'Esperava-se que não contivesse ListHelper');
+
+  finally
+    FreeAndNil(LGaragem);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptorAPI.Test_Middleware_Pessoas_Post;
+var LPessoas: TPessoas; LResponse: IResponse;
+begin
+  LPessoas := Mock_Pessoas;
+  try
+    LResponse := BaseRequest
+      .Resource('/with-middleware/pessoas')
+      .AddBody(TJson.ObjectToClearJsonString(LPessoas))
+      .Post();
+
+    Assert.AreEqual(201, LResponse.StatusCode);
+    Assert.IsTrue(Pos('listHelper', LResponse.Content)=0, 'Esperava-se que não contivesse ListHelper');
+
+  finally
+    FreeAndNil(LPessoas);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptorAPI.Test_Middleware_Todos_Post;
+var LTodos: TTodos; LResponse: IResponse;
+begin
+  LTodos := Mock_Todos;
+  try
+    LResponse := BaseRequest
+      .Resource('/with-middleware/todos')
+      .AddBody(TJson.ObjectToClearJsonString(LTodos))
+      .Post();
+
+    Assert.AreEqual(201, LResponse.StatusCode);
+    Assert.IsTrue(Pos('listHelper', LResponse.Content)=0, 'Esperava-se que não contivesse ListHelper');
+
+  finally
+    FreeAndNil(LTodos);
   end;
 end;
 
