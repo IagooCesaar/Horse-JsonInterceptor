@@ -79,7 +79,7 @@ type
 implementation
 
 uses
-  Test.Mock.Horse.JsonInterceptor.Core,
+  Horse.JsonInterceptor.Example.Classes,
   System.JSON,
   System.SysUtils;
 

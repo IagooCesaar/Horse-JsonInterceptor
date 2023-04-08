@@ -14,9 +14,9 @@ uses
   {$ENDIF }
   DUnitX.TestFramework,
   Test.Horse.JsonInterceptor.Core in 'test\Test.Horse.JsonInterceptor.Core.pas',
-  Test.Mock.Horse.JsonInterceptor.Core in 'test\Test.Mock.Horse.JsonInterceptor.Core.pas',
   Horse.JsonInterceptor.Core in 'src\Horse.JsonInterceptor.Core.pas',
-  Horse.JsonInterceptor.Helpers in 'src\Horse.JsonInterceptor.Helpers.pas';
+  Horse.JsonInterceptor.Helpers in 'src\Horse.JsonInterceptor.Helpers.pas',
+  Horse.JsonInterceptor.Example.Classes in 'example\Horse.JsonInterceptor.Example.Classes.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

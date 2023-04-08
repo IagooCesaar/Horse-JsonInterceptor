@@ -96,9 +96,9 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="test\Test.Horse.JsonInterceptor.Core.pas"/>
-        <DCCReference Include="test\Test.Mock.Horse.JsonInterceptor.Core.pas"/>
         <DCCReference Include="src\Horse.JsonInterceptor.Core.pas"/>
         <DCCReference Include="src\Horse.JsonInterceptor.Helpers.pas"/>
+        <DCCReference Include="example\Horse.JsonInterceptor.Example.Classes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
