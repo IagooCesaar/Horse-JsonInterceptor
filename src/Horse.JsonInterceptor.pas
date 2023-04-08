@@ -21,35 +21,34 @@ function HorseJsonInterceptor: THorseCallback; overload;
 implementation
 
 function HorseJsonInterceptor: THorseCallback; overload;
-var LInterceptor: THorseJsonInterceptor;
 begin
   result :=
     procedure(
       ARequest: THorseRequest;
       AResponse: THorseResponse;
       ANext: TProc)
-    var LBody: String; LJson : TJSONValueFPCDelphi;
+    var LBody: String; LOrignalJson, LModifiedJson : TJSONValueFPCDelphi;
     begin
       LBody := ARequest.Body;
       if  ARequest.RawWebRequest.ContentType.Contains('application/json')
       and (Trim(LBody) <> '') then
       begin
         try
-          LJson := {$IF DEFINED(FPC)} GetJSON(LBody) {$ELSE}TJSONObject.ParseJSONValue(LBody){$ENDIF};
+          LOrignalJson := {$IF DEFINED(FPC)} GetJSON(LBody) {$ELSE}TJSONObject.ParseJSONValue(LBody){$ENDIF};
         except
           AResponse.Send('Invalid JSON').Status(THTTPStatus.BadRequest);
           raise EHorseCallbackInterrupted.Create;
         end;
 
-        if not Assigned(LJson) then
+        if not Assigned(LOrignalJson) then
         begin
           AResponse.Send('Invalid JSON').Status(THTTPStatus.BadRequest);
           raise EHorseCallbackInterrupted.Create;
         end;
 
-        LJson := THorseJsonInterceptor.CriarListHelperArray(LJson);
+        LOrignalJson := THorseJsonInterceptor.CriarListHelperArray(LOrignalJson);
 
-        ARequest.Body(LJson);
+        ARequest.Body(LOrignalJson);
       end;
 
       try
@@ -58,29 +57,29 @@ begin
         if  (AResponse.Content <> nil)
         and AResponse.Content.InheritsFrom(TJSONValueFPCDelphi)
         then begin
-          LJson := TJSONValueFPCDelphi(AResponse.Content);
-          LJson := THorseJsonInterceptor.RemoverListHelperArray(LJson);
-          AResponse.Send(LJson);
+          LOrignalJson := TJSONValueFPCDelphi(AResponse.Content);
+          LModifiedJson := THorseJsonInterceptor.RemoverListHelperArray(LOrignalJson);
+          AResponse.Send(LModifiedJson);
 
           {$IF DEFINED(FPC)}
           AResponse.RawWebResponse.ContentStream :=
-            TStringStream.Create(TJsonData(LJson).AsJSON);
+            TStringStream.Create(TJsonData(LModifiedJson).AsJSON);
           {$ELSE}
           AResponse.RawWebResponse.Content :=
             {$IF CompilerVersion > 27.0}
-              TJSONValue(LJson).ToJSON
+              TJSONValue(LModifiedJson).ToJSON
             {$ELSE}
-              TJSONValue(LJson).ToString
+              TJSONValue(LModifiedJson).ToString
             {$ENDIF};
           {$ENDIF}
         end else begin
           LBody := AResponse.RawWebResponse.Content;
           try
-            LJson := {$IF DEFINED(FPC)} GetJSON(LBody) {$ELSE}TJSONObject.ParseJSONValue(LBody){$ENDIF};
+            LModifiedJson := {$IF DEFINED(FPC)} GetJSON(LBody) {$ELSE}TJSONObject.ParseJSONValue(LBody){$ENDIF};
 
-            if Assigned(LJson) then begin
-              LJson := THorseJsonInterceptor.RemoverListHelperArray(LJson);
-              AResponse.Send(LJson);
+            if Assigned(LModifiedJson) then begin
+              LModifiedJson := THorseJsonInterceptor.RemoverListHelperArray(LModifiedJson);
+              AResponse.Send(LModifiedJson);
             end;
           except
             // do nothing

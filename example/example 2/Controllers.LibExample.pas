@@ -33,6 +33,8 @@ begin
   Resp.Send(
     THorseJsonInterceptorResponse(LBody).ToString
   );
+
+  LBody.Free;
 end;
 
 procedure Registry;

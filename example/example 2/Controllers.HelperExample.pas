@@ -28,6 +28,8 @@ begin
   Resp.Send(
     TJson.ObjectToClearJsonString(LBody)
   );
+
+  LBody.Free;
 end;
 
 procedure Registry;
