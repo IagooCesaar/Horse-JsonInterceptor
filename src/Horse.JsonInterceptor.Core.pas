@@ -30,6 +30,10 @@ type
   end;
 
   THorseJsonInterceptor = class(TObject)
+  private
+    class function InternalRemoverListHelperVerificaObjeto(AJsonObject: TJSONValue): TJSONValue;
+    class function InternalRemoverListHelperVerificaPropriedade(AJsonPair: TJSONPair): TJSONPair;
+    class function InternalRemoverListHelperVerificaArray(LJsonValue: TJSONValue): TJSONArray;
   public
 
     class function CriarListHelperArray(AJsonString: string): string; overload;
@@ -132,6 +136,109 @@ begin
   end;
 end;
 
+class function THorseJsonInterceptor.InternalRemoverListHelperVerificaArray(
+  LJsonValue: TJSONValue): TJSONArray;
+var
+  I, P: Integer;
+  LJsonChildValue: TJSONValue;
+  LOriginalChildPair, LModifiedChildPair: TJSONPair;
+  LOriginalArray, LModifiedArray: TJSONArray;
+  LChildObject: TJSONObject;
+begin
+  LOriginalArray := LJsonValue as TJSONArray;
+  LModifiedArray := TJSONArray.Create;
+
+  for I := 0 to Pred(LOriginalArray.Count) do begin
+
+    LJsonChildValue :=  LOriginalArray.Items[I];
+    if not LJsonChildValue.Null then begin
+
+      if LJsonChildValue is TJSONObject then begin
+        LChildObject := TJSONObject.Create;
+
+        for P := 0 to Pred(TJSONObject(LJsonChildValue).Count) do begin
+          LOriginalChildPair := TJSONObject(LJsonChildValue).Pairs[P];
+          LModifiedChildPair := InternalRemoverListHelperVerificaPropriedade(LOriginalChildPair);
+          LChildObject.AddPair(LModifiedChildPair);
+        end;
+
+        LModifiedArray.AddElement(LChildObject);
+      end else
+        LModifiedArray.AddElement(LJsonChildValue.Clone as TJSONValue);
+
+    end else
+      LModifiedArray.AddElement(LJsonChildValue.Clone as TJSONValue);
+
+  end;
+  Result := LModifiedArray.Clone as TJSONArray;
+  LModifiedArray.Free;
+end;
+
+class function THorseJsonInterceptor.InternalRemoverListHelperVerificaObjeto(
+  AJsonObject: TJSONValue): TJSONValue;
+var LListHelperJsonArray, LClone: TJSONValue;
+begin
+  // Se object contiver 'listHelper', substituir valor do objeto pelo
+  // array contido em 'listHelper'
+  if AJsonObject.TryGetValue('listHelper', LListHelperJsonArray)
+  then LClone := LListHelperJsonArray.Clone as TJSONValue
+  else LClone := AJsonObject.Clone as TJSONValue;
+
+  Result := LClone;
+end;
+
+class function THorseJsonInterceptor.InternalRemoverListHelperVerificaPropriedade(
+  AJsonPair: TJSONPair): TJSONPair;
+var
+    I, P: Integer;
+    LJsonValue: TJSONValue;
+    LOriginalPropPair, LModifiedPropPair: TJSONPair;
+    LModifiedArray: TJSONArray;
+    LNewObject: TJSONObject;
+    LTempValue: TJSONValue;
+begin
+  if AJsonPair.JsonValue.Null then begin
+    Result := AJsonPair.Clone as TJSONPair;
+    Exit;
+  end;
+
+  LTempValue := AJsonPair.JsonValue.Clone as TJSONValue;
+
+  //Se for objeto, verifica se é ObjectList
+  if AJsonPair.JsonValue is TJSONObject
+  then LJsonValue := InternalRemoverListHelperVerificaObjeto(LTempValue)
+  else LJsonValue := AJsonPair.JsonValue.Clone as TJSONValue;
+
+  if   LTempValue <> nil
+  then FreeAndNIl(LTempValue);
+
+  //Se ainda for objeto, verificar propriedades
+  if LJsonValue is TJSONObject then begin
+    LNewObject := TJSONObject.Create;
+    for I := 0 to Pred(TJSONObject(LJsonValue).Count) do begin
+      LOriginalPropPair := TJSONObject(LJsonValue).Pairs[I];
+      LModifiedPropPair := InternalRemoverListHelperVerificaPropriedade(LOriginalPropPair);
+      LNewObject.AddPair(LModifiedPropPair);
+    end;
+
+    FreeAndNil(LJsonValue);
+    LJsonValue := LNewObject.Clone as TJSONValue;
+    FreeAndNil(LNewObject);
+  end;
+
+  // Se for Array, verificar cada item
+  if LJsonValue is TJSONArray then begin
+    LModifiedArray := InternalRemoverListHelperVerificaArray(LJsonValue);
+
+    LJsonValue.Free;
+    LJsonValue := LModifiedArray.Clone as TJSONValue;
+    LModifiedArray.Free;
+  end;
+
+  Result := TJSONPair.Create(
+    TJSONString(AJsonPair.JsonString.Clone),
+    LJsonValue );
+end;
 
 class function THorseJsonInterceptor.RemoverListHelperArray(
   AJsonString: string): string;
@@ -155,114 +262,45 @@ var
   R: Integer;
   LTempValue, LJsonBody: TJSONValue;
   LOriginalPair, LModifiedPair : TJSONPair;
-  LJson : TJSONObject;
-
-
-  function VerificaObjeto(AJsonObject: TJSONValue): TJSONValue;
-  var LListHelperJsonArray, LClone: TJSONValue;
-  begin
-    // Se object contiver 'listHelper', substituir valor do objeto pelo
-    // array contido em 'listHelper'
-    if AJsonObject.TryGetValue('listHelper', LListHelperJsonArray)
-    then LClone := LListHelperJsonArray.Clone as TJSONValue
-    else LClone := AJsonObject.Clone as TJSONValue;
-
-    Result := LClone;
-  end;
-
-  function VerificaPropriedade(AJsonPair: TJSONPair): TJSONPair;
-  var
-    I, P: Integer;
-    LJsonValue, LJsonChildValue: TJSONValue;
-    LOriginalChildPair, LModifiedChildPair,
-    LOriginalPropPair, LModifiedPropPair: TJSONPair;
-    LOriginalArray, LModifiedArray: TJSONArray;
-    LChildObject, LNewObject: TJSONObject;
-  begin
-    if AJsonPair.JsonValue.Null then begin
-      Result := AJsonPair.Clone as TJSONPair;
-      Exit;
-    end;
-
-    LTempValue := AJsonPair.JsonValue.Clone as TJSONValue;
-
-    //Se for objeto, verifica se é ObjectList
-    if AJsonPair.JsonValue is TJSONObject
-    then LJsonValue := VerificaObjeto(LTempValue)
-    else LJsonValue := AJsonPair.JsonValue.Clone as TJSONValue;
-
-    if   LTempValue <> nil
-    then FreeAndNIl(LTempValue);
-
-    //Se ainda for objeto, verificar propriedades
-    if LJsonValue is TJSONObject then begin
-      LNewObject := TJSONObject.Create;
-      for I := 0 to Pred(TJSONObject(LJsonValue).Count) do begin
-        LOriginalPropPair := TJSONObject(LJsonValue).Pairs[I];
-        LModifiedPropPair := VerificaPropriedade(LOriginalPropPair);
-        LNewObject.AddPair(LModifiedPropPair);
-      end;
-
-      FreeAndNil(LJsonValue);
-      LJsonValue := LNewObject.Clone as TJSONValue;
-      FreeAndNil(LNewObject);
-    end;
-
-    // Se for Array, verificar cada item
-    if LJsonValue is TJSONArray then begin
-      LOriginalArray := LJsonValue as TJSONArray;
-      LModifiedArray := TJSONArray.Create;
-
-      for I := 0 to Pred(LOriginalArray.Count) do begin
-
-        LJsonChildValue :=  LOriginalArray.Items[I];
-        if not LJsonChildValue.Null then begin
-
-          if LJsonChildValue is TJSONObject then begin
-            LChildObject := TJSONObject.Create;
-
-            for P := 0 to Pred(TJSONObject(LJsonChildValue).Count) do begin
-              LOriginalChildPair := TJSONObject(LJsonChildValue).Pairs[P];
-              LModifiedChildPair := VerificaPropriedade(LOriginalChildPair);
-              LChildObject.AddPair(LModifiedChildPair);
-            end;
-
-            LModifiedArray.AddElement(LChildObject);
-          end else
-            LModifiedArray.AddElement(LJsonChildValue.Clone as TJSONValue);
-
-        end else
-          LModifiedArray.AddElement(LJsonChildValue.Clone as TJSONValue);
-
-      end;
-      LJsonValue.Free;
-      LJsonValue := LModifiedArray.Clone as TJSONValue;
-      LModifiedArray.Free;
-    end;
-
-    Result := TJSONPair.Create(
-      TJSONString(AJsonPair.JsonString.Clone),
-      LJsonValue );
-  end;
-
+  LJson : TJSONValueFPCDelphi;
+  LModifiedArray: TJSONArray;
 begin
   try
-    LJson := TJSONObject.Create;
+    //LJson := TJSONObject.Create;
 
-    LTempValue := AJson.Clone as TJSONValue;
-    LJsonBody := VerificaObjeto(LTempValue);
+    LOriginalPair := TJSONPair.Create( 'originalPair', AJson );
+    LModifiedPair := InternalRemoverListHelperVerificaPropriedade(LOriginalPair);
+    Result := LModifiedPair.JsonValue.Clone as TJSONValue;
+
+    LModifiedPair.Free;
+
+
+    {LTempValue := AJson.Clone as TJSONValue;
+    LJsonBody := InternalRemoverListHelperVerificaObjeto(LTempValue);
     LTempValue.Free;
 
     // Percorrer todos Pairs (nós, ou props) do json
-    if LJsonBody is TJSONObject then
+    if LJsonBody is TJSONObject then begin
+
       for R := 0 to Pred(TJSONObject(LJsonBody).Count) do begin
         LOriginalPair := TJSONObject(LJsonBody).Pairs[R];
-        LModifiedPair := VerificaPropriedade(LOriginalPair);
+        //LModifiedPair := VerificaPropriedade(LOriginalPair);
+        LModifiedPair := InternalRemoverListHelperVerificaPropriedade(LOriginalPair);
 
-        LJson.AddPair(LModifiedPair);
+        TJSONObject(LJson).AddPair(LModifiedPair);
       end;
+
+    end else
+    if LJsonBody is TJSONArray then begin
+      LModifiedArray := InternalRemoverListHelperVerificaArray(LJsonBody);
+
+      LJsonBody.Free;
+      LJsonBody := LModifiedArray.Clone as TJSONValue;
+      LModifiedArray.Free;
+    end;
+
     FreeAndNil(LJsonBody);
-    Result := LJson as TJSONValue;
+    Result := LJson as TJSONValue;}
   except
     Result := AJson;
   end;
