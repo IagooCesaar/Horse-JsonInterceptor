@@ -61,12 +61,15 @@ type
     //[Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
 
     // TPessoas: [ pessoa ]
-    [Test]
+    //[Test]
     procedure Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray;
+
+    //[Test]
+    procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray;
   end;
 
 implementation
@@ -463,6 +466,39 @@ begin
       'Esperava-se que o filho de John Doe fosse John Doe Jr');
   finally
     FreeAndNil(LFamilia);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray;
+var LJsonString: String; LPessoas: TPessoas;
+begin
+  LJsonString := #13#10
+  + '[ '
+  + '	{ '
+  + '		"nome": "Eu", '
+  + '		"codigo": 10, '
+  + '		"sexo": "M", '
+  + '		"filhos": [] '
+  + '	}, '
+  + '	{ '
+  + '		"nome": "Você", '
+  + '		"codigo": 20, '
+  + '		"sexo": "F", '
+  + '		"filhos": [] '
+  + '	} '
+  + '] '
+  ;
+
+
+  LPessoas := TJson.ClearJsonAndConvertToObject<TPessoas>(LJsonString);
+  try
+    Assert.AreEqual(2, LPessoas.Count, 'Deveria conter 3 alunos');
+    Assert.AreEqual('Eu', LPessoas[0].Nome,
+      'Esperava-se que a 1ª pessoa fosse Eu');
+    Assert.AreEqual('Você', LPessoas[1].Nome,
+      'Esperava-se que o 1º aluno fosse Você');
+  finally
+    FreeAndNil(LPessoas);
   end;
 end;
 
