@@ -14,7 +14,11 @@ uses
 
 begin
   try
+    var App : TApp;
+    App := TApp.Create;
     App.Start;
+
+    App.Free;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
