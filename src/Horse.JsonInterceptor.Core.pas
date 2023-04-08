@@ -34,6 +34,8 @@ type
     class function InternalRemoverListHelperVerificaObjeto(AJsonObject: TJSONValue): TJSONValue;
     class function InternalRemoverListHelperVerificaPropriedade(AJsonPair: TJSONPair): TJSONPair;
     class function InternalRemoverListHelperVerificaArray(LJsonValue: TJSONValue): TJSONArray;
+
+    class procedure InternalCriarListHelperVerificaPropriedade(AJsonPair: TJSONPair);
   public
 
     class function CriarListHelperArray(AJsonString: string): string; overload;
@@ -127,13 +129,64 @@ begin
     if LJsonBody is TJSONObject then
       for R := 0 to Pred(TJSONObject(LJsonBody).Count) do begin
         LJsonPair := TJSONObject(LJsonBody).Pairs[R];
-        VerificaPropriedade(LJsonPair);
+        InternalCriarListHelperVerificaPropriedade(LJsonPair);
       end;
 
     Result := LJsonBody;
   except
     Result := AJson;
   end;
+end;
+
+class procedure THorseJsonInterceptor.InternalCriarListHelperVerificaPropriedade(
+  AJsonPair: TJSONPair);
+var
+  I, P: Integer;
+  LJsonValue, LJsonChildValue: TJSONValue;
+  LJsonListHelperPair: TJSONPair;
+  LJsonPropPair, LJsonChildPair: TJSONPair;
+  LJsonOjectList: TJSONObject;
+  LJsonArray: TJSONArray;
+begin
+  if AJsonPair.JsonValue.Null then Exit;
+  LJsonValue := AJsonPair.JsonValue.Clone as TJSONValue;
+
+  if LJsonValue is TJSONObject then begin
+    for I := 0 to Pred(TJSONObject(LJsonValue).Count) do begin
+      LJsonPropPair := TJSONObject(LJsonValue).Pairs[I];
+      InternalCriarListHelperVerificaPropriedade(LJsonPropPair);
+    end;
+  end;
+
+  if LJsonValue is TJSONArray then begin
+
+    LJsonArray := LJsonValue as TJSONArray;
+
+    for I := 0 to Pred(LJsonArray.Count) do begin
+      LJsonChildValue :=  LJsonArray.Items[I];
+      if LJsonChildValue.Null then Continue;
+
+      if LJsonChildValue is TJSONObject then
+        for P := 0 to Pred(TJSONObject(LJsonChildValue).Count) do begin
+          LJsonChildPair := TJSONObject(LJsonChildValue).Pairs[P];
+          InternalCriarListHelperVerificaPropriedade(LJsonChildPair);
+        end;
+    end;
+
+    // Se array contiver elementos, verifica se tem objeto.
+    // Se não tiver elementos, assume que teria objetos
+    if ((LJsonArray.Count > 0) and (LJsonArray.Items[0] is TJSONObject))
+    or (LJsonArray.Count = 0)
+    then begin
+      // converte o Array em ObjectList
+      LJsonListHelperPair := TJSONPair.Create('listHelper', LJsonValue as TJSONArray);
+      LJsonOjectList := TJSONObject.Create;
+      LJsonOjectList.AddPair(LJsonListHelperPair);
+      LJsonValue := LJsonOjectList as TJSONValue;
+    end;
+  end;
+
+  AJsonPair.JsonValue := LJsonValue;
 end;
 
 class function THorseJsonInterceptor.InternalRemoverListHelperVerificaArray(
