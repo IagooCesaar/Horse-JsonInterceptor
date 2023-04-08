@@ -58,14 +58,11 @@ begin
   try
     LJsonOriginal := TJSONValueFPCDelphi.ParseJSONValue(AJsonString);
 
-    LJson := TJSONObject.Create;
-    LJson.AddPair('originalPair', LJsonOriginal);
-
-    LJsonModified := CriarListHelperArray(LJson);
+    LJsonModified := CriarListHelperArray(LJsonOriginal);
     Result        := TJSONObject(LJsonModified).GetValue('originalPair').ToString;
 
     LJsonModified.Free;
-    LJson.Free;
+    LJsonOriginal.Free;
   except
     Result := AJsonString;
   end;
@@ -77,8 +74,12 @@ var
   LJsonBody: TJSONValue;
   LJsonPair: TJSONPair;
   R: Integer;
+  LJson: TJSONObject;
 begin
-  LJsonBody := AJson.Clone as TJSONValue;
+  LJson := TJSONObject.Create;
+  LJson.AddPair('originalPair', AJson.Clone as TJSONValue);
+
+  LJsonBody := LJson.Clone as TJSONValue;
   try
     if LJsonBody is TJSONObject then
       for R := 0 to Pred(TJSONObject(LJsonBody).Count) do begin
@@ -87,6 +88,7 @@ begin
       end;
 
     Result := LJsonBody;
+    LJson.Free;
   except
     Result := AJson;
   end;
