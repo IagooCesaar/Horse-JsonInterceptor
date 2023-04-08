@@ -7,6 +7,8 @@ type
   public
     procedure Start;
     procedure Stop;
+
+    function BaseURL: String;
   end;
 
 
@@ -23,6 +25,11 @@ uses
   Controllers.MiddlewareExample,
   Controllers.LibExample,
   Controllers.HelperExample;
+
+function TApp.BaseURL: String;
+begin
+  Result := Format('http://localhost:%d', [THorse.Port]);
+end;
 
 procedure TApp.Start;
 begin

@@ -30,7 +30,7 @@ begin
 
   DoSomething(LBody);
 
-  Resp.Send(
+  Resp.Status(201).Send(
     THorseJsonInterceptorResponse(LBody).ToString
   );
 

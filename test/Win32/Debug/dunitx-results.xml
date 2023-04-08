@@ -1,36 +1,38 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<test-results name="C:\#DEV\#Projetos\horse-jsoninterceptor\test\Win32\Debug\horse_jsoninterceptor_test.exe" total="18" errors="0" failures="0" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2023-04-08" time="0.091">
+<test-results name="C:\#DEV\#Projetos\horse-jsoninterceptor\test\Win32\Debug\horse_jsoninterceptor_test.exe" total="20" errors="0" failures="0" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2023-04-08" time="0.303">
   <culture-info current-culture="en" current-uiculture="en" />
-  <test-suite type="Assembly" name="horse_jsoninterceptor_test.exe" executed="true" result="Success" success="True" time="0.091" asserts="0">
+  <test-suite type="Assembly" name="horse_jsoninterceptor_test.exe" executed="true" result="Success" success="True" time="0.303" asserts="0">
     <results>
-        <test-suite type="Namespace" name="Test" executed="true" result="Success" success="True" time="0.120" asserts="0" >
+        <test-suite type="Namespace" name="Test" executed="true" result="Success" success="True" time="0.326" asserts="0" >
           <results>
-              <test-suite type="Namespace" name="JsonInterceptor" executed="true" result="Success" success="True" time="0.120" asserts="0" >
+              <test-suite type="Namespace" name="JsonInterceptor" executed="true" result="Success" success="True" time="0.326" asserts="0" >
                 <results>
-                    <test-suite type="Fixture" name="TestTHorseJsonInterceptorAPI" executed="True" result="Success" success="True" time="0.090" >
+                    <test-suite type="Fixture" name="TestTHorseJsonInterceptorAPI" executed="True" result="Success" success="True" time="0.303" >
                       <results>
-                        <test-case name="Teste" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="Test_Lib_Familia_Post" executed="True" result="Success" success="True" time="0.194" asserts="0" />
+                        <test-case name="Test_Helper_Familia_Post" executed="True" result="Success" success="True" time="0.009" asserts="0" />
+                        <test-case name="Test_Middleware_Familia_Post" executed="True" result="Success" success="True" time="0.011" asserts="0" />
                       </results>
                     </test-suite>
-                    <test-suite type="Fixture" name="TestTHorseJsonInterceptor" executed="True" result="Success" success="True" time="0.030" >
+                    <test-suite type="Fixture" name="TestTHorseJsonInterceptor" executed="True" result="Success" success="True" time="0.023" >
                       <results>
-                        <test-case name="Test_CriaJsonObjectSemListHelper_ObjetoComArray" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                        <test-case name="Test_CriaJsonObjectSemListHelper_ObjetoComArray" executed="True" result="Success" success="True" time="0.002" asserts="0" />
                         <test-case name="Test_CriaJsonStringSemListHelper_ObjetoComArray" executed="True" result="Success" success="True" time="0.001" asserts="0" />
-                        <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArray" executed="True" result="Success" success="True" time="0.000" asserts="0" />
-                        <test-case name="Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArray" executed="True" result="Success" success="True" time="0.001" asserts="0" />
-                        <test-case name="Test_CriaJsonObjectSemListHelper_ObjetoComArrayRecursivo" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                        <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArray" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        <test-case name="Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArray" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="Test_CriaJsonObjectSemListHelper_ObjetoComArrayRecursivo" executed="True" result="Success" success="True" time="0.001" asserts="0" />
                         <test-case name="Test_CriaJsonStringSemListHelper_ObjetoComArrayRecursivo" executed="True" result="Success" success="True" time="0.001" asserts="0" />
-                        <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayRecursivo" executed="True" result="Success" success="True" time="0.001" asserts="0" />
-                        <test-case name="Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArrayRecursivo" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                        <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayRecursivo" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                        <test-case name="Test_CriarObjetoUtilizandoJsonObjectSemListHelper_ObjetoComArrayRecursivo" executed="True" result="Success" success="True" time="0.001" asserts="0" />
                         <test-case name="Test_CriaJsonStringSemListHelper_ObjetoComObjetoComArray" executed="True" result="Success" success="True" time="0.001" asserts="0" />
-                        <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComObjetoComArray" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComObjetoComArray" executed="True" result="Success" success="True" time="0.000" asserts="0" />
                         <test-case name="Test_CriaJsonStringSemListHelper_ObjetoComArrayObjetosComArrayStrings" executed="True" result="Success" success="True" time="0.001" asserts="0" />
                         <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayStrings" executed="True" result="Success" success="True" time="0.000" asserts="0" />
                         <test-case name="Test_CriaJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger" executed="True" result="Success" success="True" time="0.001" asserts="0" />
                         <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger" executed="True" result="Success" success="True" time="0.001" asserts="0" />
                         <test-case name="Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray" executed="True" result="Success" success="True" time="0.001" asserts="0" />
                         <test-case name="Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray" executed="True" result="Success" success="True" time="0.000" asserts="0" />
-                        <test-case name="Test_CriaJsonStringSemListHelper_Todos" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                        <test-case name="Test_CriaJsonStringSemListHelper_Todos" executed="True" result="Success" success="True" time="0.003" asserts="0" />
                       </results>
                     </test-suite>
                 </results>

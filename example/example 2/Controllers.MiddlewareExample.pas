@@ -32,7 +32,7 @@ begin
 
   // Can be passed as TJsonObject or String
   //Resp.Send(TJson.ObjectToJsonObject(LBody));
-  Resp.Send(TJson.ObjectToJsonString(LBody));
+  Resp.Status(201).Send(TJson.ObjectToJsonString(LBody));
   LBody.Free;
 end;
 
