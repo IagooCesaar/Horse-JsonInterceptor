@@ -14,19 +14,19 @@ uses
   Horse.JsonInterceptor.Core,
   Horse.JsonInterceptor.Example.Classes;
 
-procedure DoSomething(var ABody: TBody);
+procedure DoSomething(var ABody: TFamilia);
 var I: Integer;
 begin
-  for I := 0 to Pred(ABody.Lista.Count) do
-    ABody.Lista[i].Code := ABody.Lista[i].Code * 10;
+  for I := 0 to Pred(ABody.Membros.Count) do
+    ABody.Membros[i].Codigo := ABody.Membros[i].Codigo * 10;
 end;
 
 procedure PostWithLib(Req: THorseRequest; Resp: THorseResponse);
-var LBody: TBody;
+var LBody: TFamilia;
 begin
   LBody := Req
     .Body<THorseJsonInterceptorRequest> // prepared by Jhonson and HorseJsonInterceptor
-    .ToObject<TBody>;
+    .ToObject<TFamilia>;
 
   DoSomething(LBody);
 

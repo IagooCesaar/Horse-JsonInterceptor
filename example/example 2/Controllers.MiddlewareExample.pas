@@ -14,17 +14,17 @@ uses
   Horse.JsonInterceptor,
   Horse.JsonInterceptor.Example.Classes;
 
-procedure DoSomething(var ABody: TBody);
+procedure DoSomething(var ABody: TFamilia);
 var I: Integer;
 begin
-  for I := 0 to Pred(ABody.Lista.Count) do
-    ABody.Lista[i].Code := ABody.Lista[i].Code * 10;
+  for I := 0 to Pred(ABody.Membros.Count) do
+    ABody.Membros[i].Codigo := ABody.Membros[i].Codigo * 10;
 end;
 
 procedure PostWithMiddleware(Req: THorseRequest; Resp: THorseResponse);
-var LBody: TBody;
+var LBody: TFamilia;
 begin
-  LBody := TJson.JsonToObject<TBody>(
+  LBody := TJson.JsonToObject<TFamilia>(
     Req.Body<TJSONObject> // prepared by Jhonson and HorseJsonInterceptor
   );
 
