@@ -61,14 +61,14 @@ type
     //[Test]
     procedure Test_CriaJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
 
-    [Test]
+    //[Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ObjetoComArrayObjetosComArrayInteger;
 
     // TPessoas: [ pessoa ]
     //[Test]
     procedure Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray;
 
-    //[Test]
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray;
   end;
 

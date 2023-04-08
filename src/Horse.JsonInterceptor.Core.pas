@@ -53,15 +53,19 @@ implementation
 
 class function THorseJsonInterceptor.CriarListHelperArray(
   AJsonString: string): string;
-var LJsonOriginal, LJsonModified: TJSONValue;
+var LJsonOriginal, LJsonModified: TJSONValue; LJson: TJSONObject;
 begin
   try
-    LJsonOriginal := TJSONObject.ParseJSONValue(AJsonString) as TJSONObject;
-    LJsonModified := CriarListHelperArray(LJsonOriginal);
-    Result        := LJsonModified.ToString;
+    LJsonOriginal := TJSONValueFPCDelphi.ParseJSONValue(AJsonString);
 
-    LJsonOriginal.Free;
+    LJson := TJSONObject.Create;
+    LJson.AddPair('originalPair', LJsonOriginal);
+
+    LJsonModified := CriarListHelperArray(LJson);
+    Result        := TJSONObject(LJsonModified).GetValue('originalPair').ToString;
+
     LJsonModified.Free;
+    LJson.Free;
   except
     Result := AJsonString;
   end;
@@ -73,56 +77,6 @@ var
   LJsonBody: TJSONValue;
   LJsonPair: TJSONPair;
   R: Integer;
-
-  procedure VerificaPropriedade(AJsonPair: TJSONPair);
-  var
-    I, P: Integer;
-    LJsonValue, LJsonChildValue: TJSONValue;
-    LJsonListHelperPair: TJSONPair;
-    LJsonPropPair, LJsonChildPair: TJSONPair;
-    LJsonOjectList: TJSONObject;
-    LJsonArray: TJSONArray;
-  begin
-    if AJsonPair.JsonValue.Null then Exit;
-    LJsonValue := AJsonPair.JsonValue.Clone as TJSONValue;
-
-    if LJsonValue is TJSONObject then begin
-      for I := 0 to Pred(TJSONObject(LJsonValue).Count) do begin
-        LJsonPropPair := TJSONObject(LJsonValue).Pairs[I];
-        VerificaPropriedade(LJsonPropPair);
-      end;
-    end;
-
-    if LJsonValue is TJSONArray then begin
-
-      LJsonArray := LJsonValue as TJSONArray;
-
-      for I := 0 to Pred(LJsonArray.Count) do begin
-        LJsonChildValue :=  LJsonArray.Items[I];
-        if LJsonChildValue.Null then Continue;
-
-        if LJsonChildValue is TJSONObject then
-          for P := 0 to Pred(TJSONObject(LJsonChildValue).Count) do begin
-            LJsonChildPair := TJSONObject(LJsonChildValue).Pairs[P];
-            VerificaPropriedade(LJsonChildPair);
-          end;
-      end;
-
-      // Se array contiver elementos, verifica se tem objeto.
-      // Se não tiver elementos, assume que teria objetos
-      if ((LJsonArray.Count > 0) and (LJsonArray.Items[0] is TJSONObject))
-      or (LJsonArray.Count = 0)
-      then begin
-        // converte o Array em ObjectList
-        LJsonListHelperPair := TJSONPair.Create('listHelper', LJsonValue as TJSONArray);
-        LJsonOjectList := TJSONObject.Create;
-        LJsonOjectList.AddPair(LJsonListHelperPair);
-        LJsonValue := LJsonOjectList as TJSONValue;
-      end;
-    end;
-
-    AJsonPair.JsonValue := LJsonValue;
-  end;
 begin
   LJsonBody := AJson.Clone as TJSONValue;
   try
