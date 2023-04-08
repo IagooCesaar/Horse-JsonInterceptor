@@ -37,10 +37,11 @@ begin
 end;
 
 procedure Registry;
+const CContext = 'with-middleware/';
 begin
   THorse
     .AddCallbacks([HorseJsonInterceptor])
-    .Post('with-middleware', PostWithMiddleware);
+    .Post(CContext+'familia', PostWithMiddleware);
 end;
 
 end.

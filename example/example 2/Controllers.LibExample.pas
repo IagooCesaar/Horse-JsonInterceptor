@@ -38,9 +38,10 @@ begin
 end;
 
 procedure Registry;
+const CContext = 'with-lib/';
 begin
   THorse
-    .Post('with-lib', PostWithLib)
+    .Post(CContext+'familia', PostWithLib)
 end;
 
 end.

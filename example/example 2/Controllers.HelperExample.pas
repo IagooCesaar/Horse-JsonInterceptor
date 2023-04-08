@@ -33,9 +33,10 @@ begin
 end;
 
 procedure Registry;
+const CContext = 'with-helper/';
 begin
   THorse
-    .Post('with-helper', PostWithHelper)
+    .Post(CContext+'familia', PostWithHelper)
 end;
 
 end.
