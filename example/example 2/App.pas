@@ -2,7 +2,13 @@ unit App;
 
 interface
 
-procedure Start;
+type
+  TApp = class
+  public
+    procedure Start;
+    procedure Stop;
+  end;
+
 
 implementation
 
@@ -18,7 +24,7 @@ uses
   Controllers.LibExample,
   Controllers.HelperExample;
 
-procedure Start;
+procedure TApp.Start;
 begin
   {$IFDEF MSWINDOWS}
   IsConsole := False;
@@ -33,11 +39,18 @@ begin
   Controllers.HelperExample.Registry;
 
   THorse.Listen(StrToIntDef(GetEnvironmentVariable('SERVER_PORT'), 9000),
-    procedure(Horse: THorse)
+    procedure
     begin
-      Writeln(Format('Server is runing on %s:%d', [Horse.Host, Horse.Port]));
+      {$IF (not defined(TEST))}
+      Writeln(Format('Server is runing on %s:%d', [THorse.Host, THorse.Port]));
       Readln;
+      {$ENDIF}
     end);
+end;
+
+procedure TApp.Stop;
+begin
+  THorse.StopListen;
 end;
 
 end.

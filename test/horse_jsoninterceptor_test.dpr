@@ -13,10 +13,16 @@ uses
   DUnitX.Loggers.Xml.NUnit,
   {$ENDIF }
   DUnitX.TestFramework,
-  Test.Horse.JsonInterceptor.Core in 'test\Test.Horse.JsonInterceptor.Core.pas',
-  Horse.JsonInterceptor.Core in 'src\Horse.JsonInterceptor.Core.pas',
-  Horse.JsonInterceptor.Helpers in 'src\Horse.JsonInterceptor.Helpers.pas',
-  Horse.JsonInterceptor.Example.Classes in 'example\Horse.JsonInterceptor.Example.Classes.pas';
+  Test.Horse.JsonInterceptor.Core in 'Test.Horse.JsonInterceptor.Core.pas',
+  Horse.JsonInterceptor.Core in '..\src\Horse.JsonInterceptor.Core.pas',
+  Horse.JsonInterceptor.Helpers in '..\src\Horse.JsonInterceptor.Helpers.pas',
+  Horse.JsonInterceptor.Example.Classes in '..\example\Horse.JsonInterceptor.Example.Classes.pas',
+  Test.Horse.JsonInterceptor.API in 'Test.Horse.JsonInterceptor.API.pas',
+  App in '..\example\example 2\App.pas',
+  Controllers.HelperExample in '..\example\example 2\Controllers.HelperExample.pas',
+  Controllers.LibExample in '..\example\example 2\Controllers.LibExample.pas',
+  Controllers.MiddlewareExample in '..\example\example 2\Controllers.MiddlewareExample.pas',
+  Horse.JsonInterceptor in '..\src\Horse.JsonInterceptor.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

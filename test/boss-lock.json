@@ -1,0 +1,30 @@
+{
+	"hash": "d41d8cd98f00b204e9800998ecf8427e",
+	"updated": "2023-04-08T18:18:44.1611636-03:00",
+	"installedModules": {
+		"github.com/hashload/handle-exception": {
+			"name": "handle-exception",
+			"version": "0.1.8",
+			"hash": "362736186bc6293dd9a716d7f7413455",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/hashload/horse": {
+			"name": "horse",
+			"version": "3.1.0",
+			"hash": "fc3b8eefb46c1a3b387e86ca46a9faa1",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/hashload/jhonson": {
+			"name": "jhonson",
+			"version": "1.1.5",
+			"hash": "b4efa1372fdf1109fbaf5a625b702f90",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}
