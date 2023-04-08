@@ -18,7 +18,7 @@ begin
     ABody.Membros[i].Codigo := ABody.Membros[i].Codigo * 10;
 end;
 
-procedure PostWithHelper(Req: THorseRequest; Resp: THorseResponse);
+procedure PostWithHelper_Familia(Req: THorseRequest; Resp: THorseResponse);
 var LBody: TFamilia;
 begin
   LBody := TJson.ClearJsonAndConvertToObject<TFamilia>(Req.Body);
@@ -32,11 +32,89 @@ begin
   LBody.Free;
 end;
 
+procedure PostWithHelper_Biblioteca(Req: THorseRequest; Resp: THorseResponse);
+var LBody: TBiblioteca;
+begin
+  LBody := TJson.ClearJsonAndConvertToObject<TBiblioteca>(Req.Body);
+
+  Resp.Status(201).Send(
+    TJson.ObjectToClearJsonString(LBody)
+  );
+
+  LBody.Free;
+end;
+
+procedure PostWithHelper_Empresa(Req: THorseRequest; Resp: THorseResponse);
+var LBody: TEmpresa;
+begin
+  LBody := TJson.ClearJsonAndConvertToObject<TEmpresa>(Req.Body);
+
+  Resp.Status(201).Send(
+    TJson.ObjectToClearJsonString(LBody)
+  );
+
+  LBody.Free;
+end;
+
+procedure PostWithHelper_Garagem(Req: THorseRequest; Resp: THorseResponse);
+var LBody: TGaragem;
+begin
+  LBody := TJson.ClearJsonAndConvertToObject<TGaragem>(Req.Body);
+
+  Resp.Status(201).Send(
+    TJson.ObjectToClearJsonString(LBody)
+  );
+
+  LBody.Free;
+end;
+
+procedure PostWithHelper_Escola(Req: THorseRequest; Resp: THorseResponse);
+var LBody: TEscola;
+begin
+  LBody := TJson.ClearJsonAndConvertToObject<TEscola>(Req.Body);
+
+  Resp.Status(201).Send(
+    TJson.ObjectToClearJsonString(LBody)
+  );
+
+  LBody.Free;
+end;
+
+procedure PostWithHelper_Pessoas(Req: THorseRequest; Resp: THorseResponse);
+var LBody: TPessoas;
+begin
+  LBody := TJson.ClearJsonAndConvertToObject<TPessoas>(Req.Body);
+
+  Resp.Status(201).Send(
+    TJson.ObjectToClearJsonString(LBody)
+  );
+
+  LBody.Free;
+end;
+
+procedure PostWithHelper_Todos(Req: THorseRequest; Resp: THorseResponse);
+var LBody: TTodos;
+begin
+  LBody := TJson.ClearJsonAndConvertToObject<TTodos>(Req.Body);
+
+  Resp.Status(201).Send(
+    TJson.ObjectToClearJsonString(LBody)
+  );
+
+  LBody.Free;
+end;
+
 procedure Registry;
 const CContext = 'with-helper/';
 begin
   THorse
-    .Post(CContext+'familia', PostWithHelper)
+    .Post(CContext+'familia', PostWithHelper_Familia)
+    .Post(CContext+'biblioteca', PostWithHelper_Biblioteca)
+    .Post(CContext+'empresa', PostWithHelper_Empresa)
+    .Post(CContext+'garagem', PostWithHelper_Garagem)
+    .Post(CContext+'escola', PostWithHelper_Escola)
+    .Post(CContext+'pessoas', PostWithHelper_Pessoas)
+    .Post(CContext+'todos', PostWithHelper_Todos)
 end;
 
 end.
