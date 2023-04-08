@@ -71,6 +71,7 @@ type
     [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray;
 
+    // Todas as classes acima
     [Test]
     procedure Test_CriaJsonStringSemListHelper_Todos;
   end;
