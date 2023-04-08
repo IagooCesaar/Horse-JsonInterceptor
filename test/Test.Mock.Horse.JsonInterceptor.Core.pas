@@ -117,12 +117,33 @@ type
 
   TPessoas = TObjectList<TPessoa>;
 
+  TTodos = class
+  private
+    FFamilia: TFamilia;
+    FBiblioteca: TBiblioteca;
+    FEmpresa: TEmpresa;
+    FGaragem: TGaragem;
+    FEscola: TEscola;
+    FPessoas: TPessoas;    
+  public
+    property Familia: TFamilia read FFamilia write FFamilia;
+    property Biblioteca: TBiblioteca read FBiblioteca write FBiblioteca;
+    property Empresa: TEmpresa read FEmpresa write FEmpresa;
+    property Garagem: TGaragem read FGaragem write FGaragem;
+    property Escola: TEscola read FEscola write FEscola;
+    property Pessoas: TPessoas read FPessoas write FPessoas;
+
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
 function Mock_Familia: TFamilia;
 function Mock_Biblioteca: TBiblioteca;
 function Mock_Empresa: TEmpresa;
 function Mock_Garagem: TGaragem;
 function Mock_Escola: TEscola;
 function Mock_Pessoas: TPessoas;
+function Mock_Todos: TTodos;
 
 implementation
 
@@ -258,6 +279,24 @@ begin
   Result.Last.Sexo    := 'F';
 end;
 
+function Mock_Todos: TTodos;
+begin
+  Result := TTodos.Create;
+  
+  Result.Empresa.Free;
+  REsult.Familia.Free;
+  Result.Biblioteca.Free;
+  Result.Garagem.Free;
+  Result.Escola.Free;
+  Result.Pessoas.Free;
+  
+  Result.Empresa    := Mock_Empresa;
+  REsult.Familia    := Mock_Familia;
+  Result.Biblioteca := Mock_Biblioteca;
+  Result.Garagem    := Mock_Garagem;
+  Result.Escola     := Mock_Escola;
+  Result.Pessoas    := Mock_Pessoas;
+end;
 { TBody }
 
 constructor TFamilia.Create;
@@ -359,6 +398,30 @@ end;
 destructor TEscola.Destroy;
 begin
   FreeAndNil(FAlunos);
+  inherited;
+end;
+
+{ TTodos }
+
+constructor TTodos.Create;
+begin
+  FEscola := TEscola.Create;
+  FPessoas := TPessoas.Create;
+  FGaragem := TGaragem.Create;
+  FEmpresa := TEmpresa.Create;
+  FBiblioteca := TBiblioteca.Create;
+  FFamilia := TFamilia.Create;
+end;
+
+destructor TTodos.Destroy;
+begin
+  FreeAndNil(FEscola);
+  FreeAndNil(FPessoas);
+  FreeAndNil(FGaragem);
+  FreeAndNil(FEmpresa);
+  FreeAndNil(FBiblioteca);
+  FreeAndNil(FFamilia);
+  
   inherited;
 end;
 

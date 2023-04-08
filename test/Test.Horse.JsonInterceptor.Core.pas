@@ -70,6 +70,9 @@ type
 
     [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray;
+
+    [Test]
+    procedure Test_CriaJsonStringSemListHelper_Todos;
   end;
 
 implementation
@@ -300,6 +303,28 @@ begin
 
   finally
     FreeAndNil(LGaragem);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_CriaJsonStringSemListHelper_Todos;
+var LTodos: TTodos; LJsonString: String;
+begin
+  try
+    LTodos := Mock_Todos;
+    // Modelo padrão, irá gerar com ListHelper
+    LJsonString := TJson.ObjectToJsonString(LTodos);
+    WriteLn('Com ListHelper : ' + LJsonString);
+    Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
+
+    WriteLn('');
+
+    // Comprovação de que a Lib remove o ListHelper
+    LJsonString := TJson.ObjectToClearJsonString(LTodos);
+    WriteLn('Sem ListHelper: ' + LJsonString);
+    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+
+  finally
+    FreeAndNil(LTodos);
   end;
 end;
 
