@@ -87,8 +87,9 @@ begin
         InternalCriarListHelperVerificaPropriedade(LJsonPair);
       end;
 
-    Result := TJSONObject(LJsonBody).GetValue('originalPair');
+    Result := TJSONObject(LJsonBody).GetValue('originalPair').Clone as TJSONValue;
     LJson.Free;
+    LJsonBody.Free;
   except
     Result := AJson;
   end;
