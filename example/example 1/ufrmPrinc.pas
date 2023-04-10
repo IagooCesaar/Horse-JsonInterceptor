@@ -34,49 +34,51 @@ uses
   Horse.JsonInterceptor.Core,
 
   System.Generics.Collections,
-  REST.Json;
+  REST.Json,
+  System.JSON;
 
 {$R *.dfm}
 
 procedure TForm1.btnObjToJsonClick(Sender: TObject);
-var LBody: TBody; LJson : string;
+var LFamilia: TFamilia; LJson : TJSONObject;
 begin
-  LBody := TBody.Create;
-  LBody.Lista := TObjectList<TPessoa>.Create;
+  LFamilia := TFamilia.Create;
 
-  LBody.Lista.Add(TPessoa.Create);
-  LBody.Lista.Last.Code   := 10;
-  LBody.Lista.Last.Name   := 'John Doe';
-  LBody.Lista.Last.Gender := 'Male';
+  LFamilia.Membros.Add(TPessoa.Create);
+  LFamilia.Membros.Last.Codigo  := 10;
+  LFamilia.Membros.Last.Nome    := 'John Doe';
+  LFamilia.Membros.Last.Sexo    := 'Male';
 
-  LBody.Lista.Add(TPessoa.Create);
-  LBody.Lista.Last.Code   := 20;
-  LBody.Lista.Last.Name   := 'Jane Doe';
-  LBody.Lista.Last.Gender := 'Female';
+  LFamilia.Membros.Add(TPessoa.Create);
+  LFamilia.Membros.Last.Codigo  := 20;
+  LFamilia.Membros.Last.Nome    := 'Jane Doe';
+  LFamilia.Membros.Last.Sexo    := 'Female';
 
-  LJson := TJson.ObjectToJsonString(LBody);
+  LJson := TJson.ObjectToJsonObject(LFamilia);
 
-  mmJson.Lines.Text := LJson;
-  mmInterceptedJson.Lines.Text := THorseJsonInterceptor.RemoverListHelperArray(LJson);
+  mmJson.Lines.Text := TJson.Format(LJson);
+  mmInterceptedJson.Lines.Text := TJson.Format(THorseJsonInterceptor.RemoverListHelperArray(LJson as TJSONValue));
 
-  LBody.Free;
+  LFamilia.Free;
+  LJson.Free;
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
-var LBody: TBody; LJson: string; I: Integer;
+var LFamilia: TFamilia; LJson: string; I: Integer;
 begin
   LJson := THorseJsonInterceptor.CriarListHelperArray(
     mmInterceptedJson.Lines.Text
   );
-  LBody := TJson.JsonToObject<TBody>(LJson);
+  LFamilia := TJson.JsonToObject<TFamilia>(LJson);
   lstPessoas.Clear;
-  for I := 0 to Pred(LBody.Lista.Count) do
+  for I := 0 to Pred(LFamilia.Membros.Count) do
     lstPessoas.Items.Add(
       Format('Name: %s - Gender: %s - Code: %d', [
-        LBody.Lista[i].Name,
-        LBody.Lista[i].Gender,
-        LBody.Lista[i].Code
+        LFamilia.Membros[i].Nome,
+        LFamilia.Membros[i].Sexo,
+        LFamilia.Membros[i].Codigo
       ]));
+  LFamilia.Free;
 end;
 
 end.

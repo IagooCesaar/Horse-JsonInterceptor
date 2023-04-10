@@ -10,15 +10,13 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
     Left = 8
     Top = 63
     Width = 481
     Height = 362
-    Caption = 'JSON'
+    Caption = 'Original JSON'
     TabOrder = 0
     object mmJson: TMemo
       AlignWithMargins = True
@@ -47,7 +45,7 @@ object Form1: TForm1
     Top = 63
     Width = 481
     Height = 362
-    Caption = 'InterceptedJSON'
+    Caption = 'Modified JSON'
     TabOrder = 2
     object mmInterceptedJson: TMemo
       AlignWithMargins = True
@@ -67,7 +65,7 @@ object Form1: TForm1
     Top = 63
     Width = 476
     Height = 357
-    Caption = 'GroupBox3'
+    Caption = 'Modified JSON to Object'
     TabOrder = 3
     object Button1: TButton
       Left = 16
