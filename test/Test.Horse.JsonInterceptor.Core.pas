@@ -69,7 +69,13 @@ type
     procedure Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray;
 
     [Test]
+    procedure Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray_Vazio;
+
+    [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray;
+
+    [Test]
+    procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray_Vazio;
 
     // Todas as classes acima
     [Test]
@@ -242,6 +248,28 @@ var LPessoas: TPessoas; LJsonString: String;
 begin
   try
     LPessoas := Mock_Pessoas;
+    // Modelo padrão, irá gerar com ListHelper
+    LJsonString := TJson.ObjectToJsonString(LPessoas);
+    WriteLn('Com ListHelper : ' + LJsonString);
+    Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
+
+    WriteLn('');
+
+    // Comprovação de que a Lib remove o ListHelper
+    LJsonString := TJson.ObjectToClearJsonString(LPessoas);
+    WriteLn('Sem ListHelper: ' + LJsonString);
+    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+
+  finally
+    FreeAndNil(LPessoas);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_CriaJsonStringSemListHelper_ArrayComObjetosComArray_Vazio;
+var LPessoas: TPessoas; LJsonString: String;
+begin
+  try
+    LPessoas := TPessoas.Create;
     // Modelo padrão, irá gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LPessoas);
     WriteLn('Com ListHelper : ' + LJsonString);
@@ -522,6 +550,19 @@ begin
       'Esperava-se que a 1ª pessoa fosse Eu');
     Assert.AreEqual('Você', LPessoas[1].Nome,
       'Esperava-se que o 1º aluno fosse Você');
+  finally
+    FreeAndNil(LPessoas);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray_Vazio;
+var LJsonString: String; LPessoas: TPessoas;
+begin
+  LJsonString := #13#10 + '[ ] ';
+
+  LPessoas := TJson.ClearJsonAndConvertToObject<TPessoas>(LJsonString);
+  try
+    Assert.AreEqual(0, LPessoas.Count, 'Não deveria conter alunos');
   finally
     FreeAndNil(LPessoas);
   end;

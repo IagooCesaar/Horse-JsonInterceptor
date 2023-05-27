@@ -13,6 +13,7 @@ type
 
   THorseJsonInterceptorHelperRestJson = class helper for Rest.Json.TJson
   public
+    class function ObjectToClearJsonValue(AObject: TObject; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): TJSONValue;
     class function ObjectToClearJsonObject(AObject: TObject; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): TJSONObject;
     class function ObjectToClearJsonString(AObject: TObject; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): string;
 
@@ -46,17 +47,23 @@ begin
   Result := Self.JsonToObject<T>(LClearJson, AOptions);
 end;
 
-class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonObject(
-  AObject: TObject; AOptions: TJsonOptions): TJSONObject;
+class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonValue(
+  AObject: TObject; AOptions: TJsonOptions): TJSONValue;
 var LJson: TJSONObject;
 begin
   LJson := Self.ObjectToJsonObject(AObject, AOptions);
   try
     Result := THorseJsonInterceptor.RemoverListHelperArray(
-      LJson as TJsonValue) as TJsonObject;
+      LJson as TJsonValue);
   finally
     LJson.DisposeOf;
   end;
+end;
+
+class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonObject(
+  AObject: TObject; AOptions: TJsonOptions): TJSONObject;
+begin
+  Result := ObjectToClearJsonValue(AObject, AOptions) as TJSONObject;
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonString(
