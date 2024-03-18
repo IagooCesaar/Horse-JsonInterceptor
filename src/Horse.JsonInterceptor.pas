@@ -33,26 +33,32 @@ begin
       if  ARequest.RawWebRequest.ContentType.Contains('application/json')
       and (Trim(LBody) <> '') then
       begin
+        var bTraduzir: Boolean:= True;
+
         try
           LOriginalReq := {$IF DEFINED(FPC)} GetJSON(LBody) {$ELSE}TJSONObject.ParseJSONValue(LBody){$ENDIF};
         except
-          AResponse.Send('Invalid JSON').Status(THTTPStatus.BadRequest);
-          raise EHorseCallbackInterrupted.Create;
+          bTraduzir:= False;
         end;
 
-        if not Assigned(LOriginalReq) then
+        if (bTraduzir) and (not Assigned(LOriginalReq)) then
+          bTraduzir:= False;
+
+        if bTraduzir then
         begin
-          AResponse.Send('Invalid JSON').Status(THTTPStatus.BadRequest);
-          raise EHorseCallbackInterrupted.Create;
+          try
+            LModifiedReq := THorseJsonInterceptor.CriarListHelperArray(LOriginalReq);
+
+            if   ARequest.Body<TObject> <> nil
+            then ARequest.Body<TObject>.Free;
+
+            ARequest.Body(LModifiedReq);
+            LOriginalReq.Free;
+          except
+            AResponse.Send('Invalid JSON').Status(THTTPStatus.BadRequest);
+            raise EHorseCallbackInterrupted.Create;
+          end;
         end;
-
-        LModifiedReq := THorseJsonInterceptor.CriarListHelperArray(LOriginalReq);
-
-        if   ARequest.Body<TObject> <> nil
-        then ARequest.Body<TObject>.Free;
-
-        ARequest.Body(LModifiedReq);
-        LOriginalReq.Free;
       end;
 
       try

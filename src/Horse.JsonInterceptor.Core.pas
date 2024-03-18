@@ -56,7 +56,11 @@ class function THorseJsonInterceptor.CriarListHelperArray(
 var LJsonOriginal, LJsonModified: TJSONValue; LJson: TJSONObject;
 begin
   try
+    {$IF DEFINED(FPC)}
     LJsonOriginal := TJSONValueFPCDelphi.ParseJSONValue(AJsonString);
+    {$ELSE}
+    LJsonOriginal := TJSONObject.ParseJSONValue(AJsonString);
+    {$ENDIF}
 
     LJsonModified := CriarListHelperArray(LJsonOriginal);
     Result        := LJsonModified.ToString;
