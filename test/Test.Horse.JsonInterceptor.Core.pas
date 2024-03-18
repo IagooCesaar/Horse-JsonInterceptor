@@ -410,11 +410,11 @@ begin
   LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
   try
     LFamilia :=TJson.ClearJsonAndConvertToObject<TFamilia>(LJson);
-    Assert.AreEqual(2, LFamilia.Membros.Count, 'Deveria conter 2 membros');
+    Assert.AreEqual(NativeInt(2), LFamilia.Membros.Count, 'Deveria conter 2 membros');
     Assert.AreEqual('John Doe',LFamilia.membros[0].Nome,
       'Esperava-se que o 1º membro da familia fosse John Doe');
 
-    Assert.AreEqual(1, LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
+    Assert.AreEqual(NativeInt(1), LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
     Assert.AreEqual('John Doe Jr', LFamilia.membros[0].Filhos[0].Nome,
       'Esperava-se que o filho de John Doe fosse John Doe Jr');
 
@@ -450,7 +450,7 @@ begin
   LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
   try
     LEmpresa := TJson.ClearJsonAndConvertToObject<TEmpresa>(LJson);
-    Assert.AreEqual(3, LEmpresa.Departamentos.Count, 'Deveria conter 3 departamentos');
+    Assert.AreEqual(NativeInt(3), LEmpresa.Departamentos.Count, 'Deveria conter 3 departamentos');
     Assert.AreEqual('Desenvolvimento', LEmpresa.Departamentos[1].Nome,
       'Esperava-se que o segundo departamento fosse Desenvolvimento');
   finally
@@ -511,11 +511,11 @@ begin
 
   LFamilia := TJson.ClearJsonAndConvertToObject<TFamilia>(LJsonString);
   try
-    Assert.AreEqual(2, LFamilia.Membros.Count, 'Deveria conter 2 membros');
+    Assert.AreEqual(NativeInt(2), LFamilia.Membros.Count, 'Deveria conter 2 membros');
     Assert.AreEqual('John Doe', LFamilia.membros[0].Nome,
       'Esperava-se que o 1º membro da familia fosse John Doe');
 
-    Assert.AreEqual(1, LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
+    Assert.AreEqual(NativeInt(1), LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
     Assert.AreEqual('John Doe Jr', LFamilia.membros[0].Filhos[0].Nome,
       'Esperava-se que o filho de John Doe fosse John Doe Jr');
   finally
@@ -545,7 +545,7 @@ begin
 
   LPessoas := TJson.ClearJsonAndConvertToObject<TPessoas>(LJsonString);
   try
-    Assert.AreEqual(2, LPessoas.Count, 'Deveria conter 2 alunos');
+    Assert.AreEqual(NativeInt(2), LPessoas.Count, 'Deveria conter 2 alunos');
     Assert.AreEqual('Eu', LPessoas[0].Nome,
       'Esperava-se que a 1ª pessoa fosse Eu');
     Assert.AreEqual('Você', LPessoas[1].Nome,
@@ -562,7 +562,7 @@ begin
 
   LPessoas := TJson.ClearJsonAndConvertToObject<TPessoas>(LJsonString);
   try
-    Assert.AreEqual(0, LPessoas.Count, 'Não deveria conter alunos');
+    Assert.AreEqual(NativeInt(0), LPessoas.Count, 'Não deveria conter alunos');
   finally
     FreeAndNil(LPessoas);
   end;
@@ -593,7 +593,7 @@ begin
 
   LEmpresa := TJson.ClearJsonAndConvertToObject<TEmpresa>(LJsonString);
   try
-    Assert.AreEqual(3, LEmpresa.Departamentos.Count, 'Deveria conter 3 departamentos');
+    Assert.AreEqual(NativeInt(3), LEmpresa.Departamentos.Count, 'Deveria conter 3 departamentos');
     Assert.AreEqual('Desenvolvimento', LEmpresa.Departamentos[1].Nome,
       'Esperava-se que o segundo departamento fosse Desenvolvimento');
   finally
@@ -635,10 +635,10 @@ begin
 
   LEscola := TJson.ClearJsonAndConvertToObject<TEscola>(LJsonString);
   try
-    Assert.AreEqual(3, LEscola.Alunos.Count, 'Deveria conter 3 alunos');
+    Assert.AreEqual(NativeInt(3), LEscola.Alunos.Count, 'Deveria conter 3 alunos');
     Assert.AreEqual('Eu', LEscola.Alunos[0].Nome,
       'Esperava-se que o 1º aluno fosse Eu');
-    Assert.AreEqual(4, Length(LEscola.Alunos[0].Notas),
+    Assert.AreEqual(NativeInt(4), Length(LEscola.Alunos[0].Notas),
       'Esperava-se que o aluno Eu tivesse 4 notas');
     Assert.AreEqual(30, LEscola.Alunos[0].Notas[2],
       'Esperava-se que o 3ª nota do aluno Eu fosse 30');
@@ -646,14 +646,14 @@ begin
 
     Assert.AreEqual('Você', LEscola.Alunos[1].Nome,
       'Esperava-se que o 1º aluno fosse Você');
-    Assert.AreEqual(4, Length(LEscola.Alunos[1].Notas),
+    Assert.AreEqual(NativeInt(4), Length(LEscola.Alunos[1].Notas),
       'Esperava-se que o aluno Eu tivesse 4 notas');
     Assert.AreEqual(24, LEscola.Alunos[1].Notas[2],
       'Esperava-se que o 3ª nota do aluno VocÊ fosse 24');
 
     Assert.AreEqual('Ele', LEscola.Alunos[2].Nome,
       'Esperava-se que o 1º aluno fosse Ele');
-    Assert.AreEqual(0, Length(LEscola.Alunos[2].Notas),
+    Assert.AreEqual(NativeInt(0), Length(LEscola.Alunos[2].Notas),
       'Esperava-se que o aluno Ele tivesse 0 notas');
 
 
@@ -698,10 +698,10 @@ begin
 
   LBibioteca := TJson.ClearJsonAndConvertToObject<TBiblioteca>(LJsonString);
   try
-    Assert.AreEqual(3, LBibioteca.Livros.Count, 'Deveria conter 2 livros');
+    Assert.AreEqual(NativeInt(3), LBibioteca.Livros.Count, 'Deveria conter 2 livros');
     Assert.AreEqual('Dom Quixote', LBibioteca.Livros[0].Nome,
       'Esperava-se que o 1º livro fosse Dom Quixote');
-    Assert.AreEqual(2, Length(LBibioteca.Livros[0].Genero),
+    Assert.AreEqual(NativeInt(2), Length(LBibioteca.Livros[0].Genero),
       'Esperava-se que o 1º livro possuisse 2 gêneros');
     Assert.AreEqual('Fantasia', LBibioteca.Livros[0].Genero[0],
       'Esperava-se que o 1º gênero do 1º livro fose Fantasia');
@@ -709,14 +709,14 @@ begin
 
     Assert.AreEqual('Divina Comédia', LBibioteca.Livros[1].Nome,
       'Esperava-se que o 2º livro fosse Divina Comédia');
-    Assert.AreEqual(2, Length(LBibioteca.Livros[1].Genero),
+    Assert.AreEqual(NativeInt(2), Length(LBibioteca.Livros[1].Genero),
       'Esperava-se que o 2º livro possuisse 2 gêneros');
     Assert.AreEqual('Aventura', LBibioteca.Livros[1].Genero[0],
       'Esperava-se que o 1º gênero do 2º livro fose Aventura');
 
     Assert.AreEqual('Outro Livro', LBibioteca.Livros[2].Nome,
       'Esperava-se que o 3º livro fosse Divina Comédia');
-    Assert.AreEqual(0, Length(LBibioteca.Livros[2].Genero),
+    Assert.AreEqual(NativeInt(0), Length(LBibioteca.Livros[2].Genero),
       'Esperava-se que o 3º livro possuisse 0 gêneros');
 
   finally
@@ -750,7 +750,7 @@ begin
 
   LGaragem := TJson.ClearJsonAndConvertToObject<TGaragem>(LJsonString);
   try
-    Assert.AreEqual(2, LGaragem.Carro.Ocupantes.Count, 'Deveria conter 2 ocupantes');
+    Assert.AreEqual(NativeInt(2), LGaragem.Carro.Ocupantes.Count, 'Deveria conter 2 ocupantes');
     Assert.AreEqual('Eu', LGaragem.Carro.Ocupantes[0].Nome,
       'Esperava-se que o Eu estivesse no carro');
     Assert.AreEqual('Você', LGaragem.Carro.Ocupantes[1].Nome,
