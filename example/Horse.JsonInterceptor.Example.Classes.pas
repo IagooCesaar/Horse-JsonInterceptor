@@ -117,6 +117,28 @@ type
 
   TPessoas = TObjectList<TPessoa>;
 
+  TMusica = class
+  private
+    FNome: string;
+    FAutor: string;
+    FAlbum: string;
+    FTempo: string;
+
+    function GetNome: string;
+    procedure SetNome(const Value: string);
+    function GetAutor: string;
+    procedure SetAutor(const Value: string);
+    function GetAlbum: string;
+    procedure SetAlbum(const Value: string);
+    function GetTempo: string;
+    procedure SetTempo(const Value: string);
+  public
+    property Nome: string read GetNome write SetNome;
+    property Autor: string read GetAutor write SetAutor;
+    property Album: string read GetAlbum write SetAlbum;
+    property Tempo: string read GetTempo write SetTempo;
+  end;
+
   TTodos = class
   private
     FFamilia: TFamilia;
@@ -423,6 +445,97 @@ begin
   FreeAndNil(FFamilia);
 
   inherited;
+end;
+
+{ TMusica }
+
+function TMusica.GetAlbum: string;
+begin
+  Result := FAlbum;
+end;
+
+function TMusica.GetAutor: string;
+begin
+  Result := FAutor;
+end;
+
+function TMusica.GetNome: string;
+begin
+  Result := FNome;
+end;
+
+function TMusica.GetTempo: string;
+begin
+  Result := FTempo;
+end;
+
+procedure TMusica.SetAlbum(const Value: string);
+const C_NOME_MIN = 4; C_NOME_MAX = 120;
+begin
+  if Value.Length < C_NOME_MIN
+  then Raise Exception.Create(Format(
+    'O Nome do Álbum deverá ter no mínimo %d caracteres',
+    [ C_NOME_MIN ]
+  ));
+
+  if Value.Length > C_NOME_MAX
+  then Raise Exception.Create(Format(
+    'O Nome do Álbum deverá ter no máximo %d caracteres',
+    [ C_NOME_MAX ]
+  ));
+
+  FAlbum := Value;
+end;
+
+procedure TMusica.SetAutor(const Value: string);
+const C_NOME_MIN = 4; C_NOME_MAX = 120;
+begin
+  if Value.Length < C_NOME_MIN
+  then Raise Exception.Create(Format(
+    'O Nome do Autor deverá ter no mínimo %d caracteres',
+    [ C_NOME_MIN ]
+  ));
+
+  if Value.Length > C_NOME_MAX
+  then Raise Exception.Create(Format(
+    'O Nome do Autor deverá ter no máximo %d caracteres',
+    [ C_NOME_MAX ]
+  ));
+
+  FAutor := Value;
+end;
+
+procedure TMusica.SetNome(const Value: string);
+const C_NOME_MIN = 4; C_NOME_MAX = 120;
+begin
+  if Value.Length < C_NOME_MIN
+  then Raise Exception.Create(Format(
+    'O Nome da música deverá ter no mínimo %d caracteres',
+    [ C_NOME_MIN ]
+  ));
+
+  if Value.Length > C_NOME_MAX
+  then Raise Exception.Create(Format(
+    'O Nome da música deverá ter no máximo %d caracteres',
+    [ C_NOME_MAX ]
+  ));
+
+  FNome := Value;
+end;
+
+procedure TMusica.SetTempo(const Value: string);
+var LTempo: TTime;
+begin
+  try
+    LTempo := StrToTime(Value);
+  except
+    raise Exception.Create('O valor informado não é uma marcação de tempo válida');
+  end;
+
+  if LTempo = 0
+  then raise Exception.Create('O Tempo de execução deverá ser superior a "00:00"');
+
+  FTempo := TimeToStr(LTempo);
 end;
 
 end.
