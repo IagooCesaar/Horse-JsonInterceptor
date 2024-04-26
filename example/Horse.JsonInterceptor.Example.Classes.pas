@@ -472,17 +472,20 @@ end;
 procedure TMusica.SetAlbum(const Value: string);
 const C_NOME_MIN = 4; C_NOME_MAX = 120;
 begin
-  if Value.Length < C_NOME_MIN
-  then Raise Exception.Create(Format(
-    'O Nome do Álbum deverá ter no mínimo %d caracteres',
-    [ C_NOME_MIN ]
-  ));
+  if Value <> ''
+  then begin
+    if Value.Length < C_NOME_MIN
+    then Raise Exception.Create(Format(
+      'O Nome do Álbum deverá ter no mínimo %d caracteres',
+      [ C_NOME_MIN ]
+    ));
 
-  if Value.Length > C_NOME_MAX
-  then Raise Exception.Create(Format(
-    'O Nome do Álbum deverá ter no máximo %d caracteres',
-    [ C_NOME_MAX ]
-  ));
+    if Value.Length > C_NOME_MAX
+    then Raise Exception.Create(Format(
+      'O Nome do Álbum deverá ter no máximo %d caracteres',
+      [ C_NOME_MAX ]
+    ));
+  end;
 
   FAlbum := Value;
 end;

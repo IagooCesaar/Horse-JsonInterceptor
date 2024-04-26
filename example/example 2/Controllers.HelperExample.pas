@@ -7,7 +7,10 @@ procedure Registry;
 implementation
 
 uses
+  System.SysUtils,
   Horse,
+  Horse.Exception,
+  REST.Json,
   Horse.JsonInterceptor.Helpers,
   Horse.JsonInterceptor.Example.Classes;
 
@@ -104,6 +107,28 @@ begin
   LBody.Free;
 end;
 
+procedure PostWithHelper_Musica(Req: THorseRequest; Resp: THorseResponse);
+var LBody: TMusica;
+begin
+  LBody := TJson.ClearJsonAndConvertToObject<TMusica>(Req.Body);
+  try
+    try
+      TJson.RevalidateSetters<TMusica>(LBody);
+    except
+      on e: Exception
+      do raise EHorseException.New
+        .Status(THTTPStatus.PreconditionFailed)
+        .Error(e.Message);
+    end;
+
+    Resp.Status(201).Send(
+      TJson.ObjectToClearJsonString(LBody)
+    );
+  finally
+    LBody.Free;
+  end;
+end;
+
 procedure Registry;
 const CContext = 'with-helper/';
 begin
@@ -114,6 +139,7 @@ begin
     .Post(CContext+'garagem', PostWithHelper_Garagem)
     .Post(CContext+'escola', PostWithHelper_Escola)
     .Post(CContext+'pessoas', PostWithHelper_Pessoas)
+    .Post(CContext+'musica', PostWithHelper_Musica)
     .Post(CContext+'todos', PostWithHelper_Todos)
 end;
 
