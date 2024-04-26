@@ -13,12 +13,16 @@ type
 
   THorseJsonInterceptorHelperRestJson = class helper for Rest.Json.TJson
   public
-    class function ObjectToClearJsonValue(AObject: TObject; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): TJSONValue;
-    class function ObjectToClearJsonObject(AObject: TObject; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): TJSONObject;
-    class function ObjectToClearJsonString(AObject: TObject; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): string;
+    const CDefaultOptions = [joDateIsUTC, joDateFormatISO8601, joBytesFormatArray, joIndentCaseCamel, joSerialFields];
 
-    class function ClearJsonAndConvertToObject<T: class, constructor>(AJsonObject: TJSONObject; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): T; overload;
-    class function ClearJsonAndConvertToObject<T: class, constructor>(const AJson: string; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): T; overload;
+    class function ObjectToClearJsonValue(AObject: TObject; AOptions: TJsonOptions = CDefaultOptions): TJSONValue;
+    class function ObjectToClearJsonObject(AObject: TObject; AOptions: TJsonOptions = CDefaultOptions): TJSONObject;
+    class function ObjectToClearJsonString(AObject: TObject; AOptions: TJsonOptions = CDefaultOptions): string;
+
+    class function ClearJsonAndConvertToObject<T: class, constructor>(AJsonObject: TJSONObject;
+      AOptions: TJsonOptions = CDefaultOptions): T; overload;
+    class function ClearJsonAndConvertToObject<T: class, constructor>(const AJson: string;
+      AOptions: TJsonOptions = CDefaultOptions): T; overload;
 
     class procedure RevalidateSetters<T: class, constructor>(const AObject: T);
   end;
