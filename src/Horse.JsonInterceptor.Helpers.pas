@@ -19,6 +19,8 @@ type
 
     class function ClearJsonAndConvertToObject<T: class, constructor>(AJsonObject: TJSONObject; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): T; overload;
     class function ClearJsonAndConvertToObject<T: class, constructor>(const AJson: string; AOptions: TJsonOptions = [joDateIsUTC, joDateFormatISO8601]): T; overload;
+
+    class procedure RevalidateSetters<T: class, constructor>(const AObject: T);
   end;
 
 implementation
@@ -58,6 +60,14 @@ begin
   finally
     LJson.DisposeOf;
   end;
+end;
+
+class procedure THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(
+  const AObject: T);
+begin
+  var LJsonString := ObjectToClearJsonString(AObject);
+  var LObject := ClearJsonAndConvertToObject<T>(LJsonString, [joSerialAllPubProps]);
+  LObject.Free;
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonObject(
