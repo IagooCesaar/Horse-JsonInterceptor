@@ -49,6 +49,8 @@
 *.cfg
 *.hpp
 *Resource.rc
+*.dsv
+*.skincfg
 
 # Delphi local files (user-specific info)
 *.local
