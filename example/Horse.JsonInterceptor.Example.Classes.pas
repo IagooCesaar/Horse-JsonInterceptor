@@ -165,6 +165,7 @@ function Mock_Empresa: TEmpresa;
 function Mock_Garagem: TGaragem;
 function Mock_Escola: TEscola;
 function Mock_Pessoas: TPessoas;
+function Mock_Musica: TMusica;
 function Mock_Todos: TTodos;
 
 implementation
@@ -299,6 +300,14 @@ begin
   Result.Last.Nome    := 'Você';
   Result.Last.Codigo  := 20;
   Result.Last.Sexo    := 'F';
+end;
+
+function Mock_Musica: TMusica;
+begin
+  Result := TMusica.Create;
+  Result.Nome := 'Simple Man';
+  Result.Artista := 'Lynyrd Skynyrd';
+  Result.Tempo := '00:06:00';
 end;
 
 function Mock_Todos: TTodos;
