@@ -66,6 +66,15 @@ type
     procedure Test_Helper_Pessoas_Post;
 
     [Test]
+    procedure Test_Helper_Musica_Post;
+
+    [Test]
+    procedure Test_Helper_Musica_Post_PropriedadeIncorreta;
+
+    [Test]
+    procedure Test_Helper_Musica_Post_PropriedadeOmitida;
+
+    [Test]
     procedure Test_Helper_Todos_Post;
 
 
@@ -94,9 +103,11 @@ type
 implementation
 
 uses
+  Horse,
   Horse.JsonInterceptor.Example.Classes,
   Horse.JsonInterceptor.Helpers,
-  System.SysUtils;
+  System.SysUtils,
+  System.JSON;
 
 
 function TestTHorseJsonInterceptorAPI.BaseRequest: IRequest;
@@ -214,6 +225,92 @@ begin
 
   finally
     FreeAndNil(LGaragem);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptorAPI.Test_Helper_Musica_Post;
+var LMusica: TMusica; LResponse: IResponse;
+begin
+  LMusica := Mock_Musica;
+  try
+    LResponse := BaseRequest
+      .Resource('/with-helper/musica')
+      .AddBody(TJson.ObjectToClearJsonString(LMusica))
+      .Post();
+
+    Assert.AreEqual(201, LResponse.StatusCode);
+
+  finally
+    FreeAndNil(LMusica);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptorAPI.Test_Helper_Musica_Post_PropriedadeIncorreta;
+var
+  LJsonString: string;
+  LMusica: TMusica;
+  LResponse: IResponse;
+  LErro: TJSONObject;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Nome da música", '
+  + '	"album": "Nome do álbum", '
+  + '	"artista": "Nome do artista", '
+  + '	"tempo": "00:00" '
+  + '} '
+  ;
+  LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJsonString);
+
+  try
+    LResponse := BaseRequest
+      .Resource('/with-helper/musica')
+      .AddBody(TJson.ObjectToClearJsonString(LMusica))
+      .Post();
+
+    Assert.AreEqual(Integer(THTTPStatus.PreconditionFailed),
+      LResponse.StatusCode, LResponse.StatusText);
+
+    LErro := TJSONObject.ParseJSONValue(LResponse.Content) as TJSONObject;
+    Assert.Contains(LErro.GetValue<string>('error'), 'O Tempo de execução deverá ser superior a "00:00"');
+    LErro.Free;
+
+  finally
+    FreeAndNil(LMusica);
+  end;
+end;
+
+procedure TestTHorseJsonInterceptorAPI.Test_Helper_Musica_Post_PropriedadeOmitida;
+var
+  LJsonString: string;
+  LMusica: TMusica;
+  LResponse: IResponse;
+  LErro: TJSONObject;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Nome da música", '
+  + '	"album": "Nome do álbum", '
+  + '	"tempo": "00:06:00" '
+  + '} '
+  ;
+  LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJsonString);
+
+  try
+    LResponse := BaseRequest
+      .Resource('/with-helper/musica')
+      .AddBody(TJson.ObjectToClearJsonString(LMusica))
+      .Post();
+
+    Assert.AreEqual(Integer(THTTPStatus.PreconditionFailed),
+      LResponse.StatusCode, LResponse.StatusText);
+
+    LErro := TJSONObject.ParseJSONValue(LResponse.Content) as TJSONObject;
+    Assert.Contains(LErro.GetValue<string>('error'), 'O Nome do Artista deverá ter no mínimo');
+    LErro.Free;
+
+  finally
+    FreeAndNil(LMusica);
   end;
 end;
 
