@@ -1,4 +1,4 @@
-unit Test.Horse.JsonInterceptor.Core;
+ï»¿unit Test.Horse.JsonInterceptor.Core;
 
 interface
 
@@ -77,6 +77,13 @@ type
     [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray_Vazio;
 
+    // TMusica: { musica }
+    [Test]
+    procedure Test_CriarObjetoComValidacao;
+
+    [Test]
+    procedure Test_NaoCriarObjetoComValidacao_PropriedadeIncorreta;
+
     // Todas as classes acima
     [Test]
     procedure Test_CriaJsonStringSemListHelper_Todos;
@@ -107,29 +114,29 @@ begin
   try
     LFamilia := Mock_Familia;
 
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJson := TJson.ObjectToJsonObject(LFamilia);
     try
       WriteLn('Com ListHelper : ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('membros').FindValue('listHelper');
-      Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possível encontrar ListHelper em MEMBROS');
+      Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possÃ­vel encontrar ListHelper em MEMBROS');
       LJsonValue := TJSONObject(TJSONArray(LJsonValue).Items[0]).GetValue('filhos').FindValue('listHelper');
-      Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possível encontrar ListHelper em FILHOS');
+      Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possÃ­vel encontrar ListHelper em FILHOS');
     finally
       LJson.Free;
     end;
 
     WriteLn('');
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJson := TJson.ObjectToClearJsonObject(LFamilia);
     try
       WriteLn('Sem ListHelper: ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('membros').FindValue('listHelper');
-      Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃO fosse possível encontrar ListHelper em MEMBROS');
+      Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃƒO fosse possÃ­vel encontrar ListHelper em MEMBROS');
       LJsonValue := TJSONObject(TJSONArray(LJson.GetValue('membros')).Items[0]).GetValue('filhos').FindValue('listHelper');
-      Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃO fosse possível encontrar ListHelper em FILHOS');
+      Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃƒO fosse possÃ­vel encontrar ListHelper em FILHOS');
     finally
       LJson.Free;
     end;
@@ -153,7 +160,7 @@ begin
       WriteLn('Com ListHelper: ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('departamentos').FindValue('listHelper');
-      Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possível encontrar ListHelper');
+      Assert.IsTrue(LJsonValue <> nil, 'Esperava-se que fosse possÃ­vel encontrar ListHelper');
     finally
       LJson.Free;
     end;
@@ -165,7 +172,7 @@ begin
       WriteLn('Sem ListHelper: ' + LJson.ToString);
 
       LJsonValue := LJson.GetValue('departamentos').FindValue('listHelper');
-      Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃO fosse possível encontrar ListHelper');
+      Assert.IsTrue(LJsonValue = nil, 'Esperava-se que NÃƒO fosse possÃ­vel encontrar ListHelper');
     finally
       LJson.Free;
     end;
@@ -182,17 +189,17 @@ var
 begin
   try
     LFamilia := Mock_Familia;
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LFamilia);
     WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LFamilia);
     WriteLn('Sem ListHelper: ' + LJsonString);
-     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃƒO contivesse ListHelper');
 
   finally
     FreeAndNil(LFamilia);
@@ -205,17 +212,17 @@ begin
   try
     LEscola := Mock_Escola;
 
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LEscola);
     WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LEscola);
     WriteLn('Sem ListHelper: ' + LJsonString);
-     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃƒO contivesse ListHelper');
   finally
     FreeAndNil(LEscola);
   end;
@@ -227,17 +234,17 @@ begin
   try
     LBiblioteca := Mock_Biblioteca;
 
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LBiblioteca);
     WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LBiblioteca);
     WriteLn('Sem ListHelper: ' + LJsonString);
-     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃƒO contivesse ListHelper');
   finally
     FreeAndNil(LBiblioteca);
   end;
@@ -248,17 +255,17 @@ var LPessoas: TPessoas; LJsonString: String;
 begin
   try
     LPessoas := Mock_Pessoas;
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LPessoas);
     WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LPessoas);
     WriteLn('Sem ListHelper: ' + LJsonString);
-    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃƒO contivesse ListHelper');
 
   finally
     FreeAndNil(LPessoas);
@@ -270,17 +277,17 @@ var LPessoas: TPessoas; LJsonString: String;
 begin
   try
     LPessoas := TPessoas.Create;
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LPessoas);
     WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LPessoas);
     WriteLn('Sem ListHelper: ' + LJsonString);
-    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃƒO contivesse ListHelper');
 
   finally
     FreeAndNil(LPessoas);
@@ -294,17 +301,17 @@ var
 begin
   try
     LEmpresa := Mock_Empresa;
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LEmpresa);
     WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LEmpresa);
     WriteLn('Sem ListHelper: ' + LJsonString);
-    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃƒO contivesse ListHelper');
 
   finally
     FreeAndNil(LEmpresa);
@@ -318,17 +325,17 @@ var
 begin
   try
     LGaragem := Mock_Garagem;
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LGaragem);
     WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LGaragem);
     WriteLn('Sem ListHelper: ' + LJsonString);
-     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+     Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃƒO contivesse ListHelper');
 
   finally
     FreeAndNil(LGaragem);
@@ -340,17 +347,17 @@ var LTodos: TTodos; LJsonString: String;
 begin
   try
     LTodos := Mock_Todos;
-    // Modelo padrão, irá gerar com ListHelper
+    // Modelo padrÃ£o, irÃ¡ gerar com ListHelper
     LJsonString := TJson.ObjectToJsonString(LTodos);
     WriteLn('Com ListHelper : ' + LJsonString);
     Assert.IsTrue(Pos('listHelper', LJsonString)>0, 'Esperava-se que contivesse ListHelper');
 
     WriteLn('');
 
-    // Comprovação de que a Lib remove o ListHelper
+    // ComprovaÃ§Ã£o de que a Lib remove o ListHelper
     LJsonString := TJson.ObjectToClearJsonString(LTodos);
     WriteLn('Sem ListHelper: ' + LJsonString);
-    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃO contivesse ListHelper');
+    Assert.IsTrue(Pos('listHelper', LJsonString)=0, 'Esperava-se que NÃƒO contivesse ListHelper');
 
   finally
     FreeAndNil(LTodos);
@@ -412,7 +419,7 @@ begin
     LFamilia :=TJson.ClearJsonAndConvertToObject<TFamilia>(LJson);
     Assert.AreEqual(NativeInt(2), LFamilia.Membros.Count, 'Deveria conter 2 membros');
     Assert.AreEqual('John Doe',LFamilia.membros[0].Nome,
-      'Esperava-se que o 1º membro da familia fosse John Doe');
+      'Esperava-se que o 1Âº membro da familia fosse John Doe');
 
     Assert.AreEqual(NativeInt(1), LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
     Assert.AreEqual('John Doe Jr', LFamilia.membros[0].Filhos[0].Nome,
@@ -420,6 +427,64 @@ begin
 
   finally
     FreeAndNil(LFamilia);
+    LJson.Free;
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_CriarObjetoComValidacao;
+var LJsonString: string; LJson : TJSONObject; LMusica: TMusica;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Simple Man", '
+  + '	"album": "(Pronounced ''LÄ•h-''nÃ©rd ''Skin-''nÃ©rd)", '
+  + '	"artista": "Lynyrd Skynyrd", '
+  + '	"tempo": "6:00" '
+  + '} '
+  ;
+
+  LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
+  try
+    LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson);
+    Assert.AreEqual('Simple Man', LMusica.Nome);
+    Assert.AreEqual('6:00', LMusica.Tempo);
+
+    TJson.RevalidateSetters<TMusica>(LMusica);
+
+  finally
+    FreeAndNil(LMusica);
+    LJson.Free;
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_NaoCriarObjetoComValidacao_PropriedadeIncorreta;
+var LJsonString: string; LJson : TJSONObject; LMusica: TMusica;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Nome da mÃºsica", '
+  + '	"album": "Nome do Ã¡lbum", '
+  + '	"artista": "Nome do artista", '
+  + '	"tempo": "0:00" '
+  + '} '
+  ;
+
+  LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
+  try
+    LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson);
+    // Neste ponto nÃ£o passa pela validaÃ§Ã£o no mÃ©todo Set
+    Assert.AreEqual('Nome da MÃºsica', LMusica.Nome);
+    Assert.AreEqual('0:00', LMusica.Tempo);
+
+    Assert.WillRaiseWithMessage((
+      procedure begin
+        TJson.RevalidateSetters<TMusica>(LMusica);
+      end),
+      Exception,
+      'O Tempo de execuÃ§Ã£o deverÃ¡ ser superior a "00:00"'
+    );
+  finally
+    FreeAndNil(LMusica);
     LJson.Free;
   end;
 end;
@@ -432,7 +497,7 @@ begin
   + '	"nome": "BDMG", '
   + '	"departamentos": [ '
   + '		{ '
-  + '			"nome": "Gerência", '
+  + '			"nome": "GerÃªncia", '
   + '			"area": "TI" '
   + '		}, '
   + '		{ '
@@ -513,7 +578,7 @@ begin
   try
     Assert.AreEqual(NativeInt(2), LFamilia.Membros.Count, 'Deveria conter 2 membros');
     Assert.AreEqual('John Doe', LFamilia.membros[0].Nome,
-      'Esperava-se que o 1º membro da familia fosse John Doe');
+      'Esperava-se que o 1Âº membro da familia fosse John Doe');
 
     Assert.AreEqual(NativeInt(1), LFamilia.Membros[0].Filhos.Count, 'John Doe deveria ter 1 filho');
     Assert.AreEqual('John Doe Jr', LFamilia.membros[0].Filhos[0].Nome,
@@ -535,7 +600,7 @@ begin
   + '		"filhos": [] '
   + '	}, '
   + '	{ '
-  + '		"nome": "Você", '
+  + '		"nome": "VocÃª", '
   + '		"codigo": 20, '
   + '		"sexo": "F", '
   + '		"filhos": [] '
@@ -547,9 +612,9 @@ begin
   try
     Assert.AreEqual(NativeInt(2), LPessoas.Count, 'Deveria conter 2 alunos');
     Assert.AreEqual('Eu', LPessoas[0].Nome,
-      'Esperava-se que a 1ª pessoa fosse Eu');
-    Assert.AreEqual('Você', LPessoas[1].Nome,
-      'Esperava-se que o 1º aluno fosse Você');
+      'Esperava-se que a 1Âª pessoa fosse Eu');
+    Assert.AreEqual('VocÃª', LPessoas[1].Nome,
+      'Esperava-se que o 1Âº aluno fosse VocÃª');
   finally
     FreeAndNil(LPessoas);
   end;
@@ -562,7 +627,7 @@ begin
 
   LPessoas := TJson.ClearJsonAndConvertToObject<TPessoas>(LJsonString);
   try
-    Assert.AreEqual(NativeInt(0), LPessoas.Count, 'Não deveria conter alunos');
+    Assert.AreEqual(NativeInt(0), LPessoas.Count, 'NÃ£o deveria conter alunos');
   finally
     FreeAndNil(LPessoas);
   end;
@@ -576,7 +641,7 @@ begin
   + '	"nome": "BDMG", '
   + '	"departamentos": [ '
   + '		{ '
-  + '			"nome": "Gerência", '
+  + '			"nome": "GerÃªncia", '
   + '			"area": "TI" '
   + '		}, '
   + '		{ '
@@ -617,7 +682,7 @@ begin
   + '			] '
   + '		}, '
   + '		{ '
-  + '			"nome": "Você", '
+  + '			"nome": "VocÃª", '
   + '			"notas": [ '
   + '				6, '
   + '				12, '
@@ -637,22 +702,22 @@ begin
   try
     Assert.AreEqual(NativeInt(3), LEscola.Alunos.Count, 'Deveria conter 3 alunos');
     Assert.AreEqual('Eu', LEscola.Alunos[0].Nome,
-      'Esperava-se que o 1º aluno fosse Eu');
+      'Esperava-se que o 1Âº aluno fosse Eu');
     Assert.AreEqual(NativeInt(4), Length(LEscola.Alunos[0].Notas),
       'Esperava-se que o aluno Eu tivesse 4 notas');
     Assert.AreEqual(30, LEscola.Alunos[0].Notas[2],
-      'Esperava-se que o 3ª nota do aluno Eu fosse 30');
+      'Esperava-se que o 3Âª nota do aluno Eu fosse 30');
 
 
-    Assert.AreEqual('Você', LEscola.Alunos[1].Nome,
-      'Esperava-se que o 1º aluno fosse Você');
+    Assert.AreEqual('VocÃª', LEscola.Alunos[1].Nome,
+      'Esperava-se que o 1Âº aluno fosse VocÃª');
     Assert.AreEqual(NativeInt(4), Length(LEscola.Alunos[1].Notas),
       'Esperava-se que o aluno Eu tivesse 4 notas');
     Assert.AreEqual(24, LEscola.Alunos[1].Notas[2],
-      'Esperava-se que o 3ª nota do aluno VocÊ fosse 24');
+      'Esperava-se que o 3Âª nota do aluno VocÃŠ fosse 24');
 
     Assert.AreEqual('Ele', LEscola.Alunos[2].Nome,
-      'Esperava-se que o 1º aluno fosse Ele');
+      'Esperava-se que o 1Âº aluno fosse Ele');
     Assert.AreEqual(NativeInt(0), Length(LEscola.Alunos[2].Notas),
       'Esperava-se que o aluno Ele tivesse 0 notas');
 
@@ -678,7 +743,7 @@ begin
   + '			] '
   + '		}, '
   + '		{ '
-  + '			"nome": "Divina Comédia", '
+  + '			"nome": "Divina ComÃ©dia", '
   + '			"autor": "Dante Alighieri", '
   + '			"edicao": 1, '
   + '			"genero": [ '
@@ -700,24 +765,24 @@ begin
   try
     Assert.AreEqual(NativeInt(3), LBibioteca.Livros.Count, 'Deveria conter 2 livros');
     Assert.AreEqual('Dom Quixote', LBibioteca.Livros[0].Nome,
-      'Esperava-se que o 1º livro fosse Dom Quixote');
+      'Esperava-se que o 1Âº livro fosse Dom Quixote');
     Assert.AreEqual(NativeInt(2), Length(LBibioteca.Livros[0].Genero),
-      'Esperava-se que o 1º livro possuisse 2 gêneros');
+      'Esperava-se que o 1Âº livro possuisse 2 gÃªneros');
     Assert.AreEqual('Fantasia', LBibioteca.Livros[0].Genero[0],
-      'Esperava-se que o 1º gênero do 1º livro fose Fantasia');
+      'Esperava-se que o 1Âº gÃªnero do 1Âº livro fose Fantasia');
 
 
-    Assert.AreEqual('Divina Comédia', LBibioteca.Livros[1].Nome,
-      'Esperava-se que o 2º livro fosse Divina Comédia');
+    Assert.AreEqual('Divina ComÃ©dia', LBibioteca.Livros[1].Nome,
+      'Esperava-se que o 2Âº livro fosse Divina ComÃ©dia');
     Assert.AreEqual(NativeInt(2), Length(LBibioteca.Livros[1].Genero),
-      'Esperava-se que o 2º livro possuisse 2 gêneros');
+      'Esperava-se que o 2Âº livro possuisse 2 gÃªneros');
     Assert.AreEqual('Aventura', LBibioteca.Livros[1].Genero[0],
-      'Esperava-se que o 1º gênero do 2º livro fose Aventura');
+      'Esperava-se que o 1Âº gÃªnero do 2Âº livro fose Aventura');
 
     Assert.AreEqual('Outro Livro', LBibioteca.Livros[2].Nome,
-      'Esperava-se que o 3º livro fosse Divina Comédia');
+      'Esperava-se que o 3Âº livro fosse Divina ComÃ©dia');
     Assert.AreEqual(NativeInt(0), Length(LBibioteca.Livros[2].Genero),
-      'Esperava-se que o 3º livro possuisse 0 gêneros');
+      'Esperava-se que o 3Âº livro possuisse 0 gÃªneros');
 
   finally
     FreeAndNil(LBibioteca);
@@ -738,7 +803,7 @@ begin
   + '				"filhos": [] '
   + '			}, '
   + '			{ '
-  + '				"nome": "Você", '
+  + '				"nome": "VocÃª", '
   + '				"codigo": 3, '
   + '				"sexo": "F", '
   + '				"filhos": [] '
@@ -753,8 +818,8 @@ begin
     Assert.AreEqual(NativeInt(2), LGaragem.Carro.Ocupantes.Count, 'Deveria conter 2 ocupantes');
     Assert.AreEqual('Eu', LGaragem.Carro.Ocupantes[0].Nome,
       'Esperava-se que o Eu estivesse no carro');
-    Assert.AreEqual('Você', LGaragem.Carro.Ocupantes[1].Nome,
-      'Esperava-se que o Você estivesse no carro');
+    Assert.AreEqual('VocÃª', LGaragem.Carro.Ocupantes[1].Nome,
+      'Esperava-se que o VocÃª estivesse no carro');
   finally
     FreeAndNil(LGaragem);
   end;
