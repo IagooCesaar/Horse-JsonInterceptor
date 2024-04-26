@@ -466,7 +466,7 @@ end;
 
 function TMusica.GetTempo: string;
 begin
-  Result := FTempo;
+  Result := TimeToStr(StrToTime(FTempo));
 end;
 
 procedure TMusica.SetAlbum(const Value: string);

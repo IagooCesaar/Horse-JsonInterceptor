@@ -442,7 +442,7 @@ begin
   + '	"nome": "Simple Man", '
   + '	"album": "(Pronounced ''Lĕh-''nérd ''Skin-''nérd)", '
   + '	"artista": "Lynyrd Skynyrd", '
-  + '	"tempo": "6:00" '
+  + '	"tempo": "00:06:00" '
   + '} '
   ;
 
@@ -450,7 +450,7 @@ begin
   try
     LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson);
     Assert.AreEqual('Simple Man', LMusica.Nome);
-    Assert.AreEqual('6:00', LMusica.Tempo);
+    Assert.AreEqual('00:06:00', LMusica.Tempo);
 
     TJson.RevalidateSetters<TMusica>(LMusica);
 
@@ -468,7 +468,7 @@ begin
   + '	"nome": "Nome da música", '
   + '	"album": "Nome do álbum", '
   + '	"artista": "Nome do artista", '
-  + '	"tempo": "0:00" '
+  + '	"tempo": "00:00" '
   + '} '
   ;
 
@@ -477,7 +477,7 @@ begin
     LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson);
     // Neste ponto não passa pela validação no método Set
     Assert.AreEqual('Nome da Música', LMusica.Nome);
-    Assert.AreEqual('0:00', LMusica.Tempo);
+    Assert.AreEqual('00:00:00', LMusica.Tempo);
 
     Assert.WillRaiseWithMessage((
       procedure begin
@@ -499,7 +499,7 @@ begin
   + '{ '
   + '	"nome": "Nome da música", '
   + '	"album": "Nome do álbum", '
-  + '	"tempo": "6:00" '
+  + '	"tempo": "0:06:00" '
   + '} '
   ;
 
@@ -508,7 +508,7 @@ begin
     LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson);
     // Neste ponto não passa pela validação no método Set
     Assert.AreEqual('Nome da Música', LMusica.Nome);
-    Assert.AreEqual('6:00', LMusica.Tempo);
+    Assert.AreEqual('00:06:00', LMusica.Tempo);
 
     Assert.WillRaiseWithMessageRegex((
       procedure begin
