@@ -120,21 +120,21 @@ type
   TMusica = class
   private
     FNome: string;
-    FAutor: string;
+    FArtista: string;
     FAlbum: string;
     FTempo: string;
 
     function GetNome: string;
     procedure SetNome(const Value: string);
-    function GetAutor: string;
-    procedure SetAutor(const Value: string);
+    function GetArtista: string;
+    procedure SetArtista(const Value: string);
     function GetAlbum: string;
     procedure SetAlbum(const Value: string);
     function GetTempo: string;
     procedure SetTempo(const Value: string);
   public
     property Nome: string read GetNome write SetNome;
-    property Autor: string read GetAutor write SetAutor;
+    property Artista: string read GetArtista write SetArtista;
     property Album: string read GetAlbum write SetAlbum;
     property Tempo: string read GetTempo write SetTempo;
   end;
@@ -454,9 +454,9 @@ begin
   Result := FAlbum;
 end;
 
-function TMusica.GetAutor: string;
+function TMusica.GetArtista: string;
 begin
-  Result := FAutor;
+  Result := FArtista;
 end;
 
 function TMusica.GetNome: string;
@@ -487,22 +487,22 @@ begin
   FAlbum := Value;
 end;
 
-procedure TMusica.SetAutor(const Value: string);
+procedure TMusica.SetArtista(const Value: string);
 const C_NOME_MIN = 4; C_NOME_MAX = 120;
 begin
   if Value.Length < C_NOME_MIN
   then Raise Exception.Create(Format(
-    'O Nome do Autor deverá ter no mínimo %d caracteres',
+    'O Nome do Artista deverá ter no mínimo %d caracteres',
     [ C_NOME_MIN ]
   ));
 
   if Value.Length > C_NOME_MAX
   then Raise Exception.Create(Format(
-    'O Nome do Autor deverá ter no máximo %d caracteres',
+    'O Nome do Artista deverá ter no máximo %d caracteres',
     [ C_NOME_MAX ]
   ));
 
-  FAutor := Value;
+  FArtista := Value;
 end;
 
 procedure TMusica.SetNome(const Value: string);
