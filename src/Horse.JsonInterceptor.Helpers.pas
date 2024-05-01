@@ -41,6 +41,10 @@ type
       AOptions: TJsonOptions = TJson.CDefaultOptions;
       AValidations: TJsonValidationRules = CDefaultValidations): T; overload;
 
+    class function ClearJsonAndConvertToObject<T: class, constructor>(AJsonValue: TJSONValue;
+      AOptions: TJsonOptions = TJson.CDefaultOptions;
+      AValidations: TJsonValidationRules = CDefaultValidations): T; overload;
+
     class function RevalidateSetters<T: class, constructor>(const AObject: T): T; overload;
     class function RevalidateSetters<T: class, constructor>(const AJsonObject: TJsonObject): T; overload;
     class function RevalidateSetters<T: class, constructor>(const AJsonValue: TJsonValue): T; overload;
@@ -55,20 +59,17 @@ uses
 
 class function THorseJsonInterceptorHelperRestJson.ClearJsonAndConvertToObject<T>(
   AJsonObject: TJSONObject; AOptions: TJsonOptions; AValidations: TJsonValidationRules): T;
+begin
+  Result := ClearJsonAndConvertToObject<T>(AJsonObject.ToString,
+    AOptions, AValidations);
+end;
+
+class function THorseJsonInterceptorHelperRestJson.ClearJsonAndConvertToObject<T>(
+  AJsonValue: TJSONValue; AOptions: TJsonOptions; AValidations: TJsonValidationRules): T;
 var LJsonModified: TJSONObject;
 begin
-  LJsonModified := THorseJsonInterceptor.CriarListHelperArray(
-    AJsonObject as TJsonValue) as TJSONObject;
-
-  Result := Self.JsonToObject<T>(LJsonModified, AOptions);
-  LJsonModified.DisposeOf;
-
-  if joRevalidateSetters in AValidations
-  then begin
-    var LObj := Result;
-    Result := RevalidateSetters<T>(LObj);
-    LObj.Free;
-  end;
+  Result := ClearJsonAndConvertToObject<T>(AJsonValue.ToString,
+    AOptions, AValidations);
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ClearJsonAndConvertToObject<T>(
@@ -82,8 +83,11 @@ begin
   if joRevalidateSetters in AValidations
   then begin
     var LObj := Result;
-    Result := RevalidateSetters<T>(LObj);
-    LObj.Free;
+    try
+      Result := RevalidateSetters<T>(LObj);
+    finally
+      LObj.Free;
+    end;
   end;
 end;
 
