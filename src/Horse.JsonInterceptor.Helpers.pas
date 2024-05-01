@@ -43,11 +43,13 @@ type
 
     class function RevalidateSetters<T: class, constructor>(const AObject: T): T; overload;
     class function RevalidateSetters<T: class, constructor>(const AJsonObject: TJsonObject): T; overload;
+    class function RevalidateSetters<T: class, constructor>(const AJsonValue: TJsonValue): T; overload;
   end;
 
 implementation
 
-uses Horse.JsonInterceptor.Core;
+uses
+  Horse.JsonInterceptor.Core;
 
 { TBDMGHorseToolsHelperRestJson }
 
@@ -98,19 +100,24 @@ begin
   end;
 end;
 
+class function THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(const AJsonValue: TJsonValue): T;
+begin
+  Result := ClearJsonAndConvertToObject<T>(AJsonValue.ToString, [joSerialAllPubProps]);
+end;
+
 class function THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(const AJsonObject: TJsonObject): T;
 begin
   Result := ClearJsonAndConvertToObject<T>(AJsonObject, [joSerialAllPubProps]);
 end;
 
 class function THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(const AObject: T): T;
-var LJsonObject: TJSONObject;
+var LJson: TJSONValue;
 begin
-  LJsonObject := ObjectToClearJsonObject(AObject);
+  LJson := ObjectToClearJsonValue(AObject);
   try
-    Result := RevalidateSetters<T>(LJsonObject);
+    Result := RevalidateSetters<T>(LJson);
   finally
-    LJsonObject.Free;
+    LJson.Free;
   end;
 end;
 
