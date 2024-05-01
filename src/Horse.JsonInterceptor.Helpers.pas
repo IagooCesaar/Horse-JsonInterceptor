@@ -100,15 +100,18 @@ end;
 
 class function THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(const AJsonObject: TJsonObject): T;
 begin
-  var LObject := ClearJsonAndConvertToObject<T>(AJsonObject, [joSerialAllPubProps]);
-  Result := LObject;
+  Result := ClearJsonAndConvertToObject<T>(AJsonObject, [joSerialAllPubProps]);
 end;
 
 class function THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(const AObject: T): T;
+var LJsonObject: TJSONObject;
 begin
-  var LJsonObject := ObjectToClearJsonObject(AObject);
-  Result := RevalidateSetters<T>(LJsonObject);
-  LJsonObject.Free;
+  LJsonObject := ObjectToClearJsonObject(AObject);
+  try
+    Result := RevalidateSetters<T>(LJsonObject);
+  finally
+    LJsonObject.Free;
+  end;
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonObject(
