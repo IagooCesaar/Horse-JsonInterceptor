@@ -435,7 +435,7 @@ begin
 end;
 
 procedure TestTHorseJsonInterceptor.Test_CriarObjetoComValidacao;
-var LJsonString: string; LJson : TJSONObject; LMusica: TMusica;
+var LJsonString: string; LJson : TJSONObject; LMusica, LMusicaValidado: TMusica;
 begin
   LJsonString := #13#10
   + '{ '
@@ -452,8 +452,8 @@ begin
     Assert.AreEqual('Simple Man', LMusica.Nome);
     Assert.AreEqual('00:06:00', LMusica.Tempo);
 
-    TJson.RevalidateSetters<TMusica>(LMusica);
-
+    LMusicaValidado := TJson.RevalidateSetters<TMusica>(LMusica);
+    LMusicaValidado.Free;
   finally
     FreeAndNil(LMusica);
     LJson.Free;
