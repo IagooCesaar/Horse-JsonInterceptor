@@ -9,52 +9,90 @@ uses
 type
   TJsonOption = REST.Json.TJsonOption;
   TJsonOptions = REST.Json.TJsonOptions;
+  TJsonValidationRule = ( joRevalidateSetters );
+  TJsonValidationRules = set of TJsonValidationRule;
   TJson = REST.Json.TJson;
 
   THorseJsonInterceptorHelperRestJson = class helper for Rest.Json.TJson
   public
-    const CDefaultOptions = [joDateIsUTC, joDateFormatISO8601, joBytesFormatArray, joIndentCaseCamel, joSerialFields];
+    const CDefaultValidations = [];
 
-    class function ObjectToClearJsonValue(AObject: TObject; AOptions: TJsonOptions = CDefaultOptions): TJSONValue;
-    class function ObjectToClearJsonObject(AObject: TObject; AOptions: TJsonOptions = CDefaultOptions): TJSONObject;
-    class function ObjectToClearJsonString(AObject: TObject; AOptions: TJsonOptions = CDefaultOptions): string;
+    class function ObjectToClearJsonValue(AObject: TObject;
+      AOptions: TJsonOptions = TJson.CDefaultOptions;
+      AValidations: TJsonValidationRules = CDefaultValidations
+    ): TJSONValue;
+
+    class function ObjectToClearJsonObject(AObject: TObject;
+      AOptions: TJsonOptions = TJson.CDefaultOptions;
+      AValidations: TJsonValidationRules = CDefaultValidations
+    ): TJSONObject;
+
+    class function ObjectToClearJsonString(AObject: TObject;
+      AOptions: TJsonOptions = TJson.CDefaultOptions;
+      AValidations: TJsonValidationRules = CDefaultValidations
+    ): string;
+
 
     class function ClearJsonAndConvertToObject<T: class, constructor>(AJsonObject: TJSONObject;
-      AOptions: TJsonOptions = CDefaultOptions): T; overload;
-    class function ClearJsonAndConvertToObject<T: class, constructor>(const AJson: string;
-      AOptions: TJsonOptions = CDefaultOptions): T; overload;
+      AOptions: TJsonOptions = TJson.CDefaultOptions;
+      AValidations: TJsonValidationRules = CDefaultValidations): T; overload;
 
-    class procedure RevalidateSetters<T: class, constructor>(const AObject: T);
+    class function ClearJsonAndConvertToObject<T: class, constructor>(const AJson: string;
+      AOptions: TJsonOptions = TJson.CDefaultOptions;
+      AValidations: TJsonValidationRules = CDefaultValidations): T; overload;
+
+    class function ClearJsonAndConvertToObject<T: class, constructor>(AJsonValue: TJSONValue;
+      AOptions: TJsonOptions = TJson.CDefaultOptions;
+      AValidations: TJsonValidationRules = CDefaultValidations): T; overload;
+
+    class function RevalidateSetters<T: class, constructor>(const AObject: T): T; overload;
+    class function RevalidateSetters<T: class, constructor>(const AJsonObject: TJsonObject): T; overload;
+    class function RevalidateSetters<T: class, constructor>(const AJsonValue: TJsonValue): T; overload;
   end;
 
 implementation
 
-uses Horse.JsonInterceptor.Core;
+uses
+  Horse.JsonInterceptor.Core;
 
 { TBDMGHorseToolsHelperRestJson }
 
 class function THorseJsonInterceptorHelperRestJson.ClearJsonAndConvertToObject<T>(
-  AJsonObject: TJSONObject; AOptions: TJsonOptions): T;
-var LJsonModified: TJSONObject;
+  AJsonObject: TJSONObject; AOptions: TJsonOptions; AValidations: TJsonValidationRules): T;
 begin
-  LJsonModified := THorseJsonInterceptor.CriarListHelperArray(
-    AJsonObject as TJsonValue) as TJSONObject;
-
-  Result := Self.JsonToObject<T>(LJsonModified, AOptions);
-  LJsonModified.DisposeOf;
+  Result := ClearJsonAndConvertToObject<T>(AJsonObject.ToString,
+    AOptions, AValidations);
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ClearJsonAndConvertToObject<T>(
-  const AJson: string; AOptions: TJsonOptions): T;
+  AJsonValue: TJSONValue; AOptions: TJsonOptions; AValidations: TJsonValidationRules): T;
+var LJsonModified: TJSONObject;
+begin
+  Result := ClearJsonAndConvertToObject<T>(AJsonValue.ToString,
+    AOptions, AValidations);
+end;
+
+class function THorseJsonInterceptorHelperRestJson.ClearJsonAndConvertToObject<T>(
+  const AJson: string; AOptions: TJsonOptions; AValidations: TJsonValidationRules): T;
 var LClearJson: String;
 begin
   LClearJson := THorseJsonInterceptor.CriarListHelperArray(AJson);
 
   Result := Self.JsonToObject<T>(LClearJson, AOptions);
+
+  if joRevalidateSetters in AValidations
+  then begin
+    var LObj := Result;
+    try
+      Result := RevalidateSetters<T>(LObj);
+    finally
+      LObj.Free;
+    end;
+  end;
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonValue(
-  AObject: TObject; AOptions: TJsonOptions): TJSONValue;
+  AObject: TObject; AOptions: TJsonOptions; AValidations: TJsonValidationRules): TJSONValue;
 var LJson: TJSONObject;
 begin
   LJson := Self.ObjectToJsonObject(AObject, AOptions);
@@ -66,22 +104,35 @@ begin
   end;
 end;
 
-class procedure THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(
-  const AObject: T);
+class function THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(const AJsonValue: TJsonValue): T;
 begin
-  var LJsonString := ObjectToClearJsonString(AObject);
-  var LObject := ClearJsonAndConvertToObject<T>(LJsonString, [joSerialAllPubProps]);
-  LObject.Free;
+  Result := ClearJsonAndConvertToObject<T>(AJsonValue.ToString, [joSerialAllPubProps]);
+end;
+
+class function THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(const AJsonObject: TJsonObject): T;
+begin
+  Result := ClearJsonAndConvertToObject<T>(AJsonObject, [joSerialAllPubProps]);
+end;
+
+class function THorseJsonInterceptorHelperRestJson.RevalidateSetters<T>(const AObject: T): T;
+var LJson: TJSONValue;
+begin
+  LJson := ObjectToClearJsonValue(AObject);
+  try
+    Result := RevalidateSetters<T>(LJson);
+  finally
+    LJson.Free;
+  end;
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonObject(
-  AObject: TObject; AOptions: TJsonOptions): TJSONObject;
+  AObject: TObject; AOptions: TJsonOptions; AValidations: TJsonValidationRules): TJSONObject;
 begin
   Result := ObjectToClearJsonValue(AObject, AOptions) as TJSONObject;
 end;
 
 class function THorseJsonInterceptorHelperRestJson.ObjectToClearJsonString(
-  AObject: TObject; AOptions: TJsonOptions): string;
+  AObject: TObject; AOptions: TJsonOptions; AValidations: TJsonValidationRules): string;
 begin
   Result := Self.ObjectToJsonString(AObject, AOptions);
 

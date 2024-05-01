@@ -108,12 +108,13 @@ begin
 end;
 
 procedure PostWithHelper_Musica(Req: THorseRequest; Resp: THorseResponse);
-var LBody: TMusica;
+var LBody, LValidado: TMusica;
 begin
   LBody := TJson.ClearJsonAndConvertToObject<TMusica>(Req.Body);
   try
     try
-      TJson.RevalidateSetters<TMusica>(LBody);
+      LValidado := TJson.RevalidateSetters<TMusica>(LBody);
+      LValidado.Free;
     except
       on e: Exception
       do raise EHorseException.New
