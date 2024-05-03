@@ -77,6 +77,25 @@ type
     [Test]
     procedure Test_CriarObjetoUtilizandoJsonStringSemListHelper_ArrayComObjetosComArray_Vazio;
 
+    // TMusica: { musica }
+    [Test]
+    procedure Test_CriarObjetoComValidacao;
+
+    [Test]
+    procedure Test_NaoCriarObjetoComValidacao_PropriedadeIncorreta;
+
+    [Test]
+    procedure Test_NaoCriarObjetoComValidacao_PropriedadeOmitida;
+
+    [Test]
+    procedure Test_CriarObjetoComValidacao_2;
+
+    [Test]
+    procedure Test_NaoCriarObjetoComValidacao_PropriedadeIncorreta_2;
+
+    [Test]
+    procedure Test_NaoCriarObjetoComValidacao_PropriedadeOmitida_2;
+
     // Todas as classes acima
     [Test]
     procedure Test_CriaJsonStringSemListHelper_Todos;
@@ -420,6 +439,171 @@ begin
 
   finally
     FreeAndNil(LFamilia);
+    LJson.Free;
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_CriarObjetoComValidacao;
+var LJsonString: string; LJson : TJSONObject; LMusica, LMusicaValidado: TMusica;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Simple Man", '
+  + '	"album": "(Pronounced ''Leh-''nérd ''Skin-''nérd)", '
+  + '	"artista": "Lynyrd Skynyrd", '
+  + '	"tempo": "00:06:00" '
+  + '} '
+  ;
+
+  LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
+  try
+    LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson);
+    Assert.AreEqual('Simple Man', LMusica.Nome);
+    Assert.AreEqual('00:06:00', LMusica.Tempo);
+
+    LMusicaValidado := TJson.RevalidateSetters<TMusica>(LMusica);
+    LMusicaValidado.Free;
+  finally
+    FreeAndNil(LMusica);
+    LJson.Free;
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_CriarObjetoComValidacao_2;
+var LJsonString: string; LJson: TJSONValue; LMusica: TMusica;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Simple Man", '
+  + '	"album": "(Pronounced ''Leh-''nérd ''Skin-''nérd)", '
+  + '	"artista": "Lynyrd Skynyrd", '
+  + '	"tempo": "00:06:00" '
+  + '} '
+  ;
+  LJson := TJSONObject.ParseJSONValue(LJsonString);
+  try
+    LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson,
+      TJson.CDefaultOptions, [joRevalidateSetters]);
+
+    Assert.AreEqual('Simple Man', LMusica.Nome);
+    Assert.AreEqual('00:06:00', LMusica.Tempo);
+  finally
+    FreeAndNil(LMusica);
+    LJson.Free;
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_NaoCriarObjetoComValidacao_PropriedadeIncorreta;
+var LJsonString: string; LJson : TJSONObject; LMusica: TMusica;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Nome da música", '
+  + '	"album": "Nome do álbum", '
+  + '	"artista": "Nome do artista", '
+  + '	"tempo": "00:00" '
+  + '} '
+  ;
+
+  LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
+  try
+    LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson);
+    // Neste ponto não passa pela validação no método Set
+    Assert.AreEqual('Nome da Música', LMusica.Nome);
+    Assert.AreEqual('00:00:00', LMusica.Tempo);
+
+    Assert.WillRaiseWithMessage((
+      procedure begin
+        TJson.RevalidateSetters<TMusica>(LMusica);
+      end),
+      Exception,
+      'O Tempo de execução deverá ser superior a "00:00"'
+    );
+  finally
+    FreeAndNil(LMusica);
+    LJson.Free;
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_NaoCriarObjetoComValidacao_PropriedadeIncorreta_2;
+var LJsonString: string; LJson : TJSONValue;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Nome da música", '
+  + '	"album": "Nome do álbum", '
+  + '	"artista": "Nome do artista", '
+  + '	"tempo": "00:00" '
+  + '} '
+  ;
+
+  LJson := TJSONObject.ParseJSONValue(LJsonString);
+  try
+    Assert.WillRaiseWithMessage((
+      procedure begin
+        TJson.ClearJsonAndConvertToObject<TMusica>(LJson,
+          TJson.CDefaultOptions, [joRevalidateSetters]);
+      end),
+      Exception,
+      'O Tempo de execução deverá ser superior a "00:00"'
+    );
+  finally
+    LJson.Free;
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_NaoCriarObjetoComValidacao_PropriedadeOmitida;
+var LJsonString: string; LJson : TJSONObject; LMusica: TMusica;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Nome da música", '
+  + '	"album": "Nome do álbum", '
+  + '	"tempo": "0:06:00" '
+  + '} '
+  ;
+
+  LJson := TJSONObject.ParseJSONValue(LJsonString) as TJSONObject;
+  try
+    LMusica := TJson.ClearJsonAndConvertToObject<TMusica>(LJson);
+    // Neste ponto não passa pela validação no método Set
+    Assert.AreEqual('Nome da Música', LMusica.Nome);
+    Assert.AreEqual('00:06:00', LMusica.Tempo);
+
+    Assert.WillRaiseWithMessageRegex((
+      procedure begin
+        TJson.RevalidateSetters<TMusica>(LMusica);
+      end),
+      Exception,
+      'O Nome do Artista deverá ter no mínimo'
+    );
+  finally
+    FreeAndNil(LMusica);
+    LJson.Free;
+  end;
+end;
+
+procedure TestTHorseJsonInterceptor.Test_NaoCriarObjetoComValidacao_PropriedadeOmitida_2;
+var LJsonString: string; LJson : TJSONValue;
+begin
+  LJsonString := #13#10
+  + '{ '
+  + '	"nome": "Nome da música", '
+  + '	"album": "Nome do álbum", '
+  + '	"tempo": "0:06:00" '
+  + '} '
+  ;
+  LJson := TJSONObject.ParseJSONValue(LJsonString);
+  try
+    Assert.WillRaiseWithMessageRegex((
+      procedure begin
+        TJson.ClearJsonAndConvertToObject<TMusica>(LJson,
+          TJson.CDefaultOptions, [joRevalidateSetters]);
+      end),
+      Exception,
+      'O Nome do Artista deverá ter no mínimo'
+    );
+  finally
     LJson.Free;
   end;
 end;

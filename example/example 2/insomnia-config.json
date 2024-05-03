@@ -1,1 +1,777 @@
-{"_type":"export","__export_format":4,"__export_date":"2023-04-08T23:34:43.896Z","__export_source":"insomnia.desktop.app:v2022.7.5","resources":[{"_id":"req_0fc270ecc1ae4dfc86e2aa3b54f9f617","parentId":"fld_025591a2fa36419282694fcd5d055f0b","modified":1680990761551,"created":1670240530300,"url":"{{ _.baseURL }}/with-middleware/familia","name":"TFamilia","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"membros\": [\n\t\t{\n\t\t\t\"nome\": \"John Doe\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"Male\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"Female\"\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1680988368609.5,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"fld_025591a2fa36419282694fcd5d055f0b","parentId":"wrk_000eed5c8bac46f79322bb9c5a5268da","modified":1680988375235,"created":1680988375235,"name":"With Middleware","description":"","environment":{},"environmentPropertyOrder":null,"metaSortKey":-1680988375235,"_type":"request_group"},{"_id":"wrk_000eed5c8bac46f79322bb9c5a5268da","parentId":null,"modified":1670239628574,"created":1670239607971,"name":"Horse-JsonInterceptor","description":"","scope":"collection","_type":"workspace"},{"_id":"req_bcd9a8c4b9b04b82b72725ecc070c828","parentId":"fld_025591a2fa36419282694fcd5d055f0b","modified":1680996598155,"created":1680996395956,"url":"{{ _.baseURL }}/with-middleware/biblioteca","name":"TBiblioteca","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"livros\": [\n\t\t{\n\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Fantasia\",\n\t\t\t\t\"Aventura\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Aventura\",\n\t\t\t\t\"Fantasia\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\"edicao\": 100,\n\t\t\t\"genero\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1679644769652.125,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_1a469866cd214327bd73fb63acb45daa","parentId":"fld_025591a2fa36419282694fcd5d055f0b","modified":1680996581461,"created":1680996413451,"url":"{{ _.baseURL }}/with-middleware/empresa","name":"TEmpresa","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"nome\": \"BDMG\",\n\t\"departamentos\": [\n\t\t{\n\t\t\t\"nome\": \"Gerência\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\"area\": \"TI\"\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1678972970173.4375,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_f3df7675ef7941418ed079b0137cae36","parentId":"fld_025591a2fa36419282694fcd5d055f0b","modified":1680996553433,"created":1680996426145,"url":"{{ _.baseURL }}/with-middleware/garagem","name":"TGaragem","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"carro\": {\n\t\t\"ocupantes\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"codigo\": 2,\n\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\"filhos\": []\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"codigo\": 3,\n\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\"filhos\": []\n\t\t\t}\n\t\t]\n\t}\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1678637070434.0938,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_d094ab86d06548d382e23b0441063a94","parentId":"fld_025591a2fa36419282694fcd5d055f0b","modified":1680996533316,"created":1680996432750,"url":"{{ _.baseURL }}/with-middleware/escola","name":"TEscola","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"alunos\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"notas\": [\n\t\t\t\t10,\n\t\t\t\t20,\n\t\t\t\t30,\n\t\t\t\t40\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"notas\": [\n\t\t\t\t6,\n\t\t\t\t12,\n\t\t\t\t24,\n\t\t\t\t36\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Ele\",\n\t\t\t\"notas\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1678469120564.4219,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_7827dc7a135843ce904af1f968d5b3cd","parentId":"fld_025591a2fa36419282694fcd5d055f0b","modified":1680996497202,"created":1680996439849,"url":"{{ _.baseURL }}/with-middleware/pessoas","name":"TPessoas","description":"","method":"POST","body":{"mimeType":"application/json","text":"[\n\t{\n\t\t\"nome\": \"Eu\",\n\t\t\"codigo\": 10,\n\t\t\"sexo\": \"M\",\n\t\t\"filhos\": []\n\t},\n\t{\n\t\t\"nome\": \"Você\",\n\t\t\"codigo\": 20,\n\t\t\"sexo\": \"F\",\n\t\t\"filhos\": []\n\t}\n]"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1678385145629.586,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_849c22aa7a2d4cc3b18ba273a5bdec7c","parentId":"fld_025591a2fa36419282694fcd5d055f0b","modified":1680996822246,"created":1680996445194,"url":"{{ _.baseURL }}/with-middleware/todos","name":"TTodos","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"familia\": {\n\t\t\"membros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"John Doe\",\n\t\t\t\t\"codigo\": 10,\n\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\t\"codigo\": 20,\n\t\t\t\t\"sexo\": \"Female\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t},\n\t\"biblioteca\": {\n\t\t\"livros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Fantasia\",\n\t\t\t\t\t\"Aventura\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Aventura\",\n\t\t\t\t\t\"Fantasia\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\t\"edicao\": 100,\n\t\t\t\t\"genero\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"empresa\": {\n\t\t\"nome\": \"Softeware House S/A\",\n\t\t\"departamentos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Gerência\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t}\n\t\t]\n\t},\n\t\"garagem\": {\n\t\t\"carro\": {\n\t\t\t\"ocupantes\": [\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\t\"codigo\": 2,\n\t\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\t\"codigo\": 3,\n\t\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t},\n\t\"escola\": {\n\t\t\"alunos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t10,\n\t\t\t\t\t20,\n\t\t\t\t\t30,\n\t\t\t\t\t40\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t6,\n\t\t\t\t\t12,\n\t\t\t\t\t24,\n\t\t\t\t\t36\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Ele\",\n\t\t\t\t\"notas\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"pessoas\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"M\",\n\t\t\t\"filhos\": []\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"F\",\n\t\t\t\"filhos\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1678343158162.168,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_be2a74d02104439bb59db937d3cade9f","parentId":"fld_93afc4d151eb47ff9064f049f38b87ef","modified":1680990768928,"created":1670765740443,"url":"{{ _.baseURL }}/with-helper/familia","name":"TFamilia","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"membros\": [\n\t\t{\n\t\t\t\"nome\": \"John Doe\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"Male\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"Female\"\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1663939429731.25,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"fld_93afc4d151eb47ff9064f049f38b87ef","parentId":"wrk_000eed5c8bac46f79322bb9c5a5268da","modified":1680988361984,"created":1680988361984,"name":"With Helper","description":"","environment":{},"environmentPropertyOrder":null,"metaSortKey":-1680988361984,"_type":"request_group"},{"_id":"req_86ba803290914c40a4759d33acc7bf70","parentId":"fld_93afc4d151eb47ff9064f049f38b87ef","modified":1680996680650,"created":1680996611163,"url":"{{ _.baseURL }}/with-helper/biblioteca","name":"TBiblioteca","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"livros\": [\n\t\t{\n\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Fantasia\",\n\t\t\t\t\"Aventura\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Aventura\",\n\t\t\t\t\"Fantasia\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\"edicao\": 100,\n\t\t\t\"genero\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1654489117959.625,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_4b14ee883bd44fac9af25ddb2b51f67d","parentId":"fld_93afc4d151eb47ff9064f049f38b87ef","modified":1680996676579,"created":1680996615755,"url":"{{ _.baseURL }}/with-helper/empresa","name":"TEmpresa","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"nome\": \"BDMG\",\n\t\"departamentos\": [\n\t\t{\n\t\t\t\"nome\": \"Gerência\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\"area\": \"TI\"\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1649763962073.8125,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_003da96f4be8496bac69efcc1b2f4559","parentId":"fld_93afc4d151eb47ff9064f049f38b87ef","modified":1680996673631,"created":1680996621952,"url":"{{ _.baseURL }}/with-helper/garagem","name":"TGaragem","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"carro\": {\n\t\t\"ocupantes\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"codigo\": 2,\n\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\"filhos\": []\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"codigo\": 3,\n\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\"filhos\": []\n\t\t\t}\n\t\t]\n\t}\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1647401384130.9062,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_d9a503d7b1994d778c164d3637358d7a","parentId":"fld_93afc4d151eb47ff9064f049f38b87ef","modified":1680996670315,"created":1680996628551,"url":"{{ _.baseURL }}/with-helper/escola","name":"TEscola","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"alunos\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"notas\": [\n\t\t\t\t10,\n\t\t\t\t20,\n\t\t\t\t30,\n\t\t\t\t40\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"notas\": [\n\t\t\t\t6,\n\t\t\t\t12,\n\t\t\t\t24,\n\t\t\t\t36\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Ele\",\n\t\t\t\"notas\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1646220095159.4531,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_950ec79eea4449488e95aa823eec7375","parentId":"fld_93afc4d151eb47ff9064f049f38b87ef","modified":1680996667078,"created":1680996634500,"url":"{{ _.baseURL }}/with-helper/pessoas","name":"TPessoas","description":"","method":"POST","body":{"mimeType":"application/json","text":"[\n\t{\n\t\t\"nome\": \"Eu\",\n\t\t\"codigo\": 10,\n\t\t\"sexo\": \"M\",\n\t\t\"filhos\": []\n\t},\n\t{\n\t\t\"nome\": \"Você\",\n\t\t\"codigo\": 20,\n\t\t\"sexo\": \"F\",\n\t\t\"filhos\": []\n\t}\n]"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1645629450673.7266,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_b86948ec586a49f6a08bccfa6b0e0839","parentId":"fld_93afc4d151eb47ff9064f049f38b87ef","modified":1680996818771,"created":1680996639819,"url":"{{ _.baseURL }}/with-helper/todos","name":"TTodos","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"familia\": {\n\t\t\"membros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"John Doe\",\n\t\t\t\t\"codigo\": 10,\n\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\t\"codigo\": 20,\n\t\t\t\t\"sexo\": \"Female\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t},\n\t\"biblioteca\": {\n\t\t\"livros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Fantasia\",\n\t\t\t\t\t\"Aventura\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Aventura\",\n\t\t\t\t\t\"Fantasia\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\t\"edicao\": 100,\n\t\t\t\t\"genero\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"empresa\": {\n\t\t\"nome\": \"Softeware House S/A\",\n\t\t\"departamentos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Gerência\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t}\n\t\t]\n\t},\n\t\"garagem\": {\n\t\t\"carro\": {\n\t\t\t\"ocupantes\": [\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\t\"codigo\": 2,\n\t\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\t\"codigo\": 3,\n\t\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t},\n\t\"escola\": {\n\t\t\"alunos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t10,\n\t\t\t\t\t20,\n\t\t\t\t\t30,\n\t\t\t\t\t40\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t6,\n\t\t\t\t\t12,\n\t\t\t\t\t24,\n\t\t\t\t\t36\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Ele\",\n\t\t\t\t\"notas\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"pessoas\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"M\",\n\t\t\t\"filhos\": []\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"F\",\n\t\t\t\"filhos\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1645334128430.8633,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_e6e23fcf4a9345089f2d20afdcbcbfd8","parentId":"fld_c4c0cfa77c174d9bb8ac5601c3e180e0","modified":1680990776576,"created":1670239637579,"url":"{{ _.baseURL }}/with-lib/familia","name":"TFamilia","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"membros\": [\n\t\t{\n\t\t\t\"nome\": \"John Doe\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"Male\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"Female\"\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1678301170694.75,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"fld_c4c0cfa77c174d9bb8ac5601c3e180e0","parentId":"wrk_000eed5c8bac46f79322bb9c5a5268da","modified":1680988348400,"created":1680988348400,"name":"With Lib","description":"","environment":{},"environmentPropertyOrder":null,"metaSortKey":-1680988348400,"_type":"request_group"},{"_id":"req_f040044ea8374bc3bf85db55aeb92af2","parentId":"fld_c4c0cfa77c174d9bb8ac5601c3e180e0","modified":1680996783730,"created":1680996697728,"url":"{{ _.baseURL }}/with-lib/biblioteca","name":"TBiblioteca","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"livros\": [\n\t\t{\n\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Fantasia\",\n\t\t\t\t\"Aventura\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Aventura\",\n\t\t\t\t\"Fantasia\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\"edicao\": 100,\n\t\t\t\"genero\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1671120300213,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_241e4077620e48f194bd1cef39c4f4ed","parentId":"fld_c4c0cfa77c174d9bb8ac5601c3e180e0","modified":1680996770283,"created":1680996703538,"url":"{{ _.baseURL }}/with-lib/empresa","name":"TEmpresa","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"nome\": \"BDMG\",\n\t\"departamentos\": [\n\t\t{\n\t\t\t\"nome\": \"Gerência\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\"area\": \"TI\"\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1667529864972.125,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_6f8f98f641b640239c38cbe77d1bea07","parentId":"fld_c4c0cfa77c174d9bb8ac5601c3e180e0","modified":1680996763265,"created":1680996709874,"url":"{{ _.baseURL }}/with-lib/garagem","name":"TGaragem","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"carro\": {\n\t\t\"ocupantes\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"codigo\": 2,\n\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\"filhos\": []\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"codigo\": 3,\n\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\"filhos\": []\n\t\t\t}\n\t\t]\n\t}\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1665734647351.6875,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_f27239c2dd28463a8f2c95ab4fd8d60c","parentId":"fld_c4c0cfa77c174d9bb8ac5601c3e180e0","modified":1680996757198,"created":1680996716257,"url":"{{ _.baseURL }}/with-lib/escola","name":"TEscola","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"alunos\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"notas\": [\n\t\t\t\t10,\n\t\t\t\t20,\n\t\t\t\t30,\n\t\t\t\t40\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"notas\": [\n\t\t\t\t6,\n\t\t\t\t12,\n\t\t\t\t24,\n\t\t\t\t36\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Ele\",\n\t\t\t\"notas\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1664837038541.4688,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_40834925e0824467b860309e1eed569a","parentId":"fld_c4c0cfa77c174d9bb8ac5601c3e180e0","modified":1680996748585,"created":1680996721963,"url":"{{ _.baseURL }}/with-lib/pessoas","name":"TPessoas","description":"","method":"POST","body":{"mimeType":"application/json","text":"[\n\t{\n\t\t\"nome\": \"Eu\",\n\t\t\"codigo\": 10,\n\t\t\"sexo\": \"M\",\n\t\t\"filhos\": []\n\t},\n\t{\n\t\t\"nome\": \"Você\",\n\t\t\"codigo\": 20,\n\t\t\"sexo\": \"F\",\n\t\t\"filhos\": []\n\t}\n]"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1664388234136.3594,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"req_c77b2d896be441358ec08707dde20735","parentId":"fld_c4c0cfa77c174d9bb8ac5601c3e180e0","modified":1680996832462,"created":1680996726538,"url":"{{ _.baseURL }}/with-lib/todos","name":"TTodos","description":"","method":"POST","body":{"mimeType":"application/json","text":"{\n\t\"familia\": {\n\t\t\"membros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"John Doe\",\n\t\t\t\t\"codigo\": 10,\n\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\t\"codigo\": 20,\n\t\t\t\t\"sexo\": \"Female\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t},\n\t\"biblioteca\": {\n\t\t\"livros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Fantasia\",\n\t\t\t\t\t\"Aventura\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Aventura\",\n\t\t\t\t\t\"Fantasia\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\t\"edicao\": 100,\n\t\t\t\t\"genero\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"empresa\": {\n\t\t\"nome\": \"Softeware House S/A\",\n\t\t\"departamentos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Gerência\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t}\n\t\t]\n\t},\n\t\"garagem\": {\n\t\t\"carro\": {\n\t\t\t\"ocupantes\": [\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\t\"codigo\": 2,\n\t\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\t\"codigo\": 3,\n\t\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t},\n\t\"escola\": {\n\t\t\"alunos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t10,\n\t\t\t\t\t20,\n\t\t\t\t\t30,\n\t\t\t\t\t40\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t6,\n\t\t\t\t\t12,\n\t\t\t\t\t24,\n\t\t\t\t\t36\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Ele\",\n\t\t\t\t\"notas\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"pessoas\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"M\",\n\t\t\t\"filhos\": []\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"F\",\n\t\t\t\"filhos\": []\n\t\t}\n\t]\n}"},"parameters":[],"headers":[{"name":"Content-Type","value":"application/json"}],"authentication":{},"metaSortKey":-1664163831933.8047,"isPrivate":false,"settingStoreCookies":true,"settingSendCookies":true,"settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingRebuildPath":true,"settingFollowRedirects":"global","_type":"request"},{"_id":"env_a4e9ecc0dd8c2e598f0d49dd685476b7fee6a1c1","parentId":"wrk_000eed5c8bac46f79322bb9c5a5268da","modified":1670239642865,"created":1670239607978,"name":"Base Environment","data":{},"dataPropertyOrder":{},"color":null,"isPrivate":false,"metaSortKey":1670239607978,"_type":"environment"},{"_id":"jar_a4e9ecc0dd8c2e598f0d49dd685476b7fee6a1c1","parentId":"wrk_000eed5c8bac46f79322bb9c5a5268da","modified":1670239607981,"created":1670239607981,"name":"Default Jar","cookies":[],"_type":"cookie_jar"},{"_id":"spc_ab1671ae5917458084fcb1c4adcccd9e","parentId":"wrk_000eed5c8bac46f79322bb9c5a5268da","modified":1670239607973,"created":1670239607973,"fileName":"Horse","contents":"","contentType":"yaml","_type":"api_spec"},{"_id":"env_ed3267a315224e7f8a1c80a53676f74a","parentId":"env_a4e9ecc0dd8c2e598f0d49dd685476b7fee6a1c1","modified":1670239721165,"created":1670239647893,"name":"localhost","data":{"baseURL":"http://localhost:9000"},"dataPropertyOrder":{"&":["baseURL"]},"color":"#98c02a","isPrivate":false,"metaSortKey":1670239647893,"_type":"environment"}]}
+{
+	"_type": "export",
+	"__export_format": 4,
+	"__export_date": "2024-04-26T12:14:59.569Z",
+	"__export_source": "insomnia.desktop.app:v2023.5.8",
+	"resources": [
+		{
+			"_id": "req_98ba6c57f0e44d86852d11d2ba6aeae6",
+			"parentId": "fld_2623e348aa944401b2da81bb6ea01952",
+			"modified": 1680990761551,
+			"created": 1670240530300,
+			"url": "{{ _.baseURL }}/with-middleware/familia",
+			"name": "TFamilia",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"membros\": [\n\t\t{\n\t\t\t\"nome\": \"John Doe\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"Male\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"Female\"\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1680988368609.5,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_2623e348aa944401b2da81bb6ea01952",
+			"parentId": "wrk_7ae891a1560a415890eeb3c9074b1c27",
+			"modified": 1680988375235,
+			"created": 1680988375235,
+			"name": "With Middleware",
+			"description": "",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1680988375235,
+			"_type": "request_group"
+		},
+		{
+			"_id": "wrk_7ae891a1560a415890eeb3c9074b1c27",
+			"parentId": null,
+			"modified": 1710769000173,
+			"created": 1710769000173,
+			"name": "Horse-JsonInterceptor",
+			"description": "",
+			"scope": "collection",
+			"_type": "workspace"
+		},
+		{
+			"_id": "req_0c4d643f0f0d4a56a2328ac089384e86",
+			"parentId": "fld_2623e348aa944401b2da81bb6ea01952",
+			"modified": 1680996598155,
+			"created": 1680996395956,
+			"url": "{{ _.baseURL }}/with-middleware/biblioteca",
+			"name": "TBiblioteca",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"livros\": [\n\t\t{\n\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Fantasia\",\n\t\t\t\t\"Aventura\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Aventura\",\n\t\t\t\t\"Fantasia\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\"edicao\": 100,\n\t\t\t\"genero\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1679644769652.125,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_8bee558d243b43a9820744b79a3b91d3",
+			"parentId": "fld_2623e348aa944401b2da81bb6ea01952",
+			"modified": 1680996581461,
+			"created": 1680996413451,
+			"url": "{{ _.baseURL }}/with-middleware/empresa",
+			"name": "TEmpresa",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"nome\": \"BDMG\",\n\t\"departamentos\": [\n\t\t{\n\t\t\t\"nome\": \"Gerência\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\"area\": \"TI\"\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1678972970173.4375,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_08df5c86b1064953ac9be3aef736ce63",
+			"parentId": "fld_2623e348aa944401b2da81bb6ea01952",
+			"modified": 1680996553433,
+			"created": 1680996426145,
+			"url": "{{ _.baseURL }}/with-middleware/garagem",
+			"name": "TGaragem",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"carro\": {\n\t\t\"ocupantes\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"codigo\": 2,\n\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\"filhos\": []\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"codigo\": 3,\n\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\"filhos\": []\n\t\t\t}\n\t\t]\n\t}\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1678637070434.0938,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_3e6845dec1f94c45afb0ad94dc9687e6",
+			"parentId": "fld_2623e348aa944401b2da81bb6ea01952",
+			"modified": 1680996533316,
+			"created": 1680996432750,
+			"url": "{{ _.baseURL }}/with-middleware/escola",
+			"name": "TEscola",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"alunos\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"notas\": [\n\t\t\t\t10,\n\t\t\t\t20,\n\t\t\t\t30,\n\t\t\t\t40\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"notas\": [\n\t\t\t\t6,\n\t\t\t\t12,\n\t\t\t\t24,\n\t\t\t\t36\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Ele\",\n\t\t\t\"notas\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1678469120564.4219,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_23cd21205738450684098950febd0cb3",
+			"parentId": "fld_2623e348aa944401b2da81bb6ea01952",
+			"modified": 1680996497202,
+			"created": 1680996439849,
+			"url": "{{ _.baseURL }}/with-middleware/pessoas",
+			"name": "TPessoas",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "[\n\t{\n\t\t\"nome\": \"Eu\",\n\t\t\"codigo\": 10,\n\t\t\"sexo\": \"M\",\n\t\t\"filhos\": []\n\t},\n\t{\n\t\t\"nome\": \"Você\",\n\t\t\"codigo\": 20,\n\t\t\"sexo\": \"F\",\n\t\t\"filhos\": []\n\t}\n]"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1678385145629.586,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_000d251b17f544679866d19e965deb94",
+			"parentId": "fld_2623e348aa944401b2da81bb6ea01952",
+			"modified": 1680996822246,
+			"created": 1680996445194,
+			"url": "{{ _.baseURL }}/with-middleware/todos",
+			"name": "TTodos",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"familia\": {\n\t\t\"membros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"John Doe\",\n\t\t\t\t\"codigo\": 10,\n\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\t\"codigo\": 20,\n\t\t\t\t\"sexo\": \"Female\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t},\n\t\"biblioteca\": {\n\t\t\"livros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Fantasia\",\n\t\t\t\t\t\"Aventura\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Aventura\",\n\t\t\t\t\t\"Fantasia\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\t\"edicao\": 100,\n\t\t\t\t\"genero\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"empresa\": {\n\t\t\"nome\": \"Softeware House S/A\",\n\t\t\"departamentos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Gerência\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t}\n\t\t]\n\t},\n\t\"garagem\": {\n\t\t\"carro\": {\n\t\t\t\"ocupantes\": [\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\t\"codigo\": 2,\n\t\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\t\"codigo\": 3,\n\t\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t},\n\t\"escola\": {\n\t\t\"alunos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t10,\n\t\t\t\t\t20,\n\t\t\t\t\t30,\n\t\t\t\t\t40\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t6,\n\t\t\t\t\t12,\n\t\t\t\t\t24,\n\t\t\t\t\t36\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Ele\",\n\t\t\t\t\"notas\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"pessoas\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"M\",\n\t\t\t\"filhos\": []\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"F\",\n\t\t\t\"filhos\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1678343158162.168,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0cec86f0a610405ebf4d188f32fa0bc6",
+			"parentId": "fld_ee386f71018240ed8a3b71817041ca61",
+			"modified": 1680990768928,
+			"created": 1670765740443,
+			"url": "{{ _.baseURL }}/with-helper/familia",
+			"name": "TFamilia",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"membros\": [\n\t\t{\n\t\t\t\"nome\": \"John Doe\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"Male\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"Female\"\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1663939429731.25,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_ee386f71018240ed8a3b71817041ca61",
+			"parentId": "wrk_7ae891a1560a415890eeb3c9074b1c27",
+			"modified": 1680988361984,
+			"created": 1680988361984,
+			"name": "With Helper",
+			"description": "",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1680988361984,
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_e46341218fa040dfbe60ebb92d11db97",
+			"parentId": "fld_ee386f71018240ed8a3b71817041ca61",
+			"modified": 1680996680650,
+			"created": 1680996611163,
+			"url": "{{ _.baseURL }}/with-helper/biblioteca",
+			"name": "TBiblioteca",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"livros\": [\n\t\t{\n\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Fantasia\",\n\t\t\t\t\"Aventura\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Aventura\",\n\t\t\t\t\"Fantasia\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\"edicao\": 100,\n\t\t\t\"genero\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1654489117959.625,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b0476e57f4f7414d980ce44664b9db83",
+			"parentId": "fld_ee386f71018240ed8a3b71817041ca61",
+			"modified": 1680996676579,
+			"created": 1680996615755,
+			"url": "{{ _.baseURL }}/with-helper/empresa",
+			"name": "TEmpresa",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"nome\": \"BDMG\",\n\t\"departamentos\": [\n\t\t{\n\t\t\t\"nome\": \"Gerência\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\"area\": \"TI\"\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1649763962073.8125,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_dea16f6b03754b9a8f275e4a879b6996",
+			"parentId": "fld_ee386f71018240ed8a3b71817041ca61",
+			"modified": 1680996673631,
+			"created": 1680996621952,
+			"url": "{{ _.baseURL }}/with-helper/garagem",
+			"name": "TGaragem",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"carro\": {\n\t\t\"ocupantes\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"codigo\": 2,\n\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\"filhos\": []\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"codigo\": 3,\n\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\"filhos\": []\n\t\t\t}\n\t\t]\n\t}\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1647401384130.9063,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_6b9c6b3ab3494238b11578719d27909e",
+			"parentId": "fld_ee386f71018240ed8a3b71817041ca61",
+			"modified": 1680996670315,
+			"created": 1680996628551,
+			"url": "{{ _.baseURL }}/with-helper/escola",
+			"name": "TEscola",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"alunos\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"notas\": [\n\t\t\t\t10,\n\t\t\t\t20,\n\t\t\t\t30,\n\t\t\t\t40\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"notas\": [\n\t\t\t\t6,\n\t\t\t\t12,\n\t\t\t\t24,\n\t\t\t\t36\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Ele\",\n\t\t\t\"notas\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1646220095159.4531,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_07b607b5bace455a8533b7b6f13c7f2b",
+			"parentId": "fld_ee386f71018240ed8a3b71817041ca61",
+			"modified": 1680996667078,
+			"created": 1680996634500,
+			"url": "{{ _.baseURL }}/with-helper/pessoas",
+			"name": "TPessoas",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "[\n\t{\n\t\t\"nome\": \"Eu\",\n\t\t\"codigo\": 10,\n\t\t\"sexo\": \"M\",\n\t\t\"filhos\": []\n\t},\n\t{\n\t\t\"nome\": \"Você\",\n\t\t\"codigo\": 20,\n\t\t\"sexo\": \"F\",\n\t\t\"filhos\": []\n\t}\n]"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1645629450673.7266,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_64cb703d06744ae8b2134480734f7904",
+			"parentId": "fld_ee386f71018240ed8a3b71817041ca61",
+			"modified": 1714133664518,
+			"created": 1714132838689,
+			"url": "{{ _.baseURL }}/with-helper/musica",
+			"name": "TMusica",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"nome\": \"Simple Man\",\n\t\"album\": \"\",\n\t\"artista\": \"Lynyrd Skynyrd\",\n\t\"tempo\": \"0:06:00\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1645481789552.295,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_ac4ef86abbd749c89cbc8ed8b672790a",
+			"parentId": "fld_ee386f71018240ed8a3b71817041ca61",
+			"modified": 1680996818771,
+			"created": 1680996639819,
+			"url": "{{ _.baseURL }}/with-helper/todos",
+			"name": "TTodos",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"familia\": {\n\t\t\"membros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"John Doe\",\n\t\t\t\t\"codigo\": 10,\n\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\t\"codigo\": 20,\n\t\t\t\t\"sexo\": \"Female\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t},\n\t\"biblioteca\": {\n\t\t\"livros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Fantasia\",\n\t\t\t\t\t\"Aventura\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Aventura\",\n\t\t\t\t\t\"Fantasia\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\t\"edicao\": 100,\n\t\t\t\t\"genero\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"empresa\": {\n\t\t\"nome\": \"Softeware House S/A\",\n\t\t\"departamentos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Gerência\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t}\n\t\t]\n\t},\n\t\"garagem\": {\n\t\t\"carro\": {\n\t\t\t\"ocupantes\": [\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\t\"codigo\": 2,\n\t\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\t\"codigo\": 3,\n\t\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t},\n\t\"escola\": {\n\t\t\"alunos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t10,\n\t\t\t\t\t20,\n\t\t\t\t\t30,\n\t\t\t\t\t40\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t6,\n\t\t\t\t\t12,\n\t\t\t\t\t24,\n\t\t\t\t\t36\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Ele\",\n\t\t\t\t\"notas\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"pessoas\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"M\",\n\t\t\t\"filhos\": []\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"F\",\n\t\t\t\"filhos\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1645334128430.8633,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_fc90cfb26e044a0cad6058c4e2c2a939",
+			"parentId": "fld_dcdee948bf604167b010a9efc1730349",
+			"modified": 1680990776576,
+			"created": 1670239637579,
+			"url": "{{ _.baseURL }}/with-lib/familia",
+			"name": "TFamilia",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"membros\": [\n\t\t{\n\t\t\t\"nome\": \"John Doe\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"Male\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"Female\"\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1678301170694.75,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_dcdee948bf604167b010a9efc1730349",
+			"parentId": "wrk_7ae891a1560a415890eeb3c9074b1c27",
+			"modified": 1680988348400,
+			"created": 1680988348400,
+			"name": "With Lib",
+			"description": "",
+			"environment": {},
+			"environmentPropertyOrder": null,
+			"metaSortKey": -1680988348400,
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_fe40070b2ef74c809f1934b4245fbf31",
+			"parentId": "fld_dcdee948bf604167b010a9efc1730349",
+			"modified": 1680996783730,
+			"created": 1680996697728,
+			"url": "{{ _.baseURL }}/with-lib/biblioteca",
+			"name": "TBiblioteca",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"livros\": [\n\t\t{\n\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Fantasia\",\n\t\t\t\t\"Aventura\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\"edicao\": 1,\n\t\t\t\"genero\": [\n\t\t\t\t\"Aventura\",\n\t\t\t\t\"Fantasia\"\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\"edicao\": 100,\n\t\t\t\"genero\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1671120300213,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_319bf6bc60844adb92a97192dd926dd6",
+			"parentId": "fld_dcdee948bf604167b010a9efc1730349",
+			"modified": 1680996770283,
+			"created": 1680996703538,
+			"url": "{{ _.baseURL }}/with-lib/empresa",
+			"name": "TEmpresa",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"nome\": \"BDMG\",\n\t\"departamentos\": [\n\t\t{\n\t\t\t\"nome\": \"Gerência\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\"area\": \"TI\"\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\"area\": \"TI\"\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1667529864972.125,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_2c2b6ff116ee41d9a35ae40789deaa21",
+			"parentId": "fld_dcdee948bf604167b010a9efc1730349",
+			"modified": 1680996763265,
+			"created": 1680996709874,
+			"url": "{{ _.baseURL }}/with-lib/garagem",
+			"name": "TGaragem",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"carro\": {\n\t\t\"ocupantes\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"codigo\": 2,\n\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\"filhos\": []\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"codigo\": 3,\n\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\"filhos\": []\n\t\t\t}\n\t\t]\n\t}\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1665734647351.6875,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e4e85a75cbc5453e8d95abd0031e0d90",
+			"parentId": "fld_dcdee948bf604167b010a9efc1730349",
+			"modified": 1680996757198,
+			"created": 1680996716257,
+			"url": "{{ _.baseURL }}/with-lib/escola",
+			"name": "TEscola",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"alunos\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"notas\": [\n\t\t\t\t10,\n\t\t\t\t20,\n\t\t\t\t30,\n\t\t\t\t40\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"notas\": [\n\t\t\t\t6,\n\t\t\t\t12,\n\t\t\t\t24,\n\t\t\t\t36\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Ele\",\n\t\t\t\"notas\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1664837038541.4688,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_f1d378583f2a4604821605ab13491038",
+			"parentId": "fld_dcdee948bf604167b010a9efc1730349",
+			"modified": 1680996748585,
+			"created": 1680996721963,
+			"url": "{{ _.baseURL }}/with-lib/pessoas",
+			"name": "TPessoas",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "[\n\t{\n\t\t\"nome\": \"Eu\",\n\t\t\"codigo\": 10,\n\t\t\"sexo\": \"M\",\n\t\t\"filhos\": []\n\t},\n\t{\n\t\t\"nome\": \"Você\",\n\t\t\"codigo\": 20,\n\t\t\"sexo\": \"F\",\n\t\t\"filhos\": []\n\t}\n]"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1664388234136.3594,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c32d6717b78d48dfbb0f9b1ce098357b",
+			"parentId": "fld_dcdee948bf604167b010a9efc1730349",
+			"modified": 1680996832462,
+			"created": 1680996726538,
+			"url": "{{ _.baseURL }}/with-lib/todos",
+			"name": "TTodos",
+			"description": "",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"familia\": {\n\t\t\"membros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"John Doe\",\n\t\t\t\t\"codigo\": 10,\n\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Jane Doe\",\n\t\t\t\t\"codigo\": 20,\n\t\t\t\t\"sexo\": \"Female\",\n\t\t\t\t\"filhos\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"nome\": \"John Doe Jr\",\n\t\t\t\t\t\t\"codigo\": 30,\n\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\"filhos\": [\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\"nome\": \"John Doe Third\",\n\t\t\t\t\t\t\t\t\"codigo\": 40,\n\t\t\t\t\t\t\t\t\"sexo\": \"Male\",\n\t\t\t\t\t\t\t\t\"filhos\": []\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t}\n\t\t]\n\t},\n\t\"biblioteca\": {\n\t\t\"livros\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Dom Quixote\",\n\t\t\t\t\"autor\": \"Miguel Cercantes\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Fantasia\",\n\t\t\t\t\t\"Aventura\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Divina Comédia\",\n\t\t\t\t\"autor\": \"Dante Alighieri\",\n\t\t\t\t\"edicao\": 1,\n\t\t\t\t\"genero\": [\n\t\t\t\t\t\"Aventura\",\n\t\t\t\t\t\"Fantasia\"\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Outro Livro\",\n\t\t\t\t\"autor\": \"Outro autor\",\n\t\t\t\t\"edicao\": 100,\n\t\t\t\t\"genero\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"empresa\": {\n\t\t\"nome\": \"Softeware House S/A\",\n\t\t\"departamentos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Gerência\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Desenvolvimento\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Infraestrutura\",\n\t\t\t\t\"area\": \"TI\"\n\t\t\t}\n\t\t]\n\t},\n\t\"garagem\": {\n\t\t\"carro\": {\n\t\t\t\"ocupantes\": [\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\t\"codigo\": 2,\n\t\t\t\t\t\"sexo\": \"M\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\t\"codigo\": 3,\n\t\t\t\t\t\"sexo\": \"F\",\n\t\t\t\t\t\"filhos\": []\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t},\n\t\"escola\": {\n\t\t\"alunos\": [\n\t\t\t{\n\t\t\t\t\"nome\": \"Eu\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t10,\n\t\t\t\t\t20,\n\t\t\t\t\t30,\n\t\t\t\t\t40\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Você\",\n\t\t\t\t\"notas\": [\n\t\t\t\t\t6,\n\t\t\t\t\t12,\n\t\t\t\t\t24,\n\t\t\t\t\t36\n\t\t\t\t]\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"nome\": \"Ele\",\n\t\t\t\t\"notas\": []\n\t\t\t}\n\t\t]\n\t},\n\t\"pessoas\": [\n\t\t{\n\t\t\t\"nome\": \"Eu\",\n\t\t\t\"codigo\": 10,\n\t\t\t\"sexo\": \"M\",\n\t\t\t\"filhos\": []\n\t\t},\n\t\t{\n\t\t\t\"nome\": \"Você\",\n\t\t\t\"codigo\": 20,\n\t\t\t\"sexo\": \"F\",\n\t\t\t\"filhos\": []\n\t\t}\n\t]\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"authentication": {},
+			"metaSortKey": -1664163831933.8047,
+			"isPrivate": false,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingFollowRedirects": "global",
+			"_type": "request"
+		},
+		{
+			"_id": "env_0310d41449b04b18b7a2ff3c2c36c5e8",
+			"parentId": "wrk_7ae891a1560a415890eeb3c9074b1c27",
+			"modified": 1670239642865,
+			"created": 1670239607978,
+			"name": "Base Environment",
+			"data": {},
+			"dataPropertyOrder": {},
+			"color": null,
+			"isPrivate": false,
+			"metaSortKey": 1670239607978,
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_3db72834065a4ee88a0eae2572142046",
+			"parentId": "wrk_7ae891a1560a415890eeb3c9074b1c27",
+			"modified": 1670239607981,
+			"created": 1670239607981,
+			"name": "Default Jar",
+			"cookies": [],
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "env_26ad727b59c84d96a9f47e243006c254",
+			"parentId": "env_0310d41449b04b18b7a2ff3c2c36c5e8",
+			"modified": 1670239721165,
+			"created": 1670239647893,
+			"name": "localhost",
+			"data": {
+				"baseURL": "http://localhost:9000"
+			},
+			"dataPropertyOrder": {
+				"&": [
+					"baseURL"
+				]
+			},
+			"color": "#98c02a",
+			"isPrivate": false,
+			"metaSortKey": 1670239647893,
+			"_type": "environment"
+		}
+	]
+}

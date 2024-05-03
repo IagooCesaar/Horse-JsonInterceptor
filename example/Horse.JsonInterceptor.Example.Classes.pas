@@ -117,6 +117,28 @@ type
 
   TPessoas = TObjectList<TPessoa>;
 
+  TMusica = class
+  private
+    FNome: string;
+    FArtista: string;
+    FAlbum: string;
+    FTempo: string;
+
+    function GetNome: string;
+    procedure SetNome(const Value: string);
+    function GetArtista: string;
+    procedure SetArtista(const Value: string);
+    function GetAlbum: string;
+    procedure SetAlbum(const Value: string);
+    function GetTempo: string;
+    procedure SetTempo(const Value: string);
+  public
+    property Nome: string read GetNome write SetNome;
+    property Artista: string read GetArtista write SetArtista;
+    property Album: string read GetAlbum write SetAlbum;
+    property Tempo: string read GetTempo write SetTempo;
+  end;
+
   TTodos = class
   private
     FFamilia: TFamilia;
@@ -143,6 +165,7 @@ function Mock_Empresa: TEmpresa;
 function Mock_Garagem: TGaragem;
 function Mock_Escola: TEscola;
 function Mock_Pessoas: TPessoas;
+function Mock_Musica: TMusica;
 function Mock_Todos: TTodos;
 
 implementation
@@ -277,6 +300,14 @@ begin
   Result.Last.Nome    := 'Você';
   Result.Last.Codigo  := 20;
   Result.Last.Sexo    := 'F';
+end;
+
+function Mock_Musica: TMusica;
+begin
+  Result := TMusica.Create;
+  Result.Nome := 'Simple Man';
+  Result.Artista := 'Lynyrd Skynyrd';
+  Result.Tempo := '00:06:00';
 end;
 
 function Mock_Todos: TTodos;
@@ -423,6 +454,100 @@ begin
   FreeAndNil(FFamilia);
 
   inherited;
+end;
+
+{ TMusica }
+
+function TMusica.GetAlbum: string;
+begin
+  Result := FAlbum;
+end;
+
+function TMusica.GetArtista: string;
+begin
+  Result := FArtista;
+end;
+
+function TMusica.GetNome: string;
+begin
+  Result := FNome;
+end;
+
+function TMusica.GetTempo: string;
+begin
+  Result := TimeToStr(StrToTime(FTempo));
+end;
+
+procedure TMusica.SetAlbum(const Value: string);
+const C_NOME_MIN = 4; C_NOME_MAX = 120;
+begin
+  if Value <> ''
+  then begin
+    if Value.Length < C_NOME_MIN
+    then Raise Exception.Create(Format(
+      'O Nome do Álbum deverá ter no mínimo %d caracteres',
+      [ C_NOME_MIN ]
+    ));
+
+    if Value.Length > C_NOME_MAX
+    then Raise Exception.Create(Format(
+      'O Nome do Álbum deverá ter no máximo %d caracteres',
+      [ C_NOME_MAX ]
+    ));
+  end;
+
+  FAlbum := Value;
+end;
+
+procedure TMusica.SetArtista(const Value: string);
+const C_NOME_MIN = 4; C_NOME_MAX = 120;
+begin
+  if Value.Length < C_NOME_MIN
+  then Raise Exception.Create(Format(
+    'O Nome do Artista deverá ter no mínimo %d caracteres',
+    [ C_NOME_MIN ]
+  ));
+
+  if Value.Length > C_NOME_MAX
+  then Raise Exception.Create(Format(
+    'O Nome do Artista deverá ter no máximo %d caracteres',
+    [ C_NOME_MAX ]
+  ));
+
+  FArtista := Value;
+end;
+
+procedure TMusica.SetNome(const Value: string);
+const C_NOME_MIN = 4; C_NOME_MAX = 120;
+begin
+  if Value.Length < C_NOME_MIN
+  then Raise Exception.Create(Format(
+    'O Nome da música deverá ter no mínimo %d caracteres',
+    [ C_NOME_MIN ]
+  ));
+
+  if Value.Length > C_NOME_MAX
+  then Raise Exception.Create(Format(
+    'O Nome da música deverá ter no máximo %d caracteres',
+    [ C_NOME_MAX ]
+  ));
+
+  FNome := Value;
+end;
+
+procedure TMusica.SetTempo(const Value: string);
+var LTempo: TTime;
+begin
+  try
+    LTempo := StrToTime(Value);
+  except
+    raise Exception.Create('O valor informado não é uma marcação de tempo válida');
+  end;
+
+  if LTempo = 0
+  then raise Exception.Create('O Tempo de execução deverá ser superior a "00:00"');
+
+  FTempo := TimeToStr(LTempo);
 end;
 
 end.
