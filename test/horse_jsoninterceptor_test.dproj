@@ -146,6 +146,7 @@
         <DCCReference Include="..\example\example 2\Controllers.LibExample.pas"/>
         <DCCReference Include="..\example\example 2\Controllers.MiddlewareExample.pas"/>
         <DCCReference Include="..\src\Horse.JsonInterceptor.pas"/>
+        <DCCReference Include="..\src\Horse.JsonInterceptor.CustomAttributes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -190,6 +191,18 @@
                 <DeployFile LocalName="Win32\Debug\horse_jsoninterceptor_test.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>horse_jsoninterceptor_test.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Debug\horse_jsoninterceptor_test.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>horse_jsoninterceptor_test.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Debug\horse_jsoninterceptor_test.rsm" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win64">
+                        <RemoteName>horse_jsoninterceptor_test.rsm</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

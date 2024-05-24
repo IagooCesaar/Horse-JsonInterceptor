@@ -22,7 +22,8 @@ uses
   Controllers.HelperExample in '..\example\example 2\Controllers.HelperExample.pas',
   Controllers.LibExample in '..\example\example 2\Controllers.LibExample.pas',
   Controllers.MiddlewareExample in '..\example\example 2\Controllers.MiddlewareExample.pas',
-  Horse.JsonInterceptor in '..\src\Horse.JsonInterceptor.pas';
+  Horse.JsonInterceptor in '..\src\Horse.JsonInterceptor.pas',
+  Horse.JsonInterceptor.CustomAttributes in '..\src\Horse.JsonInterceptor.CustomAttributes.pas';
 
 {$IFNDEF TESTINSIGHT}
 var
